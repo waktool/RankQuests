@@ -104,7 +104,7 @@ The following items are recommended for the macro to rank up your character more
 > [!NOTE]  
 > Do not rotate the camera. It can be zoomed in and out but any rotation will cause any movement to certain areas to fail.
 
-## Hot Keys
+## ⌨️ Hot Keys
 | Key | Function |
 | --- | --- |
 | <kbd>F5</kbd> | Exit the macro. |
