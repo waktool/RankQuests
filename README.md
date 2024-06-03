@@ -19,8 +19,8 @@ This macro automates the completion of various quests, covering tasks such as re
 ### 1. Computer Configuration
 | Setting | Requirement | How To Change |
 | --- | --- | --- |
-| Display Resolution | 1920x1080 | <kbd>Windows</kbd> + <kbd>I</kbd>, `Home`, `Display` |
-|  |  |
+| Display Resolution | 1920x1080 | <kbd>Windows</kbd> + <kbd>I</kbd> > `Home` > `Display` |
+| Scale | 100% | <kbd>Windows</kbd> + <kbd>I</kbd> > `Home` > `Display` |
 |  |  |
 |  |  |
 |  |  |
