@@ -1,31 +1,8 @@
-# RankQuests
+# Rank Quests
 A Pet Simulator 99 macro for Windows.
 
 ## Functionality
-This macro is specifically tailored for World 3 and assumes that all zones within World 3 are unlocked. It automates the completion of various quests, including:
-
-- Use Fruits
-- Use Flags
-- Use Tier 3 Potions
-- Use Tier 4 Potions
-- Use Tier 5 Potions
-- Break Breakables in the Best Area
-- Break Comets in the Best Area
-- Break Lucky Blocks in the Best Area
-- Break Basic Coin Jars in the Best Area
-- Break Mini-Chests in the Best Area
-- Break Pinatas in the Best Area
-- Break Diamond Breakables
-- Earn Diamonds
-- Hatch Rare Pets
-- Hatch the Best Egg
-- Make Golden Pets from the Best Egg
-- Make Rainbow Pets from the Best Egg
-- Collect Potions
-- Collect Enchants
-
-> [!NOTE]  
-> This macro modifies your Roblox font (please refer to the instructions for first-time use).
+This macro automates the completion of various quests, covering tasks such as resource collection, potion usage, item usage, breaking various objects, and making and hatching pets.
 
 ## 🛠️ Installation
 
@@ -75,10 +52,14 @@ The following items are essential for the macro to rank up your character.
 
 [^1]: This is a user choice defined in the `Settings.ini` file.
 
-> [!NOTE]  
-> - If you run out of resources, quests may become stuck (e.g., transforming all pets into golden pets).
-> - Due to latency or poor OCR performance, there is a risk of unintentionally upgrading all pets, potions, or enchants at once when crafting. It's advised to store any excess pets or items in a box as a precaution.
-> - If you have pets in your inventory that are stronger than the pets hatched from the best egg, put them in a box.
+> [!IMPORTANT]
+> If you run out of resources, quests may become stuck (e.g., transforming all pets into golden pets).
+
+> [!WARNING]
+> Due to latency or poor OCR performance, there is a risk of unintentionally upgrading all pets, potions, or enchants at once when crafting. It's advised to store any excess pets or items in a box as a precaution.
+
+> [!TIP]
+> If you have pets in your inventory that are stronger than the pets hatched from the best egg, put them in a box.
 
 ### Recommended Items
 The following items are recommended for the macro to rank up your character more efficiently.
@@ -95,9 +76,9 @@ The following items are recommended for the macro to rank up your character more
 
 ### Set Up the Macro
 1. Navigate to the folder where you extracted the zip file.
-2. Open the Settings sub-folder.
-3. Open the Settings.ini file in Notepad.
-4. Update the Settings.ini file with your preferences.
+2. Open the `Settings` sub-folder.
+3. Open the `Settings.ini` file in Notepad.
+4. Update the `Settings.ini` file with your preferences.
 
 ### Load the Macro
 1. Navigate to the folder where you extracted the zip file.
@@ -111,7 +92,7 @@ The following items are recommended for the macro to rank up your character more
 5. Restart the macro.
 
 > [!NOTE]  
->  Your Roblox client will retain the new fonts until you click the "Default Font" button and restart Roblox.
+> This macro changes your Roblox font to Times New Roman to improve OCR results. The new font will remain in your Roblox client until you click the `Default Font` button and restart Roblox.
 
 ### Regular Use
 1. Launch PS99.
@@ -119,7 +100,7 @@ The following items are recommended for the macro to rank up your character more
 3. Activate the macro.
 
 > [!NOTE]  
-> Avoid adjusting the camera!
+> Do not rotate the camera. It can be zoomed in and out but any rotation will cause any movement to certain areas to fail.
 
 ## Hot Keys
 - Press <kbd>F5</kbd> to exit the macro.
