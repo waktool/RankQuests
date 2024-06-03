@@ -52,7 +52,9 @@ This macro is specifically tailored for World 2 and assumes that all zones withi
 ### Pet Sim 99 Requirements
 1. Ensure Zone 209 is unlocked.
 
-### Quests (Essential Items)
+## Required & Recommended Items
+
+### Required Items
 
 | Item | Quest |
 | --- | --- |
@@ -77,7 +79,7 @@ This macro is specifically tailored for World 2 and assumes that all zones withi
 > - Due to latency or poor OCR performance, there is a risk of unintentionally upgrading all pets, potions, or enchants at once when crafting. It's advised to store any excess pets or items in a box as a precaution.
 > - If you have pets in your inventory that are stronger than the pets hatched from the best egg, put them in a box.
 
-### Quests (Recommended Items)
+### Recommended Items
 
 | Item | Quest |
 | --- | --- |
@@ -118,14 +120,14 @@ This macro is specifically tailored for World 2 and assumes that all zones withi
 > [!NOTE]  
 > Avoid adjusting the camera!
 
-### Hot Keys
+## Hot Keys
 - Press <kbd>F5</kbd> to exit the macro.
 - Press <kbd>F8</kbd> to pause the macro.
 
 > [!NOTE]  
 >  These shortcuts are configurable in settings.
 
-### Interface (GUI)
+## User Interface
 | Control | Type | Description |
 | --- | --- | --- |
 | Pause | Button | Pauses the macro |
