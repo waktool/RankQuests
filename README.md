@@ -116,27 +116,30 @@ Note: Avoid adjusting the camera!
 Note: Do not turn off your screen!
 
 ### Hot Keys
-• Press F5 to exit the macro.
-• Press F8 to pause the macro.
+- Press F5 to exit the macro.
+- Press F8 to pause the macro.
 Note: These shortcuts are configurable in settings.
 
 ### Interface (GUI)
-• Pause (Button): Pauses the macro.
-• Help (Button): Displays this help file.
-• Refresh (Button): Manually refreshes the quest list.
-• Reconnect (Button): Initiates a reconnection.
-• Default Font (Button): Reinstates the default Roblox font (requires changing worlds or restarting Roblox to take effect).
+| Control | Type | Description |
+| --- | --- | --- |
+| Pause | Button | Pauses the macro |
+| Help | Button | Displays the README.txt file |
+| Refresh | Button | Manually refreshes the quest list |
+| Reconnect | Button | Initiates a reconnection |
+| Default Font | Button | Reinstates the default Roblox font (requires changing worlds or restarting Roblox to take effect) |
 
 ### User Configuration (Basic)
-• Review the "Settings\Settings.ini" file and adjust it to match your game settings and preferences.
+- Review the `Settings\Settings.ini` file and adjust it to match your game settings and preferences.
 
 ### User Configuration (Advanced)
-• Review the "Lib\Quests.ahk" file to modify individual quest priorities (a priority of 0 disables a quest).
-• Review the "Lib\Coords.ahk" file to adjust coordinate locations for PS99 controls.
-• Review the "Lib\Movement.ahk" file to change movement to different areas (e.g., VIP, best egg).
-• Review the "Lib\Delays.ahk" file to modify delay times between different in-game actions (e.g., after closing the Inventory menu).
+- Review the `Lib\Quests.ahk` file to modify individual quest priorities (a priority of 0 disables a quest).
+- Review the `Lib\Coords.ahk` file to adjust coordinate locations for PS99 controls.
+- Review the `Lib\Movement.ahk` file to change movement to different areas (e.g., VIP, best egg).
+- Review the `Lib\Delays.ahk` file to modify delay times between different in-game actions (e.g., after closing the Inventory menu).
 
 ## Known Issues
 
 ### Supercomputer!
-Known Issue: When performing automated conversions with calculated angles under 10°, the macro initiates at a 2.5° angle and increments as needed. However, there is an issue where 2.5° selections are occasionally misinterpreted as approximately 90°, resulting in significantly more pets being converted than required.
+> [!IMPORTANT]
+> When performing automated conversions with calculated angles under 10°, the macro initiates at a 2.5° angle and increments as needed. However, there is an issue where 2.5° selections are occasionally misinterpreted as approximately 90°, resulting in significantly more pets being converted than required.
