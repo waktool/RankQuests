@@ -30,7 +30,7 @@ This macro automates the completion of various quests, covering tasks such as re
 ### Pet Sim 99 Requirements
 1. Ensure Zone 209 is unlocked.
 
-## Required & Recommended Items
+## 🍎 Required & Recommended Items
 
 ### Required Items
 The following items are essential for the macro to rank up your character.
@@ -72,17 +72,17 @@ The following items are recommended for the macro to rank up your character more
 | Fruity Enchant | Use Fruits |
 | VIP Gamepass | Break Diamond Breakables |
 
-## Using the Macro
+## ▶️ Using the Macro
 
-### Set Up the Macro
+### Setting Up the Macro
 1. Navigate to the folder where you extracted the zip file.
 2. Open the `Settings` sub-folder.
 3. Open the `Settings.ini` file in Notepad.
 4. Update the `Settings.ini` file with your preferences.
 
-### Load the Macro
+### Loading the Macro
 1. Navigate to the folder where you extracted the zip file.
-2. Double-click the AHK file. This will initiate the macro and automatically open the graphical user interface (GUI).
+2. Double-click the `Rank Quest.ahk` file. This will initiate the macro and display the user interface.
 
 ### First-time Use
 1. Launch PS99.
@@ -95,9 +95,9 @@ The following items are recommended for the macro to rank up your character more
 > This macro changes your Roblox font to Times New Roman to improve OCR results. The new font will remain in your Roblox client until you click the `Default Font` button and restart Roblox.
 
 ### Regular Use
-1. Launch PS99.
-2. Navigate to World 2.
-3. Activate the macro.
+1. Launch Pet Simulator 99.
+2. Navigate to the last world.
+3. Load the macro.
 
 > [!NOTE]  
 > Do not rotate the camera. It can be zoomed in and out but any rotation will cause any movement to certain areas to fail.
@@ -109,7 +109,7 @@ The following items are recommended for the macro to rank up your character more
 > [!NOTE]  
 >  These shortcuts are configurable in settings.
 
-## User Interface
+## 🗔 User Interface
 | Control | Type | Description |
 | --- | --- | --- |
 | Pause | Button | Pauses the macro |
@@ -118,7 +118,7 @@ The following items are recommended for the macro to rank up your character more
 | Reconnect | Button | Initiates a reconnection |
 | Default Font | Button | Reinstates the default Roblox font (requires changing worlds or restarting Roblox to take effect) |
 
-## User Configuration
+## ⚙️ User Configuration
 
 ### Basic Configuration
 Basic configuration is completed in the `Settings\Settings.ini` file. Any changes made to this file take effect immediately.
@@ -132,7 +132,7 @@ Advanced configuration is completed using the following `ahk` files. The macro m
 | `Lib\Coords.ahk` | Contains coordinate locations for PS99 controls. |
 | `Lib\Delays.ahk` | Contains delay times between different in-game actions (e.g., after closing the Inventory menu). |
 
-## Known Issues
+## ⚠️ Known Issues
 
 ### Supercomputer!
 > [!IMPORTANT]
