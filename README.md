@@ -14,25 +14,27 @@ This macro automates the completion of various quests, covering tasks such as re
 2. Unzip the downloaded file.
 3. Remove the zip file after extraction.
 
-## 🖥️ Computer Settings
+## 🖥️ System Requirements
+
+### 1. Computer Configuration
 1. Ensure Display Resolution is set to 1920x1080 (<kbd>Windows</kbd> + <kbd>I</kbd>, Home, Display)
 2. Set Scale to 100% (Windows Key + I, Home, Display).
 3. Ensure Windows Taskbar is visible (i.e., "Automatically hide the taskbar" must be disabled) (Windows Key + I, Personalization, Taskbar).
 4. Make sure you are using a QWERTY keyboard layout.
 5. Ensure the Windows default language is English.
 
-### Roblox Configuration
+### 2. Roblox Configuration
 1. Set Camera Mode to Classic (Escape Key, Settings).
 2. Set Movement Mode to Default (Keyboard) (Escape Key, Settings).
 3. Set Action Mode to Priority (Settings icon, Action Menu).
 4. Set Vibrations to Off (Settings icon, Action Menu) - prevents Massive Comet drops from disrupting the camera.
 
-### Pet Sim 99 Requirements
-1. Ensure Zone 209 is unlocked.
+### 3. Pet Simulator 99 
+1. Ensure all zones are unlocked.
 
-## 🍎 Required & Recommended Items
+## 🍎 Item Requirements
 
-### Required Items
+### 1. Items Required
 The following items are essential for the macro to rank up your character.
 | Item | Quest |
 | --- | --- |
@@ -61,7 +63,7 @@ The following items are essential for the macro to rank up your character.
 > [!TIP]
 > If you have pets in your inventory that are stronger than the pets hatched from the best egg, put them in a box.
 
-### Recommended Items
+### 2. Items Recommended
 The following items are recommended for the macro to rank up your character more efficiently.
 | Item | Quest |
 | --- | --- |
