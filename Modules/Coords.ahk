@@ -79,18 +79,17 @@ COORDS["Worlds"][3] := [384, 588]
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 
 COORDS["Supercomputer"] := Map()
-COORDS["Supercomputer"]["UpgradePotions"] := [512, 630]  ; cj updated 18/5/24
-COORDS["Supercomputer"]["UpgradeEnchants"] := [694, 608] ; cj updated 18/5/24
-COORDS["Supercomputer"]["GoldPets"] := [1408, 390]       ; cj updated 18/5/24
-COORDS["Supercomputer"]["RainbowPets"] := [1218, 608]    ; cj updated 18/5/24
-COORDS["Supercomputer"]["X"] := [1500, 265]
-COORDS["Supercomputer"]["Search"] := [1167, 260]
-COORDS["Supercomputer"]["Ok"] := [608, 740]
-COORDS["Supercomputer"]["SuccessOk"] := [961, 738] ; Ok button on the Success window.
-COORDS["Supercomputer"]["Item1"] := [901, 386] ; The 1st item in the window (perfect centre is 899, 386).
-COORDS["Supercomputer"]["Item1Mastery"] := [1025, 374] ; The 1st item in the window if the player has mastery (perfect centre is 1023, 373.5).
-COORDS["Supercomputer"]["ItemOffset"] := [159, 0] ; The 2nd item in the window (perfect centre is 1056, 386).
-
+COORDS["Supercomputer"]["UpgradePotions"] := [528, 620]  
+COORDS["Supercomputer"]["UpgradeEnchants"] := [702, 615] 
+COORDS["Supercomputer"]["GoldPets"] := [1396, 388]       
+COORDS["Supercomputer"]["RainbowPets"] := [1221, 614]    
+COORDS["Supercomputer"]["X"] := [1494, 257]
+COORDS["Supercomputer"]["Search"] := [1334, 249]
+COORDS["Supercomputer"]["Ok"] := [665, 738]
+COORDS["Supercomputer"]["SuccessOk"] := [964, 814] ; Ok button on the Success window.
+COORDS["Supercomputer"]["Item1"] := [902, 390] ; The 1st item in the window (perfect centre is 899, 386). 
+COORDS["Supercomputer"]["Item1Mastery"] := [993, 377] ; The 1st item in the window if the player has mastery 99
+COORDS["Supercomputer"]["ItemOffset"] := [153, 0] ; The 2nd item in the window (perfect centre is 1056, 386).
 
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 ; FREE REWARDS
