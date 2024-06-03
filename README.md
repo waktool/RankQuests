@@ -112,7 +112,7 @@ The following items are recommended for the macro to rank up your character more
 - Press <kbd>F8</kbd> to pause the macro.
 
 > [!NOTE]  
->  These shortcuts are configurable in settings.
+>  These shortcuts are configurable in the `Settings.ini` file.
 
 ## 🗔 User Interface
 | Control | Type | Description |
