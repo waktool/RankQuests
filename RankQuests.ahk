@@ -21,7 +21,6 @@ SetMouseDelay 10  ; Sets the delay between mouse events to 10 milliseconds, bala
 ; Titles and versioning for GUI elements.
 global MACRO_TITLE := "Rank Quests"  ; The title displayed in main GUI elements.
 global MACRO_VERSION := "0.14"  ; Script version, helpful for user support and debugging.
-global READ_ME := A_ScriptDir "\README.txt"  ; Path to the README file, provides additional information to users.
 global LOG_FOLDER := A_ScriptDir "\Logs\"  ; Path to the README file, provides additional information to users.
 global DATE_TODAY := FormatTime(A_Now, "yyyyMMdd")
 
@@ -141,7 +140,7 @@ displayQuestsGui() {
 
     ; Add control buttons to the GUI for various functions.
     btnPause := guiMain.AddButton("xs", "⏸ &Pause")
-    btnHelp := guiMain.AddButton("yp", "❓&Help")
+    btnWiki := guiMain.AddButton("yp", "❓&Wiki")
     btnRefresh := guiMain.AddButton("yp", "🔄 &Refresh")
     btnReconnect := guiMain.AddButton("yp", "🔁 &Reconnect")
     btnFont := guiMain.AddButton("yp", "𝔄 &Default Font")
@@ -155,7 +154,7 @@ displayQuestsGui() {
 
     ; Assign events to buttons for respective functionalities.
     btnPause.OnEvent("Click", pauseMacro)
-    btnHelp.OnEvent("Click", openHelpText)
+    btnWiki.OnEvent("Click", openWiki)
     btnRefresh.OnEvent("Click", refreshQuests)
     btnReconnect.OnEvent("Click", reconnectClient)
     btnFont.OnEvent("Click", changeToDefaultFont)
@@ -173,7 +172,7 @@ displayQuestsGui() {
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 
 ; ----------------------------------------------------------------------------------------
-; openHelpText Function
+; openWiki Function
 ; Description: Opens a help text file in Notepad for user assistance.
 ; Operation:
 ;   - Executes Notepad with a specified file path to display help documentation.
@@ -183,8 +182,8 @@ displayQuestsGui() {
 ;   - None; uses a global variable for the file path.
 ; Return: None; opens a text file for user reference.
 ; ----------------------------------------------------------------------------------------
-openHelpText(*) {
-    Run "C:\Windows\Notepad.exe " READ_ME  ; Run Notepad with the path to the help file stored in READ_ME.
+openWiki(*) {
+    Run "https://github.com/waktool/RankQuests/wiki"
 }
 
 ; ----------------------------------------------------------------------------------------
