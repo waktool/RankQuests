@@ -64,11 +64,11 @@ This macro is specifically tailored for World 2 and assumes that all zones withi
 | Standard Best Pets | Make Golden Pets from the Best Egg |
 | Golden Best Pets | Make Rainbow Pets from the Best Egg |
 | Flags[^1] | Use Flags |
-| Tier 3 Potions | Use Tier 3 Potions |
-| Tier 4 Potions | Use Tier 4 Potions |
-| Tier 5 Potions | Use Tier 5 Potions |
-| Potions | Collect Potions |
-| Enchants | Collect Enchants |
+| Tier 3 Potions[^1] | Use Tier 3 Potions |
+| Tier 4 Potions[^1] | Use Tier 4 Potions |
+| Tier 5 Potions[^1] | Use Tier 5 Potions |
+| Potions[^1] | Collect Potions |
+| Enchants[^1] | Collect Enchants |
 
 [^1]: This is a user choice defined in the `Settings.ini` file.
 
