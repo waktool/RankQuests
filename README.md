@@ -27,13 +27,13 @@ This macro automates the completion of various quests, covering tasks such as re
 ### 2. Roblox Configuration
 | Setting | Requirement | How To Change |
 | --- | --- | --- |
-| Camera Mode | Classic | <kbd>Escape Key</kbd> > `Settings` |
-| Movement Mode | Default | <kbd>Escape Key</kbd> > `Settings` |
+| Camera Mode | Classic | <kbd>Escape</kbd> > `Settings` |
+| Movement Mode | Default | <kbd>Escape</kbd> > `Settings` |
 | Action Mode | Priority | `Settings icon` > `Action Menu` |
 | Vibrations | Off | `Settings icon` > `Action Menu` |
 
 ## 🐱 Pet Simulator 99 Requirements
-Ensure all zones are unlocked.
+Ensure all worlds and zones are unlocked.
 
 ## 🍎 Item Requirements
 
