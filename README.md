@@ -19,10 +19,10 @@ This macro automates the completion of various quests, covering tasks such as re
 ### 1. Computer Configuration
 | Setting | Requirement | How To Change |
 | --- | --- | --- |
-| Display Resolution | 1920x1080 | <kbd>Windows</kbd> + <kbd>I</kbd> > `Home` > `Display` |
-| Scale | 100% | <kbd>Windows</kbd> + <kbd>I</kbd> > `Home` > `Display` |
-| Keyboard | QWERTY | <kbd>Windows</kbd> + <kbd>I</kbd> > `Time & language` > `Language & region` |
-| Language | English | <kbd>Windows</kbd> + <kbd>I</kbd> > `Time & language` > `Language & region` |
+| Display Resolution | 1920x1080 | <kbd>Windows</kbd>+<kbd>I</kbd> > `Home` > `Display` |
+| Scale | 100% | <kbd>Windows</kbd>+<kbd>I</kbd> > `Home` > `Display` |
+| Keyboard | QWERTY | <kbd>Windows</kbd>+<kbd>I</kbd> > `Time & language` > `Language & region` |
+| Language | English | <kbd>Windows</kbd>+<kbd>I</kbd> > `Time & language` > `Language & region` |
 
 ### 2. Roblox Configuration
 | Setting | Requirement | How To Change |
@@ -31,9 +31,6 @@ This macro automates the completion of various quests, covering tasks such as re
 | Movement Mode | Default | <kbd>Escape Key</kbd> > `Settings` |
 | Action Mode | Priority | `Settings icon` > `Action Menu` |
 | Vibrations | Off | `Settings icon` > `Action Menu` |
-
-3. Set Action Mode to Priority - `Settings icon` > `Action Menu`
-4. Set Vibrations to Off (prevents Massive Comet drops from disrupting the camera) - `Settings icon`, `Action Menu`
 
 ### 3. Pet Simulator 99 
 1. Ensure all zones are unlocked.
