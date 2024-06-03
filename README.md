@@ -106,19 +106,24 @@ This macro is specifically tailored for World 2 and assumes that all zones withi
 3. Close the Roblox client.
 4. Restart Roblox/PS99.
 5. Restart the macro.
-Note: Your font will retain the new fonts until you click the "Default Font" button and restart Roblox.
+
+> [!NOTE]  
+>  Your Roblox client will retain the new fonts until you click the "Default Font" button and restart Roblox.
 
 ### Regular Use
 1. Launch PS99.
 2. Navigate to World 2.
 3. Activate the macro.
-Note: Avoid adjusting the camera!
-Note: Do not turn off your screen!
+
+> [!NOTE]  
+> Avoid adjusting the camera!
 
 ### Hot Keys
 - Press <kbd>F5</kbd> to exit the macro.
 - Press <kbd>F8</kbd> to pause the macro.
-Note: These shortcuts are configurable in settings.
+
+> [!NOTE]  
+>  These shortcuts are configurable in settings.
 
 ### Interface (GUI)
 | Control | Type | Description |
