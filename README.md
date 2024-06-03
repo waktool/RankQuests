@@ -4,25 +4,25 @@ A Pet Simulator 99 macro for Windows.
 ## Functionality
 This macro is specifically tailored for World 2 and assumes that all zones within World 2 are unlocked. It automates the completion of various quests, including:
 
-• Use Fruits
-• Use Flags
-• Use Tier 3 Potions
-• Use Tier 4 Potions
-• Use Tier 5 Potions
-• Break Breakables in the Best Area
-• Break Comets in the Best Area
-• Break Lucky Blocks in the Best Area
-• Break Basic Coin Jars in the Best Area
-• Break Mini-Chests in the Best Area
-• Break Pinatas in the Best Area
-• Break Diamond Breakables
-• Earn Diamonds
-• Hatch Rare Pets
-• Hatch the Best Egg
-• Make Golden Pets from the Best Egg
-• Make Rainbow Pets from the Best Egg
-• Collect Potions
-• Collect Enchants
+- Use Fruits
+- Use Flags
+- Use Tier 3 Potions
+- Use Tier 4 Potions
+- Use Tier 5 Potions
+- Break Breakables in the Best Area
+- Break Comets in the Best Area
+- Break Lucky Blocks in the Best Area
+- Break Basic Coin Jars in the Best Area
+- Break Mini-Chests in the Best Area
+- Break Pinatas in the Best Area
+- Break Diamond Breakables
+- Earn Diamonds
+- Hatch Rare Pets
+- Hatch the Best Egg
+- Make Golden Pets from the Best Egg
+- Make Rainbow Pets from the Best Egg
+- Collect Potions
+- Collect Enchants
 
 Please note: This macro modifies your Roblox font (please refer to the instructions for first-time use).
 
@@ -52,32 +52,32 @@ Please note: This macro modifies your Roblox font (please refer to the instructi
 1. Ensure Zone 209 is unlocked.
 
 ### Quests (Essential Items)
-[ ] Basic Coin Jars                 - "Break Basic Coin Jars in the Best Area" quest.
-[ ] Comets                          - "Break Comets in the Best Area" quest.
-[ ] Lucky Blocks                    - "Break Lucky Blocks in the Best Area" quest.
-[ ] Pinatas                         - "Break Pinatas in the Best Area" quest.
-[ ] Fruit                           - "Use Fruits" quest.
-[ ] Standard Best Pets              - "Making Golden Pets from the Best Egg" quest.
-[ ] Golden Best Pets                - "Making Rainbow Pets from the Best Egg" quest.
-[ ] Flags (user choice)             - "Use Flags" quest (update QuestFlag in settings).
-[ ] Tier 3 Potions (user choice)    - "Use Tier 3 Potions" (Tier3Potion in settings).
-[ ] Tier 4 Potions (user choice)    - "Use Tier 4 Potions" (Tier4Potion in settings).
-[ ] Tier 5 Potions (user choice)    - "Use Tier 5 Potions" (Tier5Potion in settings).
-[ ] Potions (user choice)           - "Collect Potions" quest (PotionToUpgrade in settings).
-[ ] Enchants (user choice)          - "Collect Enchants" quest (EnchantToUpgrade in settings).
+- [ ] Basic Coin Jars                 - "Break Basic Coin Jars in the Best Area" quest.
+- [ ] Comets                          - "Break Comets in the Best Area" quest.
+- [ ] Lucky Blocks                    - "Break Lucky Blocks in the Best Area" quest.
+- [ ] Pinatas                         - "Break Pinatas in the Best Area" quest.
+- [ ] Fruit                           - "Use Fruits" quest.
+- [ ] Standard Best Pets              - "Making Golden Pets from the Best Egg" quest.
+- [ ] Golden Best Pets                - "Making Rainbow Pets from the Best Egg" quest.
+- [ ] Flags (user choice)             - "Use Flags" quest (update QuestFlag in settings).
+- [ ] Tier 3 Potions (user choice)    - "Use Tier 3 Potions" (Tier3Potion in settings).
+- [ ] Tier 4 Potions (user choice)    - "Use Tier 4 Potions" (Tier4Potion in settings).
+- [ ] Tier 5 Potions (user choice)    - "Use Tier 5 Potions" (Tier5Potion in settings).
+- [ ] Potions (user choice)           - "Collect Potions" quest (PotionToUpgrade in settings).
+- [ ] Enchants (user choice)          - "Collect Enchants" quest (EnchantToUpgrade in settings).
 
 Notes:
-• If you run out of resources, quests may become stuck (e.g., transforming all pets into golden pets).
-• Due to latency or poor OCR performance, there is a risk of unintentionally upgrading all pets, potions, or enchants at once when crafting. It's advised to store any excess pets or items in a box as a precaution.
-• If you have pets in your inventory that are stronger than the pets hatched from the best egg, put them in a box.
+- If you run out of resources, quests may become stuck (e.g., transforming all pets into golden pets).
+- Due to latency or poor OCR performance, there is a risk of unintentionally upgrading all pets, potions, or enchants at once when crafting. It's advised to store any excess pets or items in a box as a precaution.
+- If you have pets in your inventory that are stronger than the pets hatched from the best egg, put them in a box.
 
 ### Quests (Recommended Items)
-[ ] Chest Mimic                     - "Break Mini-Chests in the Best Area"
-[ ] Diamond Chest Mimic             - "Break Mini-Chests in the Best Area"
-[ ] Chest Spell Ultimate            - "Break Mini-Chests in the Best Area"
-[ ] Superior Chest Mimic            - "Break Superior Mini-Chests in Best Area"
-[ ] Fruity Enchant                  - "Use Fruits"
-[ ] VIP Gamepass                    - "Break Diamond Breakables"
+- [ ] Chest Mimic                     - "Break Mini-Chests in the Best Area"
+- [ ] Diamond Chest Mimic             - "Break Mini-Chests in the Best Area"
+- [ ] Chest Spell Ultimate            - "Break Mini-Chests in the Best Area"
+- [ ] Superior Chest Mimic            - "Break Superior Mini-Chests in Best Area"
+- [ ] Fruity Enchant                  - "Use Fruits"
+- [ ] VIP Gamepass                    - "Break Diamond Breakables"
 
 ## Using the Macro
 
