@@ -38,7 +38,7 @@ This macro is specifically tailored for World 3 and assumes that all zones withi
 3. Remove the zip file after extraction.
 
 ## 🖥️ Computer Settings
-1. Ensure Display Resolution is set to 1920x1080 `<kbd>Windows</kbd> + <kbd>I</kbd> > Home > Display`
+1. Ensure Display Resolution is set to 1920x1080 (<kbd>Windows</kbd> + <kbd>I</kbd>, Home, Display)
 2. Set Scale to 100% (Windows Key + I, Home, Display).
 3. Ensure Windows Taskbar is visible (i.e., "Automatically hide the taskbar" must be disabled) (Windows Key + I, Personalization, Taskbar).
 4. Make sure you are using a QWERTY keyboard layout.
