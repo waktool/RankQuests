@@ -53,6 +53,11 @@ This macro is specifically tailored for World 2 and assumes that all zones withi
 1. Ensure Zone 209 is unlocked.
 
 ### Quests (Essential Items)
+
+| Item | Quest |
+| --- | --- |
+| - [ ] Basic Coin Jars | Break Basic Coin Jars in the Best Area |
+
 - [ ] Basic Coin Jars                 - "Break Basic Coin Jars in the Best Area" quest.
 - [ ] Comets                          - "Break Comets in the Best Area" quest.
 - [ ] Lucky Blocks                    - "Break Lucky Blocks in the Best Area" quest.
