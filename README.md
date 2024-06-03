@@ -63,7 +63,7 @@ This macro is specifically tailored for World 2 and assumes that all zones withi
 | Fruit | Use Fruits |
 | Standard Best Pets | Make Golden Pets from the Best Egg |
 | Golden Best Pets | Make Rainbow Pets from the Best Egg |
-| Flags[^1] | Use Flags |
+| Flags[^*] | Use Flags |
 | Tier 3 Potions[^1] | Use Tier 3 Potions |
 | Tier 4 Potions[^1] | Use Tier 4 Potions |
 | Tier 5 Potions[^1] | Use Tier 5 Potions |
