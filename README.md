@@ -17,17 +17,17 @@ This macro automates the completion of various quests, covering tasks such as re
 ## 🖥️ System Requirements
 
 ### 1. Computer Configuration
-1. Ensure Display Resolution is set to 1920x1080 (<kbd>Windows</kbd> + <kbd>I</kbd>, Home, Display)
-2. Set Scale to 100% (Windows Key + I, Home, Display).
-3. Ensure Windows Taskbar is visible (i.e., "Automatically hide the taskbar" must be disabled) (Windows Key + I, Personalization, Taskbar).
+1. Ensure Display Resolution is set to 1920x1080 - <kbd>Windows</kbd> + <kbd>I</kbd>, `Home`, `Display`
+2. Set Scale to 100% - <kbd>Windows</kbd> + <kbd>I</kbd>, `Home`, `Display`
+3. Ensure Windows Taskbar is visible (i.e., "Automatically hide the taskbar" must be disabled) - <kbd>Windows</kbd> + <kbd>I</kbd>, `Personalization`, `Taskbar`
 4. Make sure you are using a QWERTY keyboard layout.
 5. Ensure the Windows default language is English.
 
 ### 2. Roblox Configuration
-1. Set Camera Mode to Classic (Escape Key, Settings).
-2. Set Movement Mode to Default (Keyboard) (Escape Key, Settings).
-3. Set Action Mode to Priority (Settings icon, Action Menu).
-4. Set Vibrations to Off (Settings icon, Action Menu) - prevents Massive Comet drops from disrupting the camera.
+1. Set Camera Mode to Classic - <kbd>Escape Key</kbd>, `Settings`
+2. Set Movement Mode to Default - <kbd>Escape Key</kbd>, `Settings`
+3. Set Action Mode to Priority - `Settings icon`, `Action Menu`
+4. Set Vibrations to Off (prevents Massive Comet drops from disrupting the camera) - `Settings icon`, `Action Menu`
 
 ### 3. Pet Simulator 99 
 1. Ensure all zones are unlocked.
