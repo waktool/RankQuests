@@ -32,8 +32,8 @@ This macro automates the completion of various quests, covering tasks such as re
 | Action Mode | Priority | `Settings icon` > `Action Menu` |
 | Vibrations | Off | `Settings icon` > `Action Menu` |
 
-### 3. Pet Simulator 99 
-1. Ensure all zones are unlocked.
+## 🐱 Pet Simulator 99 Requirements
+Ensure all zones are unlocked.
 
 ## 🍎 Item Requirements
 
