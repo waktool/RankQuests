@@ -41,7 +41,7 @@ global FREDOKA_ONE_REGULAR := A_ScriptDir "\Assets\FredokaOne-Regular.ttf"  ; Pa
 global SOURCE_SANS_PRO_BOLD := A_ScriptDir "\Assets\SourceSansPro-Bold.ttf"  ; Path to Source Sans Pro Bold font.
 
 ; User settings loaded from an INI file.
-global SETTINGS_INI := A_ScriptDir "\Settings\Settings.ini"  ; Path to settings INI file.
+global SETTINGS_INI := A_ScriptDir "\Settings.ini"  ; Path to settings INI file.
 global DARK_MODE := getSetting("DarkMode")  ; User preference for dark mode, loaded from settings.
 global SHOW_OCR_OUTLINE := getSetting("ShowOcrOutline")  ; User preference for displaying OCR outlines.
 
