@@ -77,39 +77,38 @@ The following items are recommended for the macro to rank up your character more
 | Fruity Enchant | Use Fruits |
 | VIP Gamepass | Break Diamond Breakables |
 
-## ▶️ Using the Macro
-
-### Setting Up the Macro
-1. Navigate to the folder where you extracted the zip file.
-2. Open the `Settings` sub-folder.
-3. Open the `Settings.ini` file in Notepad.
-4. Update the `Settings.ini` file with your preferences.
+## ▶️ Running the Macro
 
 ### Loading the Macro
 1. Navigate to the folder where you extracted the zip file.
 2. Double-click the `Rank Quest.ahk` file. This will initiate the macro and display the user interface.
 
-### First-time Use
-1. Launch PS99.
-2. Start the macro (this will alter your fonts, which will only take effect after restarting Roblox).
-3. Close the Roblox client.
-4. Restart Roblox/PS99.
-5. Restart the macro.
+## 🕹️ Using the Macro
+
+### 1. First-time Use
+1. Load Pet Simulator 99.
+2. Run the macro (this will alter your fonts, which will only take effect after restarting Roblox).
+3. Close the macro (<kbd>F5</kbd> by default).
+4. Close Pet Simulator 99.
+5. Load Pet Simulator 99.
+6. Run the macro again.
 
 > [!NOTE]  
 > This macro changes your Roblox font to Times New Roman to improve OCR results. The new font will remain in your Roblox client until you click the `Default Font` button and restart Roblox.
 
-### Regular Use
-1. Launch Pet Simulator 99.
+### 2. Regular Use
+1. Load Pet Simulator 99.
 2. Navigate to the last world.
-3. Load the macro.
+3. Run the macro.
 
 > [!NOTE]  
 > Do not rotate the camera. It can be zoomed in and out but any rotation will cause any movement to certain areas to fail.
 
 ## Hot Keys
-- Press <kbd>F5</kbd> to exit the macro.
-- Press <kbd>F8</kbd> to pause the macro.
+| Key | Function |
+| --- | --- |
+| <kbd>F5</kbd> | Exit the macro. |
+| <kbd>F8</kbd> | Pause the macro. |
 
 > [!NOTE]  
 >  These shortcuts are configurable in the `Settings.ini` file.
