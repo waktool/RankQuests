@@ -2,7 +2,7 @@
 A Pet Simulator 99 macro for Windows.
 
 ## Functionality
-This macro is specifically tailored for World 2 and assumes that all zones within World 2 are unlocked. It automates the completion of various quests, including:
+This macro is specifically tailored for World 3 and assumes that all zones within World 3 are unlocked. It automates the completion of various quests, including:
 
 - Use Fruits
 - Use Flags
@@ -27,7 +27,7 @@ This macro is specifically tailored for World 2 and assumes that all zones withi
 > [!NOTE]  
 > This macro modifies your Roblox font (please refer to the instructions for first-time use).
 
-## Requirements
+## 🛠️ Installation
 
 ### AutoHotKey
 1. Get AutoHotKey 2.0 from https://www.autohotkey.com/ and install it.
@@ -37,11 +37,12 @@ This macro is specifically tailored for World 2 and assumes that all zones withi
 2. Unzip the downloaded file.
 3. Remove the zip file after extraction.
 
-### Computer Settings
-1. Ensure Display Resolution is set to 1920x1080 (Windows Key + I, Home, Display).
+## 🖥️ Computer Settings
+1. Ensure Display Resolution is set to 1920x1080 `<kbd>Windows</kbd> + <kbd>I</kbd> > Home > Display`
 2. Set Scale to 100% (Windows Key + I, Home, Display).
 3. Ensure Windows Taskbar is visible (i.e., "Automatically hide the taskbar" must be disabled) (Windows Key + I, Personalization, Taskbar).
 4. Make sure you are using a QWERTY keyboard layout.
+5. Ensure the Windows default language is English.
 
 ### Roblox Configuration
 1. Set Camera Mode to Classic (Escape Key, Settings).
@@ -55,7 +56,7 @@ This macro is specifically tailored for World 2 and assumes that all zones withi
 ## Required & Recommended Items
 
 ### Required Items
-
+The following items are essential for the macro to rank up your character.
 | Item | Quest |
 | --- | --- |
 | Basic Coin Jars | Break Basic Coin Jars in the Best Area |
@@ -65,7 +66,7 @@ This macro is specifically tailored for World 2 and assumes that all zones withi
 | Fruit | Use Fruits |
 | Standard Best Pets | Make Golden Pets from the Best Egg |
 | Golden Best Pets | Make Rainbow Pets from the Best Egg |
-| Flags[^\*] | Use Flags |
+| Flags[^1] | Use Flags |
 | Tier 3 Potions[^1] | Use Tier 3 Potions |
 | Tier 4 Potions[^1] | Use Tier 4 Potions |
 | Tier 5 Potions[^1] | Use Tier 5 Potions |
@@ -80,7 +81,7 @@ This macro is specifically tailored for World 2 and assumes that all zones withi
 > - If you have pets in your inventory that are stronger than the pets hatched from the best egg, put them in a box.
 
 ### Recommended Items
-
+The following items are recommended for the macro to rank up your character more efficiently.
 | Item | Quest |
 | --- | --- |
 | Chest Mimic | Break Mini-Chests in the Best Area |
