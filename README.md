@@ -116,8 +116,8 @@ Note: Avoid adjusting the camera!
 Note: Do not turn off your screen!
 
 ### Hot Keys
-- Press F5 to exit the macro.
-- Press F8 to pause the macro.
+- Press <kbd>F5</kbd> to exit the macro.
+- Press <kbd>F8</kbd> to pause the macro.
 Note: These shortcuts are configurable in settings.
 
 ### Interface (GUI)
