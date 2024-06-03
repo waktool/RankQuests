@@ -73,9 +73,9 @@ This macro is specifically tailored for World 2 and assumes that all zones withi
 [^1]: This is a user choice defined in the `Settings.ini` file.
 
 > [!NOTE]  
-> If you run out of resources, quests may become stuck (e.g., transforming all pets into golden pets).
-> Due to latency or poor OCR performance, there is a risk of unintentionally upgrading all pets, potions, or enchants at once when crafting. It's advised to store any excess pets or items in a box as a precaution.
-> If you have pets in your inventory that are stronger than the pets hatched from the best egg, put them in a box.
+> - If you run out of resources, quests may become stuck (e.g., transforming all pets into golden pets).
+> - Due to latency or poor OCR performance, there is a risk of unintentionally upgrading all pets, potions, or enchants at once when crafting. It's advised to store any excess pets or items in a box as a precaution.
+> - If you have pets in your inventory that are stronger than the pets hatched from the best egg, put them in a box.
 
 ### Quests (Recommended Items)
 
