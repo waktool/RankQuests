@@ -24,7 +24,8 @@ This macro is specifically tailored for World 2 and assumes that all zones withi
 - Collect Potions
 - Collect Enchants
 
-Please note: This macro modifies your Roblox font (please refer to the instructions for first-time use).
+> [!NOTE]  
+> This macro modifies your Roblox font (please refer to the instructions for first-time use).
 
 ## Requirements
 
