@@ -134,14 +134,19 @@ This macro is specifically tailored for World 2 and assumes that all zones withi
 | Reconnect | Button | Initiates a reconnection |
 | Default Font | Button | Reinstates the default Roblox font (requires changing worlds or restarting Roblox to take effect) |
 
-### User Configuration (Basic)
-- Review the `Settings\Settings.ini` file and adjust it to match your game settings and preferences.
+## User Configuration
 
-### User Configuration (Advanced)
-- Review the `Lib\Quests.ahk` file to modify individual quest priorities (a priority of 0 disables a quest).
-- Review the `Lib\Coords.ahk` file to adjust coordinate locations for PS99 controls.
-- Review the `Lib\Movement.ahk` file to change movement to different areas (e.g., VIP, best egg).
-- Review the `Lib\Delays.ahk` file to modify delay times between different in-game actions (e.g., after closing the Inventory menu).
+### Basic Configuration
+Basic configuration is completed in the `Settings\Settings.ini` file. Any changes made to this file take effect immediately.
+
+### Advanced Configuration
+Advanced configuration is completed using the following `ahk` files. The macro must be restarted for any of these changes to take effect.
+| File | Description |
+| --- | --- |
+| `Lib\Quests.ahk` | Contains individual quest priorities (a priority of 0 disables a quest). |
+| `Lib\Movement.ahk` | Contains paths to different areas (e.g., VIP, best egg). |
+| `Lib\Coords.ahk` | Contains coordinate locations for PS99 controls. |
+| `Lib\Delays.ahk` | Contains delay times between different in-game actions (e.g., after closing the Inventory menu). |
 
 ## Known Issues
 
