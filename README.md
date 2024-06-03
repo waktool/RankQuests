@@ -21,21 +21,18 @@ This macro automates the completion of various quests, covering tasks such as re
 | --- | --- | --- |
 | Display Resolution | 1920x1080 | <kbd>Windows</kbd> + <kbd>I</kbd> > `Home` > `Display` |
 | Scale | 100% | <kbd>Windows</kbd> + <kbd>I</kbd> > `Home` > `Display` |
-|  |  |
-|  |  |
-|  |  |
-
-
-1. Ensure Display Resolution is set to 1920x1080 - <kbd>Windows</kbd> + <kbd>I</kbd>, `Home`, `Display`
-2. Set Scale to 100% - <kbd>Windows</kbd> + <kbd>I</kbd>, `Home`, `Display`
-3. Ensure Windows Taskbar is visible (i.e., "Automatically hide the taskbar" must be disabled) - <kbd>Windows</kbd> + <kbd>I</kbd>, `Personalization`, `Taskbar`
-4. Make sure you are using a QWERTY keyboard layout.
-5. Ensure the Windows default language is English.
+| Keyboard | QWERTY | <kbd>Windows</kbd> + <kbd>I</kbd> > `Time & language` > `Language & region` |
+| Language | English | <kbd>Windows</kbd> + <kbd>I</kbd> > `Time & language` > `Language & region` |
 
 ### 2. Roblox Configuration
-1. Set Camera Mode to Classic - <kbd>Escape Key</kbd>, `Settings`
-2. Set Movement Mode to Default - <kbd>Escape Key</kbd>, `Settings`
-3. Set Action Mode to Priority - `Settings icon`, `Action Menu`
+| Setting | Requirement | How To Change |
+| --- | --- | --- |
+| Camera Mode | Classic | <kbd>Escape Key</kbd> > `Settings` |
+| Movement Mode | Default | <kbd>Escape Key</kbd> > `Settings` |
+| Action Mode | Priority | `Settings icon` > `Action Menu` |
+| Vibrations | Off | `Settings icon` > `Action Menu` |
+
+3. Set Action Mode to Priority - `Settings icon` > `Action Menu`
 4. Set Vibrations to Off (prevents Massive Comet drops from disrupting the camera) - `Settings icon`, `Action Menu`
 
 ### 3. Pet Simulator 99 
