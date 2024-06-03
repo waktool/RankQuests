@@ -17,6 +17,15 @@ This macro automates the completion of various quests, covering tasks such as re
 ## 🖥️ System Requirements
 
 ### 1. Computer Configuration
+| Setting | Requirement | How To Change |
+| --- | --- | --- |
+| Display Resolution | 1920x1080 | <kbd>Windows</kbd> + <kbd>I</kbd>, `Home`, `Display` |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+
+
 1. Ensure Display Resolution is set to 1920x1080 - <kbd>Windows</kbd> + <kbd>I</kbd>, `Home`, `Display`
 2. Set Scale to 100% - <kbd>Windows</kbd> + <kbd>I</kbd>, `Home`, `Display`
 3. Ensure Windows Taskbar is visible (i.e., "Automatically hide the taskbar" must be disabled) - <kbd>Windows</kbd> + <kbd>I</kbd>, `Personalization`, `Taskbar`
