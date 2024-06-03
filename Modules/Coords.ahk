@@ -87,9 +87,9 @@ COORDS["Supercomputer"]["X"] := [1494, 257]
 COORDS["Supercomputer"]["Search"] := [1334, 249]
 COORDS["Supercomputer"]["Ok"] := [665, 738]
 COORDS["Supercomputer"]["SuccessOk"] := [964, 814] ; Ok button on the Success window.
-COORDS["Supercomputer"]["Item1"] := [901, 386] ; The 1st item in the window (perfect centre is 899, 386). 
+COORDS["Supercomputer"]["Item1"] := [902, 390] ; The 1st item in the window (perfect centre is 899, 386). 
 COORDS["Supercomputer"]["Item1Mastery"] := [993, 377] ; The 1st item in the window if the player has mastery 99
-COORDS["Supercomputer"]["ItemOffset"] := [134, 0] ; The 2nd item in the window (perfect centre is 1056, 386).
+COORDS["Supercomputer"]["ItemOffset"] := [153, 0] ; The 2nd item in the window (perfect centre is 1056, 386).
 
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 ; FREE REWARDS
