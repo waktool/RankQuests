@@ -120,10 +120,10 @@ The following items are recommended for the macro to rank up your character more
 
 ## ⚙️ User Configuration
 
-### Basic Configuration
+### 1. Basic Configuration
 Basic configuration is completed in the `Settings\Settings.ini` file. Any changes made to this file take effect immediately.
 
-### Advanced Configuration
+### 2. Advanced Configuration
 Advanced configuration is completed using the following `ahk` files. The macro must be restarted for any of these changes to take effect.
 | File | Description |
 | --- | --- |
