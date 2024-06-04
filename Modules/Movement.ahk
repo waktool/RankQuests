@@ -194,7 +194,7 @@ MoveBackToTheSupercomputer() {
     ; ========================================
     ; Edit the following in need.
     ; ========================================  
-    moveRight(2500)
+    moveRight(2000)
     ; ========================================
 
     ; Modify the current status back to default.
