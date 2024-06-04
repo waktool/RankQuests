@@ -63,9 +63,6 @@ global SHOW_OCR_OUTLINE := getSetting("ShowOcrOutline")  ; User preference for d
 #Include "Quests.ahk"               ; Includes a script that handles quest-related data and operations.
 #Include "Zones.ahk"                ; Includes a script that defines different game zones or areas, used in navigation and contextual actions.
 
-; Create Logs directory
-DirCreate "Logs"
-
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 ; MACRO
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
@@ -2636,14 +2633,14 @@ activateRoblox() {
 }
 
 ; ----------------------------------------------------------------------------------------
-; ChangeToFullscreen Function
+; changeToFullscreen Function
 ; Description: Toggles the Roblox game window to full screen mode if not already.
 ; Operation:
 ;   - Checks current window size against the screen resolution and sends F11 if not full screen.
 ; Dependencies: None.
 ; Return: None; alters the window state of the game.
 ; ----------------------------------------------------------------------------------------
-ChangeToFullscreen() {
+changeToFullscreen() {
     WinGetPos &X, &Y, &W, &H, "ahk_exe RobloxPlayerBeta.exe"  ; Get current window position.
     if (H != A_ScreenHeight) {
         Send "{F11}"  ; Toggle full screen.
@@ -2851,15 +2848,29 @@ putSetting(keyValue, keyName) {
 ;   - Replaces default Roblox fonts with custom ones for better readability.
 ;   - Defines hotkeys for macro controls.
 ; Dependencies:
-;   - updateTrayIcon, activateRoblox, ChangeToFullscreen, replaceRobloxFonts, defineHotKeys: Functions to adjust UI elements and settings.
+;   - updateTrayIcon, activateRoblox, changeToFullscreen, replaceRobloxFonts, defineHotKeys: Functions to adjust UI elements and settings.
 ; Return: None; performs setup operations only.
 ; ----------------------------------------------------------------------------------------
 completeInitialisationTasks() {
     updateTrayIcon()
+    createLogsFolder()
     activateRoblox()
-    ChangeToFullscreen()
+    changeToFullscreen()
     replaceRobloxFonts()
     defineHotKeys()
+}
+
+; ---------------------------------------------------------------------------------
+; createLogsFolder Function
+; Description: Creates a directory named "Logs".
+; Operation:
+;   - Uses the DirCreate command to create a directory named "Logs" in the current working directory.
+; Dependencies:
+;   - DirCreate: AHK command to create a directory.
+; Return: None; the function creates the "Logs" directory.
+; ---------------------------------------------------------------------------------
+createLogsFolder() {
+    DirCreate "Logs"  ; Create a directory named "Logs".
 }
 
 ; ----------------------------------------------------------------------------------------
