@@ -41,19 +41,26 @@ Ensure all worlds and zones are unlocked.
 The following items are essential for the macro to rank up your character.
 | Item | Quest |
 | --- | --- |
-| Basic Coin Jars | Break Basic Coin Jars in the Best Area |
-| Comets | Break Comets in the Best Area |
-| Lucky Blocks | Break Lucky Blocks in the Best Area |
-| Pinatas | Break Pinatas in the Best Area |
-| Fruit | Use Fruits |
-| Standard Best Pets | Make Golden Pets from the Best Egg |
-| Golden Best Pets | Make Rainbow Pets from the Best Egg |
-| Flags[^1] | Use Flags |
-| Tier 3 Potions[^1] | Use Tier 3 Potions |
-| Tier 4 Potions[^1] | Use Tier 4 Potions |
-| Tier 5 Potions[^1] | Use Tier 5 Potions |
-| Potions[^1] | Collect Potions |
-| Enchants[^1] | Collect Enchants |
+| 1,000+ Basic Coin Jars | Break Basic Coin Jars in the Best Area |
+| 1,000+ Comets | Break Comets in the Best Area |
+| 500+ Lucky Blocks | Break Lucky Blocks in the Best Area |
+| 500+ Pinatas | Break Pinatas in the Best Area |
+| 1,000+ Each Fruit | Use Fruits |
+| 50,000+ Surfboard Axolotl | Make Golden Pets from the Best Egg |
+| 5,000+ Gold Surfboard Axolotl | Make Rainbow Pets from the Best Egg |
+| 1,000+ Coins Flags[^1] | Use Flags |
+| 1,000+ Tier 3 Potions[^1] | Use Tier 3 Potions |
+| 1,000+ Tier 4 Potions[^1] | Use Tier 4 Potions |
+| 1,000+ Tier 5 Potions[^1] | Use Tier 5 Potions |
+| 1,000+ Tier 2 Potions[^1] | Collect Potions |
+| 10,000+ Speed II Enchant[^1] | Collect Enchants |
+
+The following items are recommended.
+| Item | Reason |
+| --- | --- |
+| 1,000+ Hasty Flags[^1] | Used in best area, type configurable in settings.ini |
+| 1,000+ Sprinklers | Used in best area and VIP for Diamond Breakables if gamepass is flagged as owned in setttings.ini |
+| 1,000+ Diamond Flag | Used in VIP for Diamond Breakables quest |
 
 [^1]: This is a user choice defined in the `Settings.ini` file.
 
