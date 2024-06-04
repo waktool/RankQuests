@@ -63,6 +63,8 @@ global SHOW_OCR_OUTLINE := getSetting("ShowOcrOutline")  ; User preference for d
 #Include "Quests.ahk"               ; Includes a script that handles quest-related data and operations.
 #Include "Zones.ahk"                ; Includes a script that defines different game zones or areas, used in navigation and contextual actions.
 
+; Create Logs directory
+DirCreate "Logs"
 
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 ; MACRO
