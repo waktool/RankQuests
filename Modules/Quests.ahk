@@ -57,8 +57,14 @@ QUEST_PRIORITY["66"] := 1  ; "Break Superior Mini-Chests in Best Area"
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 
 ; Update the priority if the player does not have VIP.
-if (GetSetting("HasGamepassVip") == "false")
+if (getSetting("HasGamepassVip") == "false")
     QUEST_PRIORITY["9"] := 0  ; "Break Diamond Breakables"
+
+; Update the priority if the player has Super Drops.
+if (getSetting("HasGamepassSuperDrops") == "true") {
+    QUEST_PRIORITY["14"] := 0  ; "Collect Potions"
+    QUEST_PRIORITY["15"] := 0  ; "Collect Enchants"
+}
 
 
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
@@ -134,6 +140,7 @@ QUEST_DATA["64"] := Map("Name", "Collect Lootbags", "Regex", "i)loot", "Status",
 QUEST_DATA["65"] := Map("Name", "Collect Fruits", "Regex", "i)col.*fruit", "Status", "Manual", "Zone", "-")
 QUEST_DATA["66"] := Map("Name", "Break Superior Mini-Chests in Best Area", "Regex", "i)sup", "Status", "Auto", "Zone", "Best")
 
+
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 ; QUEST PROPERTY OVERRIDES
 ; ----------------------------------------------------------------------------------------
@@ -142,5 +149,11 @@ QUEST_DATA["66"] := Map("Name", "Break Superior Mini-Chests in Best Area", "Rege
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 
 ; Update the zone if the player does not have VIP.
-if (GetSetting("HasGamepassVip") == "false")
-    QUEST_DATA["9"]["Zone"] := "-"
+if (getSetting("HasGamepassVip") == "false")
+    QUEST_DATA["9"]["Zone"] := "-" ; "Break Diamond Breakables"
+
+; Update the zone if the player has Super Drops.
+if (getSetting("HasGamepassSuperDrops") == "true") {
+    QUEST_DATA["14"]["Zone"] := "-"  ; "Collect Potions"
+    QUEST_DATA["15"]["Zone"] := "-"  ; "Collect Enchants"
+}
