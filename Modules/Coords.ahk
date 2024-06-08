@@ -87,9 +87,34 @@ COORDS["Supercomputer"]["X"] := [1494, 257]
 COORDS["Supercomputer"]["Search"] := [1334, 249]
 COORDS["Supercomputer"]["Ok"] := [665, 738]
 COORDS["Supercomputer"]["SuccessOk"] := [964, 814] ; Ok button on the Success window.
-COORDS["Supercomputer"]["Item1"] := [902, 390] ; The 1st item in the window (perfect centre is 899, 386). 
-COORDS["Supercomputer"]["Item1Mastery"] := [993, 377] ; The 1st item in the window if the player has mastery 99
-COORDS["Supercomputer"]["ItemOffset"] := [153, 0] ; The 2nd item in the window (perfect centre is 1056, 386).
+
+; The boundaries of the hover effect for item 1 (no mastery) are:
+; * Top: 317, Bottom: 458, Left: 829, Right: 970.
+; To find the perfect center of this area, we calculate:
+; * Center X = (Left + Right) / 2 = (829 + 970) / 2 = 899.5
+; * Center Y = (Top + Bottom) / 2 = (317 + 458) / 2 = 387.5
+; The perfect center coordinates are therefore (899.5, 387.5).
+; However, for practical purposes, we adjust these coordinates slightly to (902, 390).
+; This adjustment is made to ensure accurate interaction with the item.
+COORDS["Supercomputer"]["Item1"] := [902, 390]
+
+; The boundaries of the hover effect for item 1 (with mastery) are:
+; * Top: 317, Bottom: 432, Left: 937, Right: 1049.
+; To find the perfect center of this area, we calculate:
+; * Center X = (Left + Right) / 2 = (937 + 1049) / 2 = 993
+; * Center Y = (Top + Bottom) / 2 = (317 + 432) / 2 = 374.5
+; The perfect center coordinates are therefore (993, 374.5).
+; However, for practical purposes, we adjust these coordinates slightly to (995, 377).
+; This adjustment is made to ensure accurate interaction with the item.
+COORDS["Supercomputer"]["Item1Mastery"] := [995, 377]
+
+; The left boundary for the hover effect for item 2 (no mastery) is 990.
+; The left boundary for the hover effect for item 1 (no mastery) is 829.
+; Therefore, the horizontal offset between item 1 and item 2 is 161 pixels (990 - 829).
+; * Note: This applies to golden/rainbow pets only (i.e., not mastery/potions/enchants).
+; * Note: This is also applied to the OCR "SupercomputerAmount" coordinates.
+COORDS["Supercomputer"]["ItemOffset"] := [161, 0]
+
 
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 ; FREE REWARDS
@@ -166,21 +191,34 @@ COORDS["OCR"]["RankUpSize"] := [300, 53]
 
 ; Supercomputer!
 ; ----------------------------------------------------------------------------------------
+; These coordinates define the top-left corner of a rectangle that is used by OCR. Here,
+; OCR reads the selected amount of items in the "Supercomputer" when the player does not
+; have mastery level 99.
 COORDS["OCR"]["SupercomputerAmountStart"] := [855, 365]
+
+; These coordinates define the top-left corner of a rectangle that is used by OCR. Here,
+; OCR reads the selected amount of items in the "Supercomputer" when the player has
+; mastery level 99.
 COORDS["OCR"]["SupercomputerAmountStartMastery"] := [940, 352]
+
+; This is the size of the OCR rectangle used for reading the amount of items.
+; * Width = 95 pixels, Height = 45 pixels
 COORDS["OCR"]["SupercomputerAmountSize"] := [95, 45]
+
+; These coordinates define the top-left corner of the information tooltip that appears 
+; when you hover over an item. This is an offset from where the mouse cursor is.
 COORDS["OCR"]["PetInfoStart"] := [10, 10] ; This is an offset.
+
+; This is the size of the OCR rectangle used for reading the information tooltip.
+; * Width = 300 pixels, Height = 200 pixels
 COORDS["OCR"]["PetInfoSize"] := [300, 200]
+
 
 ; Free Rewards.
 ; ----------------------------------------------------------------------------------------
 COORDS["OCR"]["FreeRewardsReadyStart"] := [12, 400]
 COORDS["OCR"]["FreeRewardsReadySize"] := [120, 40]
 
-; Masteries.
-; ----------------------------------------------------------------------------------------
-COORDS["OCR"]["MasteryLevelStart"] := [444, 585]
-COORDS["OCR"]["MasteryLevelSize"] := [157, 41]
 
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 ; PIXEL CHECK

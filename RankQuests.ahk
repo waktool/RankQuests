@@ -20,12 +20,12 @@ SetMouseDelay 10  ; Sets the delay between mouse events to 10 milliseconds, bala
 
 ; Titles and versioning for GUI elements.
 global MACRO_TITLE := "Rank Quests"  ; The title displayed in main GUI elements.
-global MACRO_VERSION := "0.14"  ; Script version, helpful for user support and debugging.
+global MACRO_VERSION := "0.15"  ; Script version, helpful for user support and debugging.
 global LOG_FOLDER := A_ScriptDir "\Logs\"  ; Path to the README file, provides additional information to users.
 global DATE_TODAY := FormatTime(A_Now, "yyyyMMdd")
 
 ; Mathematics and constants.
-global RADIUS := 150  ; Standard radius used for calculations in positioning or graphics.
+global RADIUS := 170  ; Standard radius used for calculations in positioning or graphics.
 global PI := 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679  ; Mathematical constant Pi, crucial for circular calculations.
 global ONE_SECOND := 1000  ; Number of milliseconds in one second, used for timing operations.
 
@@ -1068,7 +1068,7 @@ findAngle(amountToMake, amountMultiplier, hasMastery, itemToIgnore) {
             return
         } else {
             angleFor1Pet := 360 / fullStackAmount  ; Calculate the angle for one unit.
-            angleModifier := 1.1
+            angleModifier := 1.00
             angleRequired := Min(Ceil(angleFor1Pet * amountNeeded * angleModifier), 360)  ; Adjust the angle with a buffer.
 
             if (angleRequired > 10) {
@@ -1108,11 +1108,10 @@ findAngle(amountToMake, amountMultiplier, hasMastery, itemToIgnore) {
 PerformMinimumConversion(machineItem, pixelCheckLocation, incrementAmount) {
     SendEvent "{Click down, " machineItem[1] ", " machineItem[2] ", 1}"  ; Start the selection by holding down a click at the initial stack coordinates.
     MouseMove machineItem[1] + RADIUS, machineItem[2]  ; Move mouse slightly to start the selection circle.
-
     ; Loop to rotate the selection in small steps.
     totalIncrements := (360 / incrementAmount)
     Loop totalIncrements {
-        angleCalculated := A_Index * incrementAmount
+        angleCalculated := angleCalculated + (A_Index * incrementAmount)
         ; Calculate new coordinates for each step in the circle using trigonometric functions.
         X := machineItem[1] + RADIUS * Cos((angleCalculated - 90) * PI / 180)
         Y := machineItem[2] + RADIUS * Sin((angleCalculated - 90) * PI / 180)
@@ -1122,6 +1121,7 @@ PerformMinimumConversion(machineItem, pixelCheckLocation, incrementAmount) {
         ; Check if enough items have been selected by looking for a specific pixel color in the upgrade window.
         if !(PixelSearch(&X, &Y, pixelCheckLocation[1], pixelCheckLocation[2], pixelCheckLocation[1] + 5, pixelCheckLocation[2] + 5, 0xFFFFFF, 15))
             break  ; Exit the loop if the correct pixel is detected, indicating enough items are selected.
+
     }
     SendEvent "{Click up}" ; Release the mouse click after selection.
     writeToLogFile("  Minimum Conversion   Angle Used: " Round(angleCalculated, 2))
