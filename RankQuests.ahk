@@ -139,7 +139,7 @@ displayQuestsGui() {
 
     ; Add control buttons to the GUI for various functions.
     btnPause := guiMain.AddButton("xs", "⏸ &Pause")
-    btnWiki := guiMain.AddButton("yp", "❓&Wiki")
+    btnWiki := guiMain.AddButton("yp", "🌐 &Wiki")
     btnRefresh := guiMain.AddButton("yp", "🔄 &Refresh")
     btnReconnect := guiMain.AddButton("yp", "🔁 &Reconnect")
     btnFont := guiMain.AddButton("yp", "𝔄 &Default Font")
