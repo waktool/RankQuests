@@ -1111,7 +1111,7 @@ PerformMinimumConversion(machineItem, pixelCheckLocation, incrementAmount) {
     ; Loop to rotate the selection in small steps.
     totalIncrements := (360 / incrementAmount)
     Loop totalIncrements {
-        angleCalculated := angleCalculated + (A_Index * incrementAmount)
+        angleCalculated := A_Index * incrementAmount
         ; Calculate new coordinates for each step in the circle using trigonometric functions.
         X := machineItem[1] + RADIUS * Cos((angleCalculated - 90) * PI / 180)
         Y := machineItem[2] + RADIUS * Sin((angleCalculated - 90) * PI / 180)
