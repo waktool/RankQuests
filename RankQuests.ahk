@@ -83,8 +83,8 @@ runMacro()
 ; Return: None; triggers a sequence of operations that ensure the macro is ready and operational.
 ; ----------------------------------------------------------------------------------------
 runMacro() {
-    writeToLogFile("*** MACRO START ***")
     completeInitialisationTasks()  ; Perform all initial tasks necessary for the macro's setup, such as setting variables or preparing the environment.
+    writeToLogFile("*** MACRO START ***")
     displayQuestsGui()  ; Creates and displays a graphical user interface that lists quests and other activities, enhancing user interaction and control.
     activateRoblox()  ; Ensures that the Roblox window is active and ready for input, critical for reliably sending commands to the game.
     checkForDisconnection()  ; Continuously monitors the connection status to handle any disconnections promptly, maintaining the macro's functionality.
