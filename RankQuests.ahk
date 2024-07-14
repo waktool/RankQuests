@@ -9,8 +9,8 @@
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 
 #SingleInstance Force  ; Forces the script to run only in a single instance. If this script is executed again, the new instance will replace the old one.
-CoordMode "Mouse", "Window"  ; Sets the coordinate mode for mouse functions (like Click, MouseMove) to be relative to the active window's client area, ensuring consistent mouse positioning across different window states.
-CoordMode "Pixel", "Window"  ; Sets the coordinate mode for pixel functions (like PixelSearch, PixelGetColor) to be relative to the active window's client area, improving accuracy in color detection and manipulation.
+CoordMode "Mouse", "Client"  ; Sets the coordinate mode for mouse functions (like Click, MouseMove) to be relative to the active window's client area, ensuring consistent mouse positioning across different window states.
+CoordMode "Pixel", "Client"  ; Sets the coordinate mode for pixel functions (like PixelSearch, PixelGetColor) to be relative to the active window's client area, improving accuracy in color detection and manipulation.
 SetMouseDelay 10  ; Sets the delay between mouse events to 10 milliseconds, balancing speed and reliability of automated mouse actions.
 
 
@@ -19,31 +19,71 @@ SetMouseDelay 10  ; Sets the delay between mouse events to 10 milliseconds, bala
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 
 ; Titles and versioning for GUI elements.
-global MACRO_TITLE := "Rank Quests"  ; The title displayed in main GUI elements.
-global MACRO_VERSION := "0.15"  ; Script version, helpful for user support and debugging.
-global LOG_FOLDER := A_ScriptDir "\Logs\"  ; Path to the README file, provides additional information to users.
-global DATE_TODAY := FormatTime(A_Now, "yyyyMMdd")
+MACRO_TITLE := "Rank Quests"  ; The title displayed in main GUI elements.
+MACRO_VERSION := "1.0.0 (Test Build 1)"  ; Script version, helpful for user support and debugging.
+LOG_FOLDER := A_ScriptDir "\Logs\"  ; Path to the README file, provides additional information to users.
+DATE_TODAY := FormatTime(A_Now, "yyyyMMdd")
 
 ; Mathematics and constants.
-global RADIUS := 170  ; Standard radius used for calculations in positioning or graphics.
-global PI := 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679  ; Mathematical constant Pi, crucial for circular calculations.
-global ONE_SECOND := 1000  ; Number of milliseconds in one second, used for timing operations.
+RADIUS := 100  ; Standard radius used for calculations in positioning or graphics.
+PI := 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679  ; Mathematical constant Pi, crucial for circular calculations.
+ONE_SECOND := 1000  ; Number of milliseconds in one second, used for timing operations.
 
 ; Zone settings defining game areas.
-global BEST_ZONE := 209  ; Identifier for the best zone, typically where optimal actions occur.
-global SECOND_BEST_ZONE := 208  ; Identifier for the second-best ZONE
+BEST_ZONE := 214  ; Identifier for the best zone, typically where optimal actions occur.
+SECOND_BEST_ZONE := 210  ; Identifier for the second-best ZONE
+RARE_EGG_ZONE := 209
+USE_FLAG_ZONES := [200, 201, 202, 203, 204]  ; Define the zones where flags will be used.
 
 ; Font settings for GUI and other text displays.
-global TIMES_NEW_ROMAN := A_ScriptDir "\Assets\TimesNewRoman.ttf"  ; Path to Times New Roman font.
-global TIMES_NEW_ROMAN_INVERTED := A_ScriptDir "\Assets\TimesNewRoman-Inverted.ttf"  ; Path to Times New Roman font (inverted).
-global FREDOKA_ONE_REGULAR := A_ScriptDir "\Assets\FredokaOne-Regular.ttf"  ; Path to Fredoka One Regular font.
-global SOURCE_SANS_PRO_BOLD := A_ScriptDir "\Assets\SourceSansPro-Bold.ttf"  ; Path to Source Sans Pro Bold font.
+TIMES_NEW_ROMAN := A_ScriptDir "\Assets\TimesNewRoman.ttf"  ; Path to Times New Roman font.
+TIMES_NEW_ROMAN_INVERTED := A_ScriptDir "\Assets\TimesNewRoman-Inverted.ttf"  ; Path to Times New Roman font (inverted).
+FREDOKA_ONE_REGULAR := A_ScriptDir "\Assets\FredokaOne-Regular.ttf"  ; Path to Fredoka One Regular font.
+SOURCE_SANS_PRO_BOLD := A_ScriptDir "\Assets\SourceSansPro-Bold.ttf"  ; Path to Source Sans Pro Bold font.
 
 ; User settings loaded from an INI file.
-global SETTINGS_INI := A_ScriptDir "\Settings.ini"  ; Path to settings INI file.
-global DARK_MODE := getSetting("DarkMode")  ; User preference for dark mode, loaded from settings.
-global SHOW_OCR_OUTLINE := getSetting("ShowOcrOutline")  ; User preference for displaying OCR outlines.
+SETTINGS_INI := A_ScriptDir "\Settings.ini"  ; Path to settings INI file.
+DARK_MODE := getSetting("DarkMode")  ; User preference for dark mode, loaded from settings.
+SHOW_OCR_OUTLINE := getSetting("ShowOcrOutline")  ; User preference for displaying OCR outlines.
 
+; Pixel colours for the Supercomputer menus.
+UPGRADE_POTIONS_BUTTON := ["0x281759", "0x0CC60F"]
+UPGRADE_ENCHANTS_BUTTON := ["0xFADB35", "0x810606"]
+GOLD_PETS_BUTTON := ["0xFFFFC8", "0xC98151"]
+RAINBOW_PETS_BUTTON := ["0xF4D200", "0x1EFB01"]
+
+; Pixel colours for the close icon for each of the user interface windows.
+ERROR_WINDOW_X := Map("Start", [603, 109], "End", [603, 109], "Colour", "0xFF155F", "Tolerance", 2)
+INVENTORY_MENU_X := Map("Start", [730, 109], "End", [730, 109], "Colour", "0xFF155F", "Tolerance", 2)
+REWARDS_MENU_X := Map("Start", [730, 109], "End", [730, 109], "Colour", "0xFF155F", "Tolerance", 2)
+FREE_GIFTS_MENU_X := Map("Start", [608, 109], "End", [608, 109], "Colour", "0xFF155F", "Tolerance", 2)
+TELEPORT_MENU_X := Map("Start", [725, 109], "End", [725, 109], "Colour", "0xFF155F", "Tolerance", 2)
+HATCHING_MENU_X := Map("Start", [614, 109], "End", [614, 109], "Colour", "0xFF155F", "Tolerance", 2)
+AUTOHATCH_MENU_X := Map("Start", [605, 109], "End", [605, 109], "Colour", "0xFF155F", "Tolerance", 2)
+SUPERCOMPUTER_MENU_X := Map("Start", [730, 109], "End", [730, 109], "Colour", "0xFF155F", "Tolerance", 2)
+
+; Pixel colours for other checks.
+CHAT_ICON_WHITE := Map("Start", [81, 24], "End", [81, 24], "Colour", "0xFFFFFF", "Tolerance", 2)
+LEADERBOARD_RANK_STAR := Map("Start", [652, 43], "End", [678, 59], "Colour", "0xB98335", "Tolerance", 50)
+OOPS_ERROR_QUESTION_MARK := Map("Start", [434, 287], "End", [438, 291], "Colour", "0xFFB436", "Tolerance", 5)
+ITEM_MISSING := Map("Start", [293, 425], "End", [293, 425], "Colour", "0xA51116", "Tolerance", 5)
+CLAIM_BUTTON_SHADOW := Map("Start", [294, 113], "End", [747, 469], "Colour", "0x6E864D", "Tolerance", 2)
+INVENTORY_BUTTON := Map("Start", [384, 505], "End", [384, 505], "Colour", "0x15DECF", "Tolerance", 2)
+ZONE_SEARCH := Map("Start", [437, 243], "End", [437, 243], "Colour", "0x5BDBFF", "Tolerance", 2)
+HATCHING_MENU_BUY := Map("Start", [191, 451], "End", [191, 451], "Colour", "0x6BF206", "Tolerance", 2)
+FREE_GIFTS_READY := Map("Start", [67, 172], "End", [67, 172], "Colour", "0xFF0948", "Tolerance", 2)
+AUTO_HATCH_MENU := Map("Start", [439, 155], "End", [604, 438], "Colour", "0x6FF308", "Tolerance", 2)
+SKILL_MASTERY := Map("Start", [88, 309], "End", [88, 309], "Colour", "0xFFFFFF", "Tolerance", 2)
+
+; Pixel colours for droppable boosts.
+LUCKY_BLOCK_PINK := Map("Start", [120, 0], "End", [680, 400], "Colour", "0xEFB4FB", "Tolerance", 2)
+LUCKY_BLOCK_BLUE := Map("Start", [120, 280], "End", [680, 400], "Colour", "0x00ACFF", "Tolerance", 2)        
+LUCKY_BLOCK_YELLOW := Map("Start", [120, 280], "End", [680, 400], "Colour", "0xFFA300", "Tolerance", 2)  
+COMET_COLOUR := Map("Start", [120, 280], "End", [680, 400], "Colour", "0x00A6FB", "Tolerance", 2)
+PINATA_COLOUR := Map("Start", [120, 200], "End", [680, 400], "Colour", "0xFF00FF", "Tolerance", 2)
+
+; OCR Text Render display.
+OCR_RESULTS_RENDER := TextRender()
 
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 ; LIBRARIES
@@ -54,6 +94,7 @@ global SHOW_OCR_OUTLINE := getSetting("ShowOcrOutline")  ; User preference for d
 #Include <Pin>        ; Includes a library for creating pinned overlays or highlights on the screen, enhancing visual interfaces.
 #Include <JXON>       ; Includes a library for handling JSON data, useful for configuration and data management tasks.
 #Include <DarkMode>   ; Includes a library to support dark mode functionality, improving UI aesthetics and reducing eye strain.
+#Include <TextRender> ; Includes a library to render text to the screen.
 
 ; Macro Related Libraries:
 #Include "%A_ScriptDir%\Modules"    ; Includes all scripts located in the 'Modules' directory relative to the script's directory.
@@ -71,24 +112,39 @@ runMacro()
 
 ; ----------------------------------------------------------------------------------------
 ; runMacro Function
-; Description: Initiates the macro by running a series of initialization and maintenance tasks.
+; Description: Executes the main macro loop, performing initial setup tasks, running tests, and continuously checking for key game conditions and quest priorities.
 ; Operation:
-;   - Executes a sequence of functions designed to prepare and manage the macro's operational environment.
-;   - Handles initial setups, checks, and displays crucial information via a GUI.
+;   - Performs initial setup tasks and environment preparation.
+;   - Writes a start log entry.
+;   - Displays a GUI for quest management.
+;   - Activates the Roblox window for reliable input.
+;   - Runs preliminary tests.
+;   - Continuously checks for disconnection to ensure ongoing functionality.
+;   - Closes unnecessary windows.
+;   - Checks if the player has reached the maximum rank.
+;   - Prioritizes and completes quests based on current priorities.
 ; Dependencies:
-;   - completeInitialisationTasks, DownloadAvatar, displayQuestsGui, activateRoblox, 
-;     checkForDisconnection, checkForMaxRank, priortiseAndCompleteQuests: Functions that initialize the environment, manage connectivity, display UI, and handle game-specific tasks.
-; Parameters:
-;   - None
-; Return: None; triggers a sequence of operations that ensure the macro is ready and operational.
+;   - completeInitialisationTasks: Prepares the macro environment by setting variables and performing initial tasks.
+;   - writeToLogFile: Logs macro start information.
+;   - displayQuestsGui: Displays a GUI for managing quests.
+;   - activateRoblox: Ensures the Roblox window is active.
+;   - runTests: Executes preliminary tests.
+;   - checkForDisconnection: Monitors the connection status.
+;   - closeAllWindows: Closes all unnecessary windows.
+;   - checkForMaxRank: Verifies if the player has reached the maximum rank.
+;   - priortiseAndCompleteQuests: Manages and executes quests based on priority.
+; Parameters: None
+; Return: None
 ; ----------------------------------------------------------------------------------------
 runMacro() {
     completeInitialisationTasks()  ; Perform all initial tasks necessary for the macro's setup, such as setting variables or preparing the environment.
     writeToLogFile("*** MACRO START ***")
     displayQuestsGui()  ; Creates and displays a graphical user interface that lists quests and other activities, enhancing user interaction and control.
     activateRoblox()  ; Ensures that the Roblox window is active and ready for input, critical for reliably sending commands to the game.
+    runTests()  ; Executes preliminary tests to ensure the macro's functionality.
     checkForDisconnection()  ; Continuously monitors the connection status to handle any disconnections promptly, maintaining the macro's functionality.
-    checkForMaxRank()  ; Verifies if the player has reached the maximum rank available, which might change the behavior of the macro or disable certain functions.    
+    closeAllWindows()  ; Closes any unnecessary windows that may interfere with the macro's operations.
+    checkForMaxRank()  ; Verifies if the player has reached the maximum rank available, which might change the behavior of the macro or disable certain functions.
     priortiseAndCompleteQuests()  ; Analyzes available quests to determine priorities and executes them accordingly, managing the macro's main objectives effectively.
 }
 
@@ -114,7 +170,7 @@ displayQuestsGui() {
     ; Initialize the main GUI with "AlwaysOnTop" property.
     global guiMain := Gui("+AlwaysOnTop")
     guiMain.Title := MACRO_TITLE " v" MACRO_VERSION  ; Set the title incorporating global variables for title and version.
-    guiMain.SetFont(, "Segoe UI")  ; Use "Segoe UI" font for a modern look.
+    guiMain.SetFont("s8", "Segoe UI")  ; Use "Segoe UI" font for a modern look.
 
     ; Create a list view for quests with various columns.
     global lvQuests := guiMain.AddListView("r4 w650 NoSortHdr", ["★", "Type", "Quest", "Amount", "Priority", "Status", "Zone", "OCR"])
@@ -199,7 +255,6 @@ openWiki(*) {
 ; ----------------------------------------------------------------------------------------
 pauseMacro(*) {
     writeToLogFile("*** PAUSED ***")
-    Send "{F11}"  ; Send the F11 key, which is often used to pause/resume scripts.
     Pause -1  ; Toggle the pause status of the macro.
 }
 
@@ -232,13 +287,12 @@ exitMacro(*) {
 ;   - Manages disconnections and utilizes special abilities based on game conditions.
 ;   - Continuously updates loop count and handles quest failure conditions.
 ; Dependencies:
-;   - Various game-specific functions like changeCameraView, applyAutoHatchSettings, checkForClaimRewards, refreshQuests, setCurrentLoop, doQuest, useUltimate, checkForDisconnection, EatfruitArray, claimFreeGifts.
+;   - Various game-specific functions like changeCameraView, applyAutoHatchSettings, checkForClaimRewards, refreshQuests, setCurrentLoop, doQuest, useUltimate, checkForDisconnection, claimFreeGifts.
 ; Parameters:
 ;   - None; utilizes game settings and state to determine actions.
 ; Return: None; loops indefinitely, managing game actions continuously.
 ; ----------------------------------------------------------------------------------------
 priortiseAndCompleteQuests(*) {
-    changeCameraView()  ; Adjusts the camera view for optimal automation interaction.
     applyAutoHatchSettings()  ; Applies settings relevant to auto-hatching features.
 
     ; Main loop to handle all macro actions repeatedly.
@@ -301,36 +355,64 @@ priortiseAndCompleteQuests(*) {
 
 ; ----------------------------------------------------------------------------------------
 ; refreshQuests Function
-; Description: Updates quest data by reading from the game's interface, processes each quest, and updates the UI accordingly.
+; Description: Processes the quests in the game by performing OCR, combining text lines, and updating the quest list view.
 ; Operation:
-;   - Activates the game window and manages the rewards menu for accessing quest information.
-;   - Reads quest details using OCR and updates the quest list view.
-;   - Calculates additional data such as stars earned based on gamepasses and updates the main GUI.
+;   - Activates the game window and prepares the environment for quest processing.
+;   - Clears existing quest data and performs OCR to read new quest information.
+;   - Combines OCR text lines based on proximity and formatting rules.
+;   - Updates the quest list view with new quest data, including quest ID, name, status, priority, zone, and amount.
+;   - Logs the OCR results and quest details.
+;   - Updates the GUI with rank and reward progress.
 ; Dependencies:
-;   - activateRoblox, setCurrentAction, closeRewardsMenu, clickRewardsButton, getOcrResult, getquestId, RegExReplace, fixAmount, FormatTime: Functions for UI interaction, OCR processing, and data formatting.
-; Parameters:
-;   - None explicitly passed; uses global settings and game state.
-; Return: None; updates internal data structures and UI components to reflect the latest quest information.
+;   - activateRoblox: Ensures the game window is focused.
+;   - lvQuests.Delete: Clears the quest list view.
+;   - closeAllWindows: Closes any open windows.
+;   - clickRewardsButton: Clicks the rewards button to open the rewards menu.
+;   - writeToLogFile: Logs the current action or message.
+;   - getOcrResult: Performs OCR on the specified screen area and returns the results.
+;   - getSetting: Retrieves the specified setting.
+;   - getquestId: Determines the quest ID from the OCR text.
+;   - fixAmount: Corrects the OCR-extracted amount if necessary.
+;   - waitTime: Pauses for a specified duration.
+; Parameters: None
+; Return: None
 ; ----------------------------------------------------------------------------------------
 refreshQuests(*) {
-    setCurrentAction("Reading Quests")  ; Signal beginning of quest processing.
+    setCurrentAction("Reading Quests")  ; Signal the beginning of quest processing.
     activateRoblox()  ; Focus the game window for interaction.
 
     lvQuests.Delete()  ; Clear existing quest data from the list view.
-    closeRewardsMenu()  ; Ensure the rewards menu is closed before opening.
-    clickRewardsButton()  ; Open the rewards menu to access quest data.
+    closeAllWindows()  ; Close all open windows.
+    clickRewardsButton()  ; Click the rewards button to open the rewards menu.
 
-    writeToLogFile("*** REFRESH QUESTS ***")
+    writeToLogFile("*** REFRESH QUESTS ***")  ; Log the refresh quest action.
 
-    ; Process each of the four quests.
-    Loop 4 {
+    ocrQuests := getOcrResult([130, 280], [135, 135], 30, false)  ; Perform OCR to read quest information.
+
+    ; Combine lines from the OCR result based on a number of factors.
+    combinedLines := []
+    for line in ocrQuests.Lines {  ; Loop all quest lines.
+        ; Combine with previous line if the first character is lowercase.
+        if (combinedLines.Length > 0 && RegExMatch(line.Text, "^[a-z]")) {  
+            combinedLines[combinedLines.Length] .= " " line.Text
+        ; Combine with previous line if the distance between the lines is less than or equal to 15 pixels.
+        } else if (combinedLines.Length > 0 && (line.Words[1].y - previousLineY <= 15)) {  
+            combinedLines[combinedLines.Length] .= " " line.Text
+        } else {
+            combinedLines.Push(line.Text)
+        }
+        previousLineY := line.Words[1].y
+    }
+
+    ; Process each combined quest line.
+    for quest in combinedLines {
         if (getSetting("Do" A_Index "StarQuests") == "true") {  ; Check settings if the quest level should be processed.
-            ocrTextResult := getOcrResult(COORDS["OCR"]["Quest" A_Index "Start"], COORDS["OCR"]["QuestSize"], 20)  ; Perform OCR to get quest text.
+            ocrTextResult := quest
             questId := getquestId(ocrTextResult)  ; Identify the quest type from OCR results.
             questName := QUEST_DATA[questId]["Name"]  ; Retrieve the name of the quest from a map based on questId.
             questStatus := QUEST_DATA[questId]["Status"]  ; Get the status of the quest.
-            questPriority := QUEST_PRIORITY[questId] ; Determine the priority of the quest.
-            questZone := QUEST_DATA[questId]["Zone"]  ; Get the associated quest ZONE
+            questPriority := QUEST_PRIORITY[questId]  ; Determine the priority of the quest.
+            questZone := QUEST_DATA[questId]["Zone"]  ; Get the associated quest zone.
             questAmount := fixAmount(ocrTextResult, questId)  ; Correct the OCR-extracted amount if necessary.
             starsMultiplier := (getSetting("HasGamepassDoubleStars") == "true") ? 2 : 1  ; Determine star multiplier based on gamepass.
             questStars := starsMultiplier * A_Index  ; Calculate the total stars earned for this quest.
@@ -342,14 +424,15 @@ refreshQuests(*) {
 
     activateRoblox()  ; Re-focus the game window if it lost focus.
     ocrTextResult := getOcrResult(COORDS["OCR"]["RankProgressStart"], COORDS["OCR"]["RankProgressSize"], 20)  ; Read the rank progress using OCR.
-    writeToLogFile("  Rank Details: " ocrTextResult)
+    writeToLogFile("  Rank Details: " ocrTextResult)  ; Log the rank details.
 
     ; Update the main GUI title with the rank, reward progress, and current time.
     guiMain.Title := MACRO_TITLE " v" MACRO_VERSION "  (" ocrTextResult ")  (" FormatTime(A_Now, "h:mm tt") ")"
 
-    closeRewardsMenu()  ; Close the rewards menu after completing the quest updates.
+    closeAllWindows()  ; Close all open windows.
     setCurrentAction("-")  ; Reset the current action status.
 }
+
 
 ; ----------------------------------------------------------------------------------------
 ; getquestId Function
@@ -461,185 +544,281 @@ doQuest(questId, questName, questAmount := 1) {
 
 ; ----------------------------------------------------------------------------------------
 ; breakComets Function
-; Description: Breaks a specified number of Comets in the last zone based on game settings.
+; Description: Executes the task of breaking comets in the game by navigating to the best zone and performing a series of actions based on quest requirements.
 ; Operation:
-;   - Navigates to the optimal zone for breaking Comets.
-;   - Loops through the specified number of Comets to break.
-;   - Updates UI to reflect the current action.
-;   - Attempts to use the 'Comet' item to break a comet, and quits if the item isn't found.
-;   - Pauses between actions to allow for the game's processing time.
+;   - Navigates to the optimal zone for breaking comets.
+;   - Iterates through the number of comets specified by the quest.
+;   - Uses a boost keybind for each comet and breaks the loop if the item is not used.
+;   - Performs a pixel search within specified coordinates to locate comets by color.
+;   - Clicks on the comet's location if found within the time limit.
 ; Dependencies:
-;   - farmBestZone, setCurrentAction, useItem, getSetting: Functions to navigate, update UI, use items, and retrieve settings.
+;   - farmBestZone: Navigates to the optimal zone for the task.
+;   - getSetting: Retrieves settings such as the time to break a comet and the keybind for comets.
+;   - setCurrentAction: Updates the current action status display.
+;   - writeToLogFile: Logs the current action.
+;   - useBoostKeybind: Uses the specified keybind for the comet quest.
+;   - PixelSearch: Searches for a pixel within specified coordinates.
+;   - leftClickMouse: Simulates a left mouse click at the specified coordinates.
 ; Parameters:
-;   - questId: Identifier for the quest.
-;   - Amount: Number of Comets to break.
-; Return: None; modifies the game state by breaking Comets.
+;   - questId: The ID of the quest that specifies which comets to break.
+;   - questAmount: The number of comets to be broken as part of the quest.
+; Return: None
 ; ----------------------------------------------------------------------------------------
 breakComets(questId, questAmount) {
-    farmBestZone()  ; Navigate to the optimal ZONE
+    farmBestZone()  ; Navigate to the optimal zone for breaking comets.
+
+    keybind := getSetting("CometKeybind")
+    timeToBreakComet := getSetting("TimeToBreakComet")
+
     Loop questAmount {
         currentAction := "Breaking Comets (" A_Index "/" questAmount ")"
-        setCurrentAction(currentAction)  ; Display breaking status.
-        writeToLogFile(currentAction)
-        itemFound := useItem("Comet", 2,,, true)  ; Attempt to use Comet item.
-        if (itemFound == false) {
-            QUEST_PRIORITY[questId] := 0  ; Downgrade quest priority if item not found.
-            return
+        setCurrentAction(currentAction)  ; Update and display the current action status.
+        writeToLogFile(currentAction)  ; Log the current action status.
+
+        itemUsed := useBoostKeybind(keybind, questId)
+        if !itemUsed
+            break  ; Exit the loop if the item is not used successfully.
+
+        newTime := DateAdd(A_Now, timeToBreakComet, "Seconds")
+        Loop {
+            if PixelSearch(&foundX, &foundY,  ; Perform pixel search within specified coordinates and color.
+                COMET_COLOUR["Start"][1], COMET_COLOUR["Start"][2], 
+                COMET_COLOUR["End"][1], COMET_COLOUR["End"][2],  
+                COMET_COLOUR["Colour"], COMET_COLOUR["Tolerance"])
+            {
+                leftClickMouse([foundX, foundY])  ; Click on the comet's location if found.
+            }
+
+            if A_Now > newTime {
+                break  ; Exit the inner loop if the time limit is reached.
+            }
         }
-        loopAmountOfSeconds(getSetting("TimeToBreakComet"))
     }
 }
 
 ; ----------------------------------------------------------------------------------------
 ; breakPinatas Function
-; Description: Breaks a specified number of Pinatas or Party Boxes based on settings.
+; Description: Executes the task of breaking piñatas in the game by navigating to the best zone and performing a series of actions based on quest requirements.
 ; Operation:
-;   - Navigates to the last zone optimal for breaking.
-;   - Decides whether to break Pinatas or use Party Boxes based on a setting.
-;   - Updates the UI to reflect the current breaking action.
-;   - Attempts to use the specified item, and exits if unavailable.
-;   - Pauses to allow time for the breaking process to complete.
+;   - Navigates to the optimal zone for breaking piñatas.
+;   - Determines the appropriate keybind and time setting for breaking piñatas.
+;   - Iterates through the number of piñatas specified by the quest.
+;   - Uses a boost keybind for each piñata and breaks the loop if the item is not used.
+;   - Performs a pixel search within specified coordinates to locate piñatas by color.
+;   - Clicks on the piñata's location if found within the time limit.
 ; Dependencies:
-;   - farmBestZone, getSetting, setCurrentAction, useItem: Functions for navigation, retrieving settings, updating UI, and using items.
+;   - farmBestZone: Navigates to the optimal zone for the task.
+;   - getSetting: Retrieves settings such as the time to break a piñata and the keybind for piñatas.
+;   - setCurrentAction: Updates the current action status display.
+;   - writeToLogFile: Logs the current action.
+;   - useBoostKeybind: Uses the specified keybind for the piñata quest.
+;   - PixelSearch: Searches for a pixel within specified coordinates.
+;   - leftClickMouse: Simulates a left mouse click at the specified coordinates.
 ; Parameters:
-;   - questId: Identifier for the quest.
-;   - Amount: Initial number of Pinatas to break, adjusted if using Party Boxes.
-; Return: None; modifies game state based on the breaking of items.
+;   - questId: The ID of the quest that specifies which piñatas to break.
+;   - questAmount: The number of piñatas to be broken as part of the quest.
+; Return: None
 ; ----------------------------------------------------------------------------------------
 breakPinatas(questId, questAmount) {
-    farmBestZone()  ; Navigate to the optimal zone for breaking.
-    if (getSetting("UsePartyBoxInsteadOfPinata") == "true") {  ; Check if party boxes should be used instead.
-        itemToUse := "Party Box"
-        currentItem := "Breaking Party Boxes"
-        questAmount := questAmount * getSetting("PartyBoxAmountMultiplier")  ; Adjust the amount based on the multiplier.
-    } else {
-        itemToUse := "Piñata"
-        currentItem := "Breaking Pinatas"
-    }
+    farmBestZone()  ; Navigate to the optimal zone for breaking piñatas.
 
-    Loop questAmount {  ; Loop through the number of items to break.
-        currentAction := currentItem " (" A_Index "/" questAmount ")"
-        setCurrentAction(currentAction)  ; Display the current action in UI.
-        writeToLogFile(currentAction)
-        itemFound := useItem(itemToUse, 2,,, true)  ; Attempt to use the item.
-        if (itemFound == false) {  ; Check if the item was successfully used.
-            QUEST_PRIORITY[questId] := 0  ; Downgrade quest priority if item not found.
-            return
+    keybind := getSetting("PinataKeybind")
+    timeToBreakPinata := getSetting("TimeToBreakPinata")
+    
+    ; Loop through the number of piñatas to break.
+    Loop questAmount {
+        currentAction := "Breaking Pinatas (" A_Index "/" questAmount ")"
+        setCurrentAction(currentAction)  ; Update and display the current action status.
+        writeToLogFile(currentAction)  ; Log the current action status.
+
+        itemUsed := useBoostKeybind(keybind, questId)
+        if !itemUsed
+            break  ; Exit the loop if the item is not used successfully.
+
+        newTime := DateAdd(A_Now, timeToBreakPinata, "Seconds")
+        Loop {
+            ; Perform pixel search within specified coordinates and color.
+            if PixelSearch(&foundX, &foundY, 
+                PINATA_COLOUR["Start"][1], PINATA_COLOUR["Start"][2], 
+                PINATA_COLOUR["End"][1], PINATA_COLOUR["End"][2],  
+                PINATA_COLOUR["Colour"], PINATA_COLOUR["Tolerance"])
+            {
+                leftClickMouse([foundX, foundY])  ; Click on the piñata's location if found.
+            }
+
+            if A_Now > newTime {
+                break  ; Exit the inner loop if the time limit is reached.
+            }
         }
-        loopAmountOfSeconds(getSetting("TimeToBreakPinata"))
     }
 }
 
 ; ----------------------------------------------------------------------------------------
 ; breakLuckyBlocks Function
-; Description: Breaks Lucky Blocks and optionally uses TNT crates based on settings.
+; Description: Executes the task of breaking Lucky Blocks in the game by navigating to the best zone and performing a series of actions based on quest requirements.
 ; Operation:
 ;   - Navigates to the optimal zone for breaking Lucky Blocks.
-;   - Retrieves time settings for breaking and possibly using TNT crates.
-;   - Continuously updates UI and manages item use based on successful item availability.
+;   - Retrieves the keybind and time setting for breaking Lucky Blocks.
+;   - Iterates through the number of Lucky Blocks specified by the quest.
+;   - Uses a boost keybind for each Lucky Block and breaks the loop if the item is not used.
+;   - Performs a pixel search within specified coordinates to locate Lucky Blocks by color.
+;   - Clicks on the Lucky Block's location if found within the time limit.
 ; Dependencies:
-;   - farmBestZone, getSetting, setCurrentAction, useItem: Functions for navigation, retrieving settings, updating UI, and using items.
+;   - farmBestZone: Navigates to the optimal zone for the task.
+;   - getSetting: Retrieves settings such as the time to break a Lucky Block and the keybind for Lucky Blocks.
+;   - setCurrentAction: Updates the current action status display.
+;   - writeToLogFile: Logs the current action.
+;   - useBoostKeybind: Uses the specified keybind for the Lucky Block quest.
+;   - PixelSearch: Searches for a pixel within specified coordinates.
+;   - leftClickMouse: Simulates a left mouse click at the specified coordinates.
 ; Parameters:
-;   - questId: Identifier for the quest.
-;   - Amount: Number of Lucky Blocks to break.
-; Return: None; engages in breaking Lucky Blocks and using additional items if specified.
+;   - questId: The ID of the quest that specifies which Lucky Blocks to break.
+;   - questAmount: The number of Lucky Blocks to be broken as part of the quest.
+; Return: None
 ; ----------------------------------------------------------------------------------------
 breakLuckyBlocks(questId, questAmount) {
-    farmBestZone()  ; Navigate to the optimal zone for breaking.
-    timeToBreakLuckyBlock := getSetting("TimeToBreakLuckyBlock") ; Get the set time to break a Lucky Block.
-    Loop questAmount {  ; Loop through the number of Lucky Blocks to break.
-        currentAction := "Breaking Lucky Blocks (" A_Index "/" questAmount ")"
-        setCurrentAction(currentAction)  ; Display the current action in UI.
-        writeToLogFile(currentAction)        
-        itemFound := useItem("Lucky Block", 2,,, true)  ; Attempt to use the Lucky Block item.
-        if (itemFound == false) {  ; Check if the item was successfully used.
-            QUEST_PRIORITY[questId] := 0  ; Downgrade quest priority if item not found.
-            return
-        }
+    farmBestZone()  ; Navigate to the optimal zone for breaking Lucky Blocks.
+    keybind := getSetting("LuckyBlockKeybind")
+    timeToBreakLuckyBlock := getSetting("TimeToBreakLuckyBlock")  ; Get the set time to break a Lucky Block.    
 
-        if (getSetting("UseTntCratesAfterLuckyBlock") == "true") {  ; Check if TNT crates should be used after breaking.
-            numberOfTnt := getSetting("NumberOfTntCratesToUseAfterLuckyBlock")  ; Get the number of TNT crates to use.
-            Loop numberOfTnt {  ; Loop through the number of TNT crates.
-                useItem("TNT Crate", 2)  ; Use a TNT crate.
-                loopAmountOfSeconds(Min(3, Ceil(timeToBreakLuckyBlock / numberOfTnt)))
+    ; Loop through the number of Lucky Blocks to break.
+    Loop questAmount {
+        currentAction := "Breaking Lucky Blocks (" A_Index "/" questAmount ")"
+        setCurrentAction(currentAction)  ; Display the current action in the UI.
+        writeToLogFile(currentAction)  ; Log the current action status.
+        
+        itemUsed := useBoostKeybind(keybind, questId)
+        if !itemUsed
+            break  ; Exit the loop if the item is not used successfully.
+
+        newTime := DateAdd(A_Now, timeToBreakLuckyBlock, "Seconds")
+        
+        Loop {
+            ; Perform pixel search for pink Lucky Blocks within specified coordinates and color.
+            if PixelSearch(&foundX, &foundY, 
+                LUCKY_BLOCK_PINK["Start"][1], LUCKY_BLOCK_PINK["Start"][2], 
+                LUCKY_BLOCK_PINK["End"][1], LUCKY_BLOCK_PINK["End"][2],  
+                LUCKY_BLOCK_PINK["Colour"], LUCKY_BLOCK_PINK["Tolerance"]) 
+            {
+                leftClickMouse([foundX, foundY])  ; Click on the Lucky Block's location if found.
             }
-        } else {
-            loopAmountOfSeconds(timeToBreakLuckyBlock)
+
+            ; Perform pixel search for blue Lucky Blocks within specified coordinates and color.
+            if PixelSearch(&foundX, &foundY, 
+                LUCKY_BLOCK_BLUE["Start"][1], LUCKY_BLOCK_BLUE["Start"][2], 
+                LUCKY_BLOCK_BLUE["End"][1], LUCKY_BLOCK_BLUE["End"][2],  
+                LUCKY_BLOCK_BLUE["Colour"], LUCKY_BLOCK_BLUE["Tolerance"]) 
+            {
+                leftClickMouse([foundX, foundY])  ; Click on the Lucky Block's location if found.
+            }
+
+            ; Perform pixel search for yellow Lucky Blocks within specified coordinates and color.
+            if PixelSearch(&foundX, &foundY, 
+                LUCKY_BLOCK_YELLOW["Start"][1], LUCKY_BLOCK_YELLOW["Start"][2], 
+                LUCKY_BLOCK_YELLOW["End"][1], LUCKY_BLOCK_YELLOW["End"][2],  
+                LUCKY_BLOCK_YELLOW["Colour"], LUCKY_BLOCK_YELLOW["Tolerance"]) 
+            {
+                leftClickMouse([foundX, foundY])  ; Click on the Lucky Block's location if found.
+            }
+
+            if A_Now > newTime {
+                break  ; Exit the inner loop if the time limit is reached.
+            }
         }
     }
 }
 
 ; ----------------------------------------------------------------------------------------
 ; breakBasicCoinJars Function
-; Description: Breaks a specified number of Basic Coin Jars in the last ZONE
+; Description: Executes the task of breaking basic coin jars in the game by navigating to the best zone and performing a series of actions based on quest requirements.
 ; Operation:
-;   - Navigates to the best zone for breaking Basic Coin Jars.
-;   - Updates UI to reflect the current action of breaking Coin Jars.
-;   - Attempts to use the Coin Jar item and exits if not available.
-;   - Pauses for a set duration to allow the breaking process to complete.
+;   - Navigates to the optimal zone for breaking coin jars.
+;   - Iterates through the number of coin jars specified by the quest.
+;   - Uses a boost keybind for each coin jar and breaks the loop if the item is not used.
+;   - Waits for the specified amount of time to break each coin jar.
 ; Dependencies:
-;   - farmBestZone, setCurrentAction, useItem, getSetting: Functions for navigation, UI updates, using items, and retrieving settings.
+;   - farmBestZone: Navigates to the optimal zone for the task.
+;   - getSetting: Retrieves settings such as the time to break a coin jar and the keybind for coin jars.
+;   - setCurrentAction: Updates the current action status display.
+;   - writeToLogFile: Logs the current action.
+;   - useBoostKeybind: Uses the specified keybind for the coin jar quest.
+;   - loopAmountOfSeconds: Waits for a specified amount of time.
 ; Parameters:
-;   - questId: Identifier for the quest.
-;   - Amount: Number of Basic Coin Jars to break.
-; Return: None; modifies game state by breaking Coin Jars.
+;   - questId: The ID of the quest that specifies which coin jars to break.
+;   - questAmount: The number of coin jars to be broken as part of the quest.
+; Return: None
 ; ----------------------------------------------------------------------------------------
 breakBasicCoinJars(questId, questAmount) {
-    farmBestZone()  ; Navigate to the optimal zone for breaking.
-    Loop questAmount {  ; Loop through the number of Coin Jars to break.
+    farmBestZone()  ; Navigate to the optimal zone for breaking coin jars.
+
+    ; Loop through the number of coin jars to break.
+    Loop questAmount {
         currentAction := "Breaking Coin Jars (" A_Index "/" questAmount ")"
-        setCurrentAction(currentAction)  ; Display the current action in UI.
-        writeToLogFile(currentAction)        
-        itemFound := useItem("Basic Coin Jar", 2,,, true)  ; Attempt to use the Coin Jar item.
-        if (itemFound == false) {  ; Check if the item was successfully used.
-            QUEST_PRIORITY[questId] := 0  ; Downgrade quest priority if item not found.
-            return
-        }
-        loopAmountOfSeconds(getSetting("TimeToBreakBasicCoinJar"))
+        setCurrentAction(currentAction)  ; Update and display the current action status.
+        writeToLogFile(currentAction)  ; Log the current action status.
+
+        keybind := getSetting("BasicCoinJarKeybind")
+        itemUsed := useBoostKeybind(keybind, questId)
+        if !itemUsed
+            break  ; Exit the loop if the item is not used successfully.
+
+        loopAmountOfSeconds(getSetting("TimeToBreakBasicCoinJar"))  ; Wait for the specified amount of time to break the coin jar.
     }
 }
 
 ; ----------------------------------------------------------------------------------------
 ; breakMiniChests Function
-; Description: Simulates the action of breaking Mini-Chests for a specified duration.
+; Description: Executes the task of breaking mini-chests in the game by navigating to the best zone and performing actions based on settings.
 ; Operation:
-;   - Navigates to the best zone and updates the current action.
-;   - Calculates the total time to break Mini-Chests and updates the UI to reflect time left.
-;   - Continuously updates UI and waits between actions.
+;   - Navigates to the optimal zone for breaking mini-chests.
+;   - Sets and displays the current action status.
+;   - Logs the current action.
+;   - Waits for the specified amount of time to break mini-chests.
+;   - Resets the action status after completion.
 ; Dependencies:
-;   - farmBestZone, setCurrentAction, setCurrentTime, getSetting: Functions for navigation and UI updates.
-; Return: None; simulates the action of breaking Mini-Chests over time.
+;   - farmBestZone: Navigates to the optimal zone for the task.
+;   - getSetting: Retrieves the setting for the time to break mini-chests.
+;   - setCurrentAction: Updates the current action status display.
+;   - writeToLogFile: Logs the current action.
+;   - loopAmountOfSeconds: Waits for a specified amount of time.
+; Parameters: None
+; Return: None
 ; ----------------------------------------------------------------------------------------
 breakMiniChests() {
-    farmBestZone()  ; Navigate to the optimal ZONE
+    farmBestZone()  ; Navigate to the optimal zone for breaking mini-chests.
+
     currentAction := "Breaking Mini-Chests"
-    setCurrentAction(currentAction)  ; Display the current action in UI.
-    writeToLogFile(currentAction)          
-    loopAmountOfSeconds(getSetting("TimeToBreakMiniChests"))
-    setCurrentAction("-")  ; Reset action status.
+    setCurrentAction(currentAction)  ; Update and display the current action status.
+    writeToLogFile(currentAction)  ; Log the current action status.
+
+    loopAmountOfSeconds(getSetting("TimeToBreakMiniChests"))  ; Wait for the specified amount of time to break the mini-chests.
 }
 
-; ---------------------------------------------------------------------------------
+; ----------------------------------------------------------------------------------------
 ; breakSuperiorMiniChests Function
-; Description: Navigates to the optimal zone and breaks superior mini-chests for a specified duration.
+; Description: Executes the task of breaking superior mini-chests in the game by navigating to the best zone and performing actions based on settings.
 ; Operation:
-;   - Navigates to the best zone for breaking superior mini-chests.
-;   - Updates the current action status and logs the action.
-;   - Retrieves the breaking duration from settings and calculates the total seconds.
-;   - Updates the countdown timer and waits for the specified duration.
-;   - Resets the action status after the duration has elapsed.
-; Dependencies: 
-;   - farmBestZone, setCurrentAction, writeToLogFile, getSetting, setCurrentTime: Various functions handling specific operations.
-; Return: None; performs the action of breaking superior mini-chests.
-; ---------------------------------------------------------------------------------
+;   - Navigates to the optimal zone for breaking superior mini-chests.
+;   - Sets and displays the current action status.
+;   - Logs the current action.
+;   - Waits for the specified amount of time to break superior mini-chests.
+; Dependencies:
+;   - farmBestZone: Navigates to the optimal zone for the task.
+;   - getSetting: Retrieves the setting for the time to break superior mini-chests.
+;   - setCurrentAction: Updates the current action status display.
+;   - writeToLogFile: Logs the current action.
+;   - loopAmountOfSeconds: Waits for a specified amount of time.
+; Parameters: None
+; Return: None
+; ----------------------------------------------------------------------------------------
 breakSuperiorMiniChests() {
-    farmBestZone()  ; Navigate to the optimal ZONE
-    
+    farmBestZone()  ; Navigate to the optimal zone for breaking superior mini-chests.
+
     currentAction := "Breaking Superior Mini-Chests"
-    setCurrentAction(currentAction)  ; Display the current action in the UI.
-    writeToLogFile(currentAction)  ; Log the current action.
-    loopAmountOfSeconds(getSetting("TimeToBreakSuperiorMiniChests"))    
-    setCurrentAction("-")  ; Reset action status.
+    setCurrentAction(currentAction)  ; Update and display the current action status.
+    writeToLogFile(currentAction)  ; Log the current action status.
+
+    loopAmountOfSeconds(getSetting("TimeToBreakSuperiorMiniChests"))  ; Wait for the specified amount of time to break the superior mini-chests.
 }
 
 ; ----------------------------------------------------------------------------------------
@@ -665,122 +844,183 @@ useFruit(amountToUse) {
 
 ; ----------------------------------------------------------------------------------------
 ; useFlags Function
-; Description: Distributes a specified amount of flags equally among five designated zones.
+; Description: Uses a specified number of flags in different zones by teleporting to each zone, moving to the center, and executing the flag action.
 ; Operation:
-;   - Calculates the number of flags needed per area.
-;   - Teleports to each zone and uses the calculated number of flags.
+;   - Initializes necessary variables.
+;   - Iterates through predefined zones to use flags.
+;   - Teleports to each zone and moves to its center.
+;   - Uses flags and handles any errors that occur.
+;   - Repeats until the specified number of flags is used or the quest is completed.
 ; Dependencies:
-;   - teleportToZone, moveToZoneCentre, useItem, getSetting: Functions for zone navigation, item use, and settings retrieval.
+;   - getSetting: Retrieves settings such as the keybind for using flags.
+;   - teleportToZone: Teleports to the specified zone.
+;   - moveToZoneCentre: Moves to the center of the specified zone.
+;   - shootDownBalloons: Executes the action to shoot down balloons in the zone.
+;   - setCurrentAction: Updates the current action status display.
+;   - isOopsWindowOpen: Checks if the 'Oops' window is open, indicating an error.
+;   - closeAllWindows: Closes all open windows.
+;   - moveMouseToCentreOfScreen: Re-centers the mouse on the screen.
 ; Parameters:
-;   - Amount: Total amount of flags to be used.
-; Return: None; modifies game state by using flags in specified zones.
+;   - amountToUse: The number of flags to use.
+; Return: None
 ; ----------------------------------------------------------------------------------------
 useFlags(amountToUse) {
-    flagsPerArea := Ceil(amountToUse / 5)  ; Divide the total amount by 5 areas.
-    questFlag := getSetting("QuestFlag")  ; Retrieve the type of flag to use from settings.
+    flagsUsed := 0
+    keybind := getSetting("QuestFlagKeybind")
+    questCompleted := false
 
-    zoneArray := [200, 201, 202, 203, 204]  ; Define the zones where flags will be used.
-    for zoneItem in zoneArray {  ; Iterate through each ZONE
-        teleportToZone(zoneItem)  ; Teleport to the current ZONE
-        moveToZoneCentre(zoneItem)  ; Move to the center of the ZONE
-        useItem(questFlag, 2, flagsPerArea)  ; Use the calculated number of flags.
+    for zoneItem in USE_FLAG_ZONES {  ; Iterate through each zone
+        teleportToZone(zoneItem)  ; Teleport to the current zone
+        moveToZoneCentre(zoneItem)  ; Move to the center of the zone 
+        shootDownBalloons()  ; Shoot down balloons in the zone
+
+        Loop {
+            flagsUsed += 1
+            setCurrentAction("Using Flags (" flagsUsed "/" amountToUse ")")  ; Update and display the current action status
+            SendEvent keybind  ; Send the keybind event to use the flag
+            Sleep 250  ; Wait for 250 milliseconds
+
+            if isOopsWindowOpen() {
+                flagsUsed -= 1  ; Decrement the flag count if 'Oops' window is open
+                break  ; Exit the loop
+            }
+
+            questCompleted := (flagsUsed == amountToUse)
+            if questCompleted
+                break  ; Exit the loop if the quest is completed
+        }
+
+        closeAllWindows()  ; Close all open windows
+        moveMouseToCentreOfScreen()  ; Re-center the mouse on the screen
+
+        if questCompleted
+            return  ; Exit the function if the quest is completed
     }
 }
 
 ; ----------------------------------------------------------------------------------------
 ; usePotions Function
-; Description: Uses a specific amount of a particular potion based on the quest ID.
+; Description: Uses a specified number of potions based on the quest ID by sending the appropriate keybind.
 ; Operation:
-;   - Selects the appropriate potion to use based on the quest ID.
-;   - Uses the selected potion item in the specified amount.
+;   - Determines the potion type keybind based on the quest ID.
+;   - Iterates through the specified number of potions to use.
+;   - Sets and displays the current action status.
+;   - Sends the keybind for using the potion and waits for a short duration between uses.
 ; Dependencies:
-;   - useItem, getSetting: Functions for item use and settings retrieval.
+;   - getSetting: Retrieves the setting for the potion keybind based on the quest ID.
+;   - setCurrentAction: Updates the current action status display.
 ; Parameters:
-;   - questId: Identifier for the quest determining the potion type.
-;   - Amount: Number of potions to use.
-; Return: None; modifies game state by consuming potions.
+;   - questId: The ID of the quest that specifies which type of potion to use.
+;   - amountToUse: The number of potions to be used.
+; Return: None
 ; ----------------------------------------------------------------------------------------
 usePotions(questId, amountToUse) {
     Switch questId {  ; Determine the potion type based on the quest ID.
         Case "34-1":
-            useItem(getSetting("Tier3Potion"), 3, amountToUse)  ; Use the Tier 3 potion.
+            keybind := getSetting("PotionTier3Keybind")
         Case "34-2":
-            useItem(getSetting("Tier4Potion"), 3, amountToUse)  ; Use the Tier 4 potion.
+            keybind := getSetting("PotionTier4Keybind")
         Case "34-3":
-            useItem(getSetting("Tier5Potion"), 3, amountToUse)  ; Use the Tier 5 potion.
+            keybind := getSetting("PotionTier5Keybind")
         Default:
-            ; No action for undefined questId.
+            keybind := ""  ; No action for undefined questId.
+    }
+    
+    if keybind != "" {
+        Loop amountToUse {
+            currentAction := "Using potions (" A_Index "/" amountToUse ")"
+            setCurrentAction(currentAction)  ; Update and display the current action status.
+            SendEvent keybind  ; Send the keybind for using the potion.
+            Sleep 500  ; Wait for 0.5 seconds between each use.
+        }
     }
 }
 
 ; ----------------------------------------------------------------------------------------
 ; breakBreakables Function
-; Description: Handles the process of breaking Breakables over a set duration.
+; Description: Executes the task of breaking breakable objects in the game by navigating to the best zone and performing actions based on settings.
 ; Operation:
-;   - Moves to the best zone and updates the current action.
-;   - Calculates the time needed to break Breakables and updates the UI accordingly.
-;   - Maintains a countdown and waits appropriately between updates.
+;   - Navigates to the optimal zone for breaking breakables.
+;   - Sets and displays the current action status.
+;   - Logs the current action.
+;   - Waits for the specified amount of time to break breakables.
 ; Dependencies:
-;   - farmBestZone, setCurrentAction, setCurrentTime, getSetting: Functions for navigation and UI management.
-; Return: None; engages in breaking Breakables for the set duration.
+;   - farmBestZone: Navigates to the optimal zone for the task.
+;   - getSetting: Retrieves the setting for the time to break breakables.
+;   - setCurrentAction: Updates the current action status display.
+;   - writeToLogFile: Logs the current action.
+;   - loopAmountOfSeconds: Waits for a specified amount of time.
+; Parameters: None
+; Return: None
 ; ----------------------------------------------------------------------------------------
 breakBreakables() {
-    farmBestZone()  ; Navigate to the optimal ZONE
+    farmBestZone()  ; Navigate to the optimal zone for breaking breakables.
+
     currentAction := "Breaking Breakables"
-    setCurrentAction(currentAction)  ; Display the current action in UI.
-    writeToLogFile(currentAction)
-    loopAmountOfSeconds(getSetting("TimeToBreakBreakables"))        
-    setCurrentAction("-")  ; Reset action status upon completion.
+    setCurrentAction(currentAction)  ; Update and display the current action status.
+    writeToLogFile(currentAction)  ; Log the current action status.
+
+    loopAmountOfSeconds(getSetting("TimeToBreakBreakables"))  ; Wait for the specified amount of time to break the breakables.
 }
 
 ; ----------------------------------------------------------------------------------------
 ; breakDiamondBreakables Function
-; Description: Breaks diamond breakables either in the VIP area or the last zone based on VIP gamepass status.
+; Description: Executes the task of breaking diamond breakables in the game by navigating to the VIP area if available or the best zone otherwise, and performing actions based on settings.
 ; Operation:
-;   - Checks for VIP gamepass and navigates to the appropriate area.
-;   - Updates the current action displayed to the user.
-;   - Calculates and manages the duration for breaking activities.
-;   - Periodically updates UI with the time remaining and pauses to simulate the breaking process.
+;   - Checks if the player has a VIP gamepass.
+;   - Navigates to the VIP area if the gamepass is available, otherwise navigates to the best zone.
+;   - Sets and displays the current action status.
+;   - Logs the current action.
+;   - Waits for the specified amount of time to break diamond breakables.
 ; Dependencies:
-;   - getSetting, goToVipArea, farmBestZone, setCurrentAction, setCurrentTime: Functions to retrieve settings, navigate zones, and update UI.
-; Parameters:
-;   - None
-; Return: None; modifies game state by performing breakable actions.
+;   - getSetting: Retrieves the setting for VIP gamepass availability and the time to break diamond breakables.
+;   - goToVipArea: Navigates to the VIP area for exclusive activities.
+;   - farmBestZone: Navigates to the best zone for general activities.
+;   - setCurrentAction: Updates the current action status display.
+;   - writeToLogFile: Logs the current action.
+;   - loopAmountOfSeconds: Waits for a specified amount of time.
+; Parameters: None
+; Return: None
 ; ----------------------------------------------------------------------------------------
 breakDiamondBreakables() {
     if (getSetting("HasGamepassVip") == "true") {  ; Check for VIP gamepass availability.
         goToVipArea()  ; Navigate to VIP area for exclusive activities.
     } else {
-        farmBestZone()  ; Navigate to the last zone for general activities.
+        farmBestZone()  ; Navigate to the best zone for general activities.
     }
+
     currentAction := "Breaking Diamond Breakables"
-    setCurrentAction(currentAction)  ; Display the current action in UI.
-    writeToLogFile(currentAction)
-    loopAmountOfSeconds(getSetting("TimeTobreakDiamondBreakables"))
-    setCurrentAction("-")  ; Reset the action indicator upon completion.
+    setCurrentAction(currentAction)  ; Update and display the current action status.
+    writeToLogFile(currentAction)  ; Log the current action status.
+
+    loopAmountOfSeconds(getSetting("TimeToBreakDiamondBreakables"))  ; Wait for the specified amount of time to break the diamond breakables.
 }
 
 ; ----------------------------------------------------------------------------------------
 ; earnDiamonds Function
-; Description: Earns diamonds through activities performed in the last ZONE
+; Description: Executes the task of earning diamonds in the game by navigating to the best zone and performing actions based on settings.
 ; Operation:
-;   - Navigates to the last zone for diamond earning activities.
-;   - Updates the current action displayed to the user.
-;   - Calculates and manages the duration for earning activities.
-;   - Periodically updates UI with the time remaining and pauses to simulate the earning process.
+;   - Navigates to the best zone for earning diamonds.
+;   - Sets and displays the current action status.
+;   - Logs the current action.
+;   - Waits for the specified amount of time to earn diamonds.
 ; Dependencies:
-;   - getSetting, farmBestZone, setCurrentAction, setCurrentTime: Functions to retrieve settings, navigate zones, and update UI.
-; Parameters:
-;   - None
-; Return: None; modifies game state by performing diamond earning actions.
+;   - farmBestZone: Navigates to the optimal zone for the task.
+;   - getSetting: Retrieves the setting for the time to earn diamonds.
+;   - setCurrentAction: Updates the current action status display.
+;   - writeToLogFile: Logs the current action.
+;   - loopAmountOfSeconds: Waits for a specified amount of time.
+; Parameters: None
+; Return: None
 ; ----------------------------------------------------------------------------------------
 earnDiamonds() {
-    farmBestZone()  ; Navigate to the last zone, which is optimal for earning diamonds.
+    farmBestZone()  ; Navigate to the best zone for earning diamonds.
+
     currentAction := "Earning Diamonds"
-    setCurrentAction(currentAction)  ; Display the current action in UI.
-    writeToLogFile(currentAction)
-    loopAmountOfSeconds(getSetting("TimeToEarnDiamonds"))
-    setCurrentAction("-")  ; Reset the action indicator upon completion.
+    setCurrentAction(currentAction)  ; Update and display the current action status.
+    writeToLogFile(currentAction)  ; Log the current action status.
+
+    loopAmountOfSeconds(getSetting("TimeToEarnDiamonds"))  ; Wait for the specified amount of time to earn diamonds.
 }
 
 ; ----------------------------------------------------------------------------------------
@@ -794,8 +1034,8 @@ earnDiamonds() {
 ; Return: None; modifies game elements via the supercomputer interface.
 ; ----------------------------------------------------------------------------------------
 upgradePotions(amountToMake) {
-    potionsMastery := (getSetting("PotionMasteryLevel99") == "true") ? true : false
-    doSupercomputerStuff(COORDS["Supercomputer"]["UpgradePotions"], amountToMake, getSetting("PotionsRequiredForUpgrade"), potionsMastery, getSetting("PotionToUpgrade"))
+    hasMastery := hasSkillMastery()
+    doSupercomputerStuff(UPGRADE_POTIONS_BUTTON, amountToMake, getSetting("PotionsRequiredForUpgrade"), hasMastery, getSetting("PotionToUpgrade"))
 }
 
 ; ----------------------------------------------------------------------------------------
@@ -809,8 +1049,8 @@ upgradePotions(amountToMake) {
 ; Return: None; modifies game elements via the supercomputer interface.
 ; ----------------------------------------------------------------------------------------
 upgradeEnchants(amountToMake) {
-    enchantsMastery := (getSetting("EnchantMasteryLevel99") == "true") ? true : false
-    doSupercomputerStuff(COORDS["Supercomputer"]["UpgradeEnchants"], amountToMake, getSetting("EnchantsRequiredForUpgrade"), enchantsMastery, getSetting("EnchantToUpgrade"))
+    hasMastery := hasSkillMastery()
+    doSupercomputerStuff(UPGRADE_ENCHANTS_BUTTON, amountToMake, getSetting("EnchantsRequiredForUpgrade"), hasMastery, getSetting("EnchantToUpgrade"))
 }
 
 ; ----------------------------------------------------------------------------------------
@@ -823,7 +1063,7 @@ upgradeEnchants(amountToMake) {
 ; Return: None; modifies game elements via the supercomputer interface.
 ; ----------------------------------------------------------------------------------------
 makeRainbowPets(amountToMake) {
-    doSupercomputerStuff(COORDS["Supercomputer"]["RainbowPets"], amountToMake, getSetting("GoldenPetsRequiredForUpgrade"),, getSetting("PetToConvertToRainbow"), "i)shiny")
+    doSupercomputerStuff(RAINBOW_PETS_BUTTON, amountToMake, getSetting("GoldenPetsRequiredForUpgrade"),, getSetting("PetToConvertToRainbow"), "i)shiny")
 }
 
 ; ----------------------------------------------------------------------------------------
@@ -836,7 +1076,7 @@ makeRainbowPets(amountToMake) {
 ; Return: None; modifies game elements via the supercomputer interface.
 ; ----------------------------------------------------------------------------------------
 makeGoldenPets(amountToMake) {
-    doSupercomputerStuff(COORDS["Supercomputer"]["GoldPets"], amountToMake, getSetting("StandardPetsRequiredForUpgrade"),, getSetting("PetToConvertToGolden"), "i)shiny")
+    doSupercomputerStuff(GOLD_PETS_BUTTON, amountToMake, getSetting("StandardPetsRequiredForUpgrade"),, getSetting("PetToConvertToGolden"), "i)shiny")
 }
 
 ; ----------------------------------------------------------------------------------------
@@ -861,6 +1101,7 @@ waitForQuest() {
     loopAmountOfSeconds(getSetting("TimeToBreakBreakables"))    
     setCurrentAction("-")  ; Reset the UI display to indicate the completion of the default activity.
 }
+
 
 loopAmountOfSeconds(amountOfSeconds) {
     totalSeconds := Floor(amountOfSeconds)  ; Convert milliseconds to seconds for duration.
@@ -898,10 +1139,10 @@ loopAmountOfSeconds(amountOfSeconds) {
 ;   - searchText: Optional text for searching within the interface.
 ; Return: None; carries out a sequence of actions in the supercomputer.
 ; ----------------------------------------------------------------------------------------
-doSupercomputerStuff(buttonToClick, amountToMake, amountMultiplier, hasMastery := false, searchText := "", itemToIgnore := "") {
+doSupercomputerStuff(buttonColours, amountToMake, amountMultiplier, hasMastery := false, searchText := "", itemToIgnore := "") {
     activateRoblox()  ; Ensure Roblox is the active application.
     goToSupercomputer()  ; Navigate to the supercomputer location.
-    clickMachineButton(buttonToClick)  ; Interact with the specific button on the machine.
+    findAndClickSupercomputerButton(buttonColours) 
 
     if (searchText != "") {
         selectSupercomputerSearchBox()  ; Focus on the search box within the supercomputer.
@@ -909,11 +1150,11 @@ doSupercomputerStuff(buttonToClick, amountToMake, amountMultiplier, hasMastery :
         Sleep 500  ; Allow time for the text entry to be processed.
     }
 
-    findAngle(amountToMake, amountMultiplier, hasMastery, itemToIgnore)  ; Calculate necessary adjustments for the operation.
+    findAngle(amountToMake, amountMultiplier, hasMastery)  ; Calculate necessary adjustments for the operation.
     clickMachineOkButton()  ; Confirm the operation by clicking the OK button.
     moveAwayFromTheSupercomputer()  ; Step back from the supercomputer post-operation.
+    closeAllWindows()
     clickMachineSuccessButton()  ; Acknowledge the successful operation.
-    closeSuperComputerMenu()  ; Close the supercomputer interface to complete the action.
 }
 
 ; ----------------------------------------------------------------------------------------
@@ -942,10 +1183,10 @@ selectSupercomputerSearchBox() {
 ;   - Button: The specific button on which the click action is to be performed. This should be defined or passed as a coordinate or identifier.
 ; Return: None; directly modifies the UI by interacting with it.
 ; ----------------------------------------------------------------------------------------
-clickMachineButton(Button) {
+clickMachineButton(button) {
     moveMouseToCentreOfScreen()  ; Moves the mouse cursor to the center of the screen to avoid positional inaccuracies.
     scrollMouseWheel("{WheelUp}", 2)  ; Scrolls up the mouse wheel twice, adjusting the interface if necessary before the click.
-    leftClickMouseAndWait(Button, "SupercomputerAfterMenuButtonClicked")  ; Executes a left-click on the specified button and waits for a response, ensuring the click has been processed.
+    leftClickMouseAndWait(button, "SupercomputerAfterMenuButtonClicked")  ; Executes a left-click on the specified button and waits for a response, ensuring the click has been processed.
 }
 
 ; ----------------------------------------------------------------------------------------
@@ -971,7 +1212,10 @@ clickMachineOkButton() {
 ; Return: None; initiates UI interaction by clicking the 'Success' button.
 ; ----------------------------------------------------------------------------------------
 clickMachineSuccessButton() {
-    leftClickMouseAndWait(COORDS["Supercomputer"]["SuccessOk"], "SupercomputerAfterSuccessOkButtonClicked")
+    Loop 2 {
+        leftClickMouseAndWait(COORDS["Supercomputer"]["SuccessOk"], "SupercomputerAfterSuccessOkButtonClicked")
+        Sleep 10
+    }
 }
 
 ; ----------------------------------------------------------------------------------------
@@ -984,147 +1228,168 @@ clickMachineSuccessButton() {
 ; Return: None; closes the Supercomputer interface.
 ; ----------------------------------------------------------------------------------------
 closeSuperComputerMenu() {
-    leftClickMouseAndWait(COORDS["Supercomputer"]["X"], "SupercomputerAfterClosed")
+    closeWindow(SUPERCOMPUTER_MENU_X) 
 }
 
 ; ----------------------------------------------------------------------------------------
 ; findAngle Function
-; Description: Calculates the angle needed to select the correct amount of items from a circular UI element based on OCR readings. This function adjusts its operation based on the presence of specific items that should be ignored, as defined by the "Ignore" parameter, ensuring that only relevant items are considered for interaction.
+; Description: Determines the optimal angle for selecting a specified amount of items in the game using the supercomputer.
 ; Operation:
-;   - Activates the Roblox window to ensure it's the active window.
-;   - Configures item coordinates and OCR settings based on the Mastery setting.
-;   - Handles ignored items by adjusting item selection according to OCR results that match the "Ignore" pattern.
-;   - Simulates user interactions to read full and half stack amounts.
-;   - Determines the angle required to select the specified amount of items.
-;   - Adjusts item selection based on calculated angles or defaults to minimal conversion on OCR failure.
+;   - Activates the Roblox window for interaction.
+;   - Calculates the total amount needed based on the amount to make and multiplier.
+;   - Logs the details of the conversion process.
+;   - Sets coordinates based on whether the player has mastery.
+;   - Iteratively adjusts the selection angle to match the required amount using OCR results.
+;   - Logs the final selected amount and angle.
 ; Dependencies:
-;   - activateRoblox, SendEvent, readStackAmount, leftClickMouseAndWait, MouseMove, shiftLeftClickMouse, setCurrentAction, getOcrResult, regexMatch: Functions for interaction and feedback.
+;   - activateRoblox: Ensures the Roblox window is active.
+;   - writeToLogFile: Logs the current action and details.
+;   - selectAngle: Adjusts the selection angle for the supercomputer.
+;   - readSelectedAmount: Reads the selected amount using OCR.
+;   - displayOcrResult: Displays OCR results on the screen.
+;   - clearOcrResult: Clears the displayed OCR results.
 ; Parameters:
-;   - Amount: Number of units needed.
-;   - Multiplier: Factor that modifies the amount required.
-;   - Mastery: Boolean indicating if mastery level settings are used.
-;   - Ignore: Regular expression pattern to match items that should be ignored during the process.
-; Return: None; selects items within the game based on calculated or minimal required angles.
+;   - amountToMake: The number of items to make.
+;   - amountMultiplier: The multiplier for the amount to make.
+;   - hasMastery: Boolean indicating whether the player has mastery.
+; Return: None
 ; ----------------------------------------------------------------------------------------
-findAngle(amountToMake, amountMultiplier, hasMastery, itemToIgnore) {
+findAngle(amountToMake, amountMultiplier, hasMastery) {
     activateRoblox()  ; Make sure the Roblox window is active for interaction.
     amountNeeded := amountToMake * amountMultiplier  ; Calculate total amount needed.
 
     writeToLogFile("*** SUPERCOMPUTER CONVERSION ***")
-    writeToLogFile("  Amount To Make: " amountToMake "   Multiplier: " amountMultiplier "   Amount Needed: " amountNeeded "   Mastery: " hasMastery "   Ignore: " itemToIgnore)
+    writeToLogFile("  Amount To Make: " amountToMake "   Multiplier: " amountMultiplier "   Amount Needed: " amountNeeded "   Mastery: " hasMastery)
 
     ; Set coordinates based on whether Mastery is true or false.
-    machineItem := hasMastery ? COORDS["Supercomputer"]["Item1Mastery"] : COORDS["Supercomputer"]["Item1"]
-    pixelCheckLocation := hasMastery ? COORDS["Pixel"]["SupercomputerPetMastery"] : COORDS["Pixel"]["SupercomputerPet"]
+    itemCoordinates := hasMastery ? COORDS["Supercomputer"]["Item1Mastery"] : COORDS["Supercomputer"]["Item1"]
     ocrStart := hasMastery ? COORDS["OCR"]["SupercomputerAmountStartMastery"] : COORDS["OCR"]["SupercomputerAmountStart"]
-    Size := COORDS["OCR"]["SupercomputerAmountSize"]
+    ocrSize := COORDS["OCR"]["SupercomputerAmountSize"]
 
-    ; Additional handling for ignored items based on OCR results.
-    if (itemToIgnore != "") {  ; Check if there is a specific pattern or keyword to ignore.
-        Loop 2 {  ; Perform the loop twice to ensure robustness in handling dynamic UI elements.
-            MouseMove machineItem[1], machineItem[2]  ; Move the mouse to the initial position of the item.
-            activateMouseHover()  ; Activate any hover effects that might display additional information.
-            waitTime(200)  ; Delay to allow any hover effects or tooltips to appear.
+    ; Start the selection by holding down a click at the initial stack coordinates.
+    SendEvent "{Click down, " itemCoordinates[1] ", " itemCoordinates[2] ", 1}"
 
-            ; Define the exact location to perform OCR.
-            petInfoBox := [machineItem[1] + COORDS["OCR"]["PetInfoStart"][1], machineItem[2] + COORDS["OCR"]["PetInfoStart"][2]]
-            ocrTextResult := getOcrResult(petInfoBox, COORDS["OCR"]["PetInfoSize"], 20)  ; Perform OCR to read potentially ignored information.
+    angle := 180  ; Starting angle.
+    direction := 1  ; Starting direction.
+    selectionTolerance := 1.05  ; Selection tolerance.
+    maxAnglesChanges := 100  ; Maximum amount of angle changes.
+    smallAngleIncrement := 1  ; Small angle increment.
 
-            if (regexMatch(ocrTextResult, itemToIgnore)) {  ; Check if the OCR results contain the ignored text.
-                ; Adjust item and OCR coordinates to skip the ignored item.
-                machineItem := [machineItem[1] + COORDS["Supercomputer"]["ItemOffset"][1], machineItem[2]]
-                ocrStart := [ocrStart[1] + COORDS["Supercomputer"]["ItemOffset"][1], ocrStart[2]]
-                writeToLogFile("  Ignore: " itemToIgnore)
-            }
+    Loop {
+        selectAngle(itemCoordinates, angle)
+
+        ; Read the selected amount.
+        ocrResults := readSelectedAmount(ocrStart, ocrSize)  
+        selectedAmount := ocrResults["SelectedAmount"]
+        
+        ; Handle cases where OCR misreads large numbers.
+        currentLength := StrLen(selectedAmount)  ; Store the length of the current number.
+        ; Adjust the number if it is not the first selected, its length has increased (usually due to a false '1' from the border), and the first two digits are '11'.
+        if (A_Index > 1) && (currentLength > previousLength) && (SubStr(selectedAmount, 1, 2) == "11") {
+            selectedAmount := Integer(SubStr(selectedAmount, 2))
         }
-    }
 
-    ; Read the full stack amount by simulating a Shift+Click on the item.
-    SendEvent "{Shift down}"
-    SendEvent "{Click, " machineItem[1] ", " machineItem[2] + 52 ", 1}"
-    Sleep 250  ; Allow some time for the UI to update.
-    fullStackAmount := readStackAmount(ocrStart, Size)  ; Use OCR to read the amount.
-    SendEvent "{Shift up}"
-    leftClickMouseAndWait(machineItem, 100)  ; Deselect the item.
+        ; Display the OCR results on the screen using TextRender.
+        displayOcrResult(selectedAmount "/" amountNeeded, [334, 120])
 
-    ; Read the half stack amount by a normal click.
-    SendEvent "{Click, " machineItem[1] ", " machineItem[2] + 52 ", 1}"
-    Sleep 250  ; Allow some time for the UI to update.
-    halfStackAmount := readStackAmount(ocrStart, Size)  ; Use OCR to read the amount.
-    leftClickMouseAndWait(machineItem, 100)  ; Deselect the item again.
+        ; Break the loop if the angle is too extreme or the amount is within tolerance.
+        if angle >= 360 || angle <= 10 {
+            break
+        }
 
-    ; Check if OCR results are reliable by comparing full and half stack amounts.
-    areStackAmountsCorrect := (fullStackAmount != 0 && halfStackAmount != 0) && (Round(fullStackAmount / halfStackAmount) == 2)
-    
-    ocrTextResult := (areStackAmountsCorrect) ? "PASS" : "FAIL"
-    writeToLogFile("  Full Stack: " fullStackAmount "   Half Stack: " halfStackAmount "   Stack Correct: " areStackAmountsCorrect "   OCR Result: " ocrTextResult)
-
-    if (areStackAmountsCorrect) {
-        if (amountNeeded >= fullStackAmount) {
-            setCurrentAction("OCR PASSED: Using Full Stack")  ; Notify action taken.
-            writeToLogFile("  Full Stack Used")
-            MouseMove machineItem[1], machineItem[2]
-            shiftLeftClickMouse(machineItem)  ; Select the full stack.
-            return
+        if selectedAmount == 0 {  ; If OCR fails, rotate 1 degree in the current direction.
+            degreesToMove := Random(1, 3)
+        } else if selectedAmount >= amountNeeded && selectedAmount <= (amountNeeded * selectionTolerance) {
+            break  ; Exit if the selected amount is within the tolerance. 
         } else {
-            angleFor1Pet := 360 / fullStackAmount  ; Calculate the angle for one unit.
-            angleModifier := 1.00
-            angleRequired := Min(Ceil(angleFor1Pet * amountNeeded * angleModifier), 360)  ; Adjust the angle with a buffer.
-
-            if (angleRequired > 10) {
-                setCurrentAction("OCR PASSED: Calculated Conversion")  ; Notify action taken.
-                writeToLogFile("  Calculated Conversion:   Angle for one Pet: " Round(angleFor1Pet, 2) "   Amount Needed: " AmountNeeded "   Angle Required: " Round(AngleRequired, 2))
-                ; Calculate the coordinates to click based on the angle.
-                smallerRadius := 52
-                X := machineItem[1] + smallerRadius * Cos((angleRequired - 90) * PI / 180)
-                Y := machineItem[2] + smallerRadius * Sin((angleRequired - 90) * PI / 180)
-                leftClickMouseAndWait([X, Y], 200)  ; Perform the click.
-            } else {
-                setCurrentAction("OCR PASSED: Minimum Conversion")  ; Notify minimal action taken.
-                PerformMinimumConversion(machineItem, pixelCheckLocation, 2.5)  ; Perform minimum conversion.
-            }
+            ; If outside tolerance, use random large increments to rotate the angle.
+            ; * Note: Random increments are applied to prevent repeated failed readings of the same amount.
+            ; If within tolerance, use small increments to rotate the angle.
+            incrementTolerance := 0.20
+            lowerBound := amountNeeded * (1 - incrementTolerance)
+            upperBound := amountNeeded * (1 + incrementTolerance)
+            withinTolerance := (selectedAmount >= lowerBound && selectedAmount <= upperBound)
+            degreesToMove := withinTolerance ? smallAngleIncrement : Random(4, 6)
+            ; Determine the direction to rotate.
+            lessThanRequired := (selectedAmount < amountNeeded)
+            direction := lessThanRequired ? 1 : -1
         }
-    } else {
-        setCurrentAction("OCR FAILED: Minimum Conversion")  ; Notify OCR failure and fallback action.
-        PerformMinimumConversion(machineItem, pixelCheckLocation, 5)  ; Perform minimum conversion on OCR failure.
+
+        angle += degreesToMove * direction  ; Change the angle and direction if needed.
+
+        ; Reset the angle if maximum adjustments are reached.
+        if A_Index == maxAnglesChanges {
+            if angle < 180 {
+                selectAngle(itemCoordinates, 15)
+                Sleep 200
+            }
+            break
+        }
+
+        previousLength := StrLen(selectedAmount)  ; Store the length of the current number to compare to the next number.
     }
+
+    writeToLogFile("  Amount Needed: " amountNeeded "   Amount Selected: " selectedAmount "   Angle: " angle)
+
+    SendEvent "{Click up}" ; Release the mouse click after selection.
+    clearOcrResult()  ; Clear the OCR TextRender results from the screen.
 }
 
 ; ----------------------------------------------------------------------------------------
-; PerformMinimumConversion Function
-; Description: Performs a minimal conversion by selecting a small number of items from a stack.
+; selectAngle Function
+; Description: Calculates the X and Y coordinates based on the given angle and moves the mouse to the new position relative to the machine item.
 ; Operation:
-;   - Initiates a click and holds it down to start the selection.
-;   - Moves the mouse in a circle to gradually select items.
-;   - Continuously checks if enough items have been selected to perform an upgrade.
-;   - Stops the selection process once enough items are detected in the upgrade window.
-; Dependencies:
-;   - SendEvent, MouseMove, PixelSearch: Functions for simulating mouse movements and checking pixels.
+;   - Converts the given angle to radians.
+;   - Calculates the new X and Y coordinates using trigonometric functions (cosine and sine).
+;   - Moves the mouse to the new coordinates.
+; Dependencies: None
 ; Parameters:
-;   - machineItem: Coordinates of the item stack.
-;   - pixelCheckLocation: Coordinates for checking pixel color to confirm selection.
-; Return: None; manipulates UI elements to select a minimal number of items.
+;   - itemCoordinates: An array containing the base X and Y coordinates of the machine item.
+;   - angle: The angle in degrees to calculate the new mouse position.
+; Return: None
 ; ----------------------------------------------------------------------------------------
-PerformMinimumConversion(machineItem, pixelCheckLocation, incrementAmount) {
-    SendEvent "{Click down, " machineItem[1] ", " machineItem[2] ", 1}"  ; Start the selection by holding down a click at the initial stack coordinates.
-    MouseMove machineItem[1] + RADIUS, machineItem[2]  ; Move mouse slightly to start the selection circle.
-    ; Loop to rotate the selection in small steps.
-    totalIncrements := (360 / incrementAmount)
-    Loop totalIncrements {
-        angleCalculated := A_Index * incrementAmount
-        ; Calculate new coordinates for each step in the circle using trigonometric functions.
-        X := machineItem[1] + RADIUS * Cos((angleCalculated - 90) * PI / 180)
-        Y := machineItem[2] + RADIUS * Sin((angleCalculated - 90) * PI / 180)
-        MouseMove X, Y  ; Move mouse to the new calculated position.
-        Sleep 200  ; Pause briefly to allow UI to update.
+selectAngle(itemCoordinates, angle) {
+    X := itemCoordinates[1] + RADIUS * Cos((angle - 90) * PI / 180)  ; Calculate the X coordinate.
+    Y := itemCoordinates[2] + RADIUS * Sin((angle - 90) * PI / 180)  ; Calculate the Y coordinate.
+    MouseMove X, Y  ; Move mouse to the new calculated position.
+}
 
-        ; Check if enough items have been selected by looking for a specific pixel color in the upgrade window.
-        if !(PixelSearch(&X, &Y, pixelCheckLocation[1], pixelCheckLocation[2], pixelCheckLocation[1] + 5, pixelCheckLocation[2] + 5, 0xFFFFFF, 15))
-            break  ; Exit the loop if the correct pixel is detected, indicating enough items are selected.
-
-    }
-    SendEvent "{Click up}" ; Release the mouse click after selection.
-    writeToLogFile("  Minimum Conversion   Angle Used: " Round(angleCalculated, 2))
+; ----------------------------------------------------------------------------------------
+; readSelectedAmount Function
+; Description: Performs OCR on a specified rectangular area of the Roblox window to read the selected amount of items.
+; Operation:
+;   - Retrieves the position of the Roblox window.
+;   - Adjusts the OCR start coordinates based on the window position.
+;   - Calculates the end coordinates for the OCR area.
+;   - Highlights the OCR area for visual reference (optional).
+;   - Performs OCR on the specified rectangular area.
+;   - Extracts and cleans the selected amount from the OCR result.
+;   - Returns the cleaned selected amount and the raw OCR text.
+; Dependencies:
+;   - WinGetClientPos: Retrieves the position of the Roblox window.
+;   - OCR.FromRect: Performs OCR on the specified rectangular area.
+;   - Pin: Highlights the OCR area (optional).
+; Parameters:
+;   - ocrStart: An array containing the X and Y start coordinates for the OCR area.
+;   - ocrSize: An array containing the width and height of the OCR area.
+; Return: A map containing the cleaned selected amount and the raw OCR text.
+; ----------------------------------------------------------------------------------------
+readSelectedAmount(ocrStart, ocrSize) {
+    
+    WinGetClientPos &windowTopLeftX, &windowTopLeftY, , , "ahk_exe RobloxPlayerBeta.exe"  ; Get the position of the Roblox window.
+    
+    ocrStart := [ocrStart[1] + windowTopLeftX, ocrStart[2] + windowTopLeftY]  ; Adjust OCR start coordinates based on the window position.
+    ocrEnd := [ocrStart[1] + ocrSize[1], ocrStart[2] + ocrSize[2]]  ; Calculate end coordinates for the OCR area.
+    ocrBorder := Pin(ocrStart[1], ocrStart[2], ocrEnd[1], ocrEnd[2], 100, "b1 flash0")  ; Highlight the OCR area for visual reference (optional).
+    ocrObjectResult := OCR.FromRect(ocrStart[1], ocrStart[2], ocrSize[1], ocrSize[2], , 20)  ; Perform OCR on the specified rectangular area with the given scale.
+    
+    ; Extract and clean the selected amount from the OCR result.
+    selectedAmount := RegExReplace(ocrObjectResult.Text, "\D", "")
+    selectedAmount := (selectedAmount = "") ? 0 : selectedAmount
+    
+    ocrBorder.Destroy()  ; Destroy the OCR area highlight.
+    
+    return Map("SelectedAmount", selectedAmount, "OcrRawText", ocrObjectResult.Text)  ; Return the cleaned selected amount and the raw OCR text.
 }
 
 
@@ -1229,8 +1494,7 @@ eatFruit() {
         for fruitItem in fruitArray {
             useItem(fruitItem, 2, 2, true)
         }
-        closeInventoryMenu()
-        closeErrorMessageWindow()
+        closeAllWindows()
     }
 }
 
@@ -1283,27 +1547,24 @@ clickAutoFarmButton() {
 ; ----------------------------------------------------------------------------------------
 applyAutoHatchSettings(chargedOverride := false) {
     activateRoblox()  ; Activate the Roblox window.
-    closeAutoHatchMenu()  ; Close the auto hatch menu if it's open.
+    closeAllWindows()
     leftClickMouseAndWait(COORDS["Controls"]["HatchSettings"], 500)  ; Click the auto hatch button to open the menu.
-    leftClickMouseAndWait(COORDS["HatchSettings"]["AutoHatchOn"], 200)  ; Turn on auto hatch.
     setCurrentAction("Updating Auto Hatch Settings")
-    ; Set hatch charged pets option based on settings.
-    if chargedOverride
-        leftClickMouseAndWait(COORDS["HatchSettings"]["ChargedEggsOff"], 200)
-    else {
-        if (getSetting("HatchChargedEggs") == "true")
-            leftClickMouseAndWait(COORDS["HatchSettings"]["ChargedEggsOff"], 200)
+
+    Loop 10 {
+        if PixelSearch(&foundX, &foundY, 
+            AUTO_HATCH_MENU["Start"][1], AUTO_HATCH_MENU["Start"][2],  
+            AUTO_HATCH_MENU["End"][1], AUTO_HATCH_MENU["End"][2],  
+            AUTO_HATCH_MENU["Colour"], AUTO_HATCH_MENU["Tolerance"])
+            leftClickMouseAndWait([foundX, foundY], 100)
         else
-            leftClickMouseAndWait(COORDS["HatchSettings"]["ChargedEggsOn"], 200)
+            break
     }
 
-    ; Set hatch golden pets option based on settings.
-    if (getSetting("HatchGoldenEggs") == "true")
-        leftClickMouseAndWait(COORDS["HatchSettings"]["GoldenEggsOff"], 200)
-    else
-        leftClickMouseAndWait(COORDS["HatchSettings"]["GoldenEggsOn"], 200)
+    if chargedOverride
+        leftClickMouseAndWait(COORDS["HatchSettings"]["ChargedEggsOff"], 200)
 
-    closeAutoHatchMenu()  ; Close the auto hatch menu after applying settings.
+    closeAllWindows()
 }
 
 ; ----------------------------------------------------------------------------------------
@@ -1316,50 +1577,48 @@ applyAutoHatchSettings(chargedOverride := false) {
 ; Return: None; interacts directly with the game's UI.
 ; ----------------------------------------------------------------------------------------
 closeAutoHatchMenu() {
-    leftClickMouseAndWait(COORDS["HatchSettings"]["X"], 50)
+    closeWindow(AUTOHATCH_MENU_X)
 }
+
+isHatchMenuOpen() {
+    ; Perform pixel search within specified coordinates and color.
+    return PixelSearch(&foundX, &foundY,  
+        HATCHING_MENU_BUY["Start"][1], HATCHING_MENU_BUY["Start"][2], 
+        HATCHING_MENU_BUY["End"][1], HATCHING_MENU_BUY["End"][2],  
+        HATCHING_MENU_BUY["Colour"], HATCHING_MENU_BUY["Tolerance"])     
+}
+
 
 
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 ; FREE GIFTS / REWARDS FUNCTIONS
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 
-; ----------------------------------------------------------------------------------------
-; claimFreeGifts Function
-; Description: Claims free gifts available in the game when they are ready by interacting with the UI.
-; Operation:
-;   - Checks if free gifts are ready using the areFreeGiftsReady function.
-;   - If gifts are ready, clicks the free gifts button to open the rewards menu.
-;   - Retrieves coordinates and offsets for the placement of gifts within the UI.
-;   - Iterates over rows and columns of gifts, calculating exact coordinates for each gift.
-;   - Clicks on each gift sequentially to claim it.
-;   - Closes the free gifts menu after all gifts are claimed.
-; Dependencies:
-;   - areFreeGiftsReady, leftClickMouseAndWait: Functions to check gift readiness and perform timed clicks.
-;   - COORDS: Global variable containing coordinate data for UI elements.
-; Return: None; directly interacts with the game's UI to claim gifts.
-; ----------------------------------------------------------------------------------------
+
 claimFreeGifts() {
-    if (areFreeGiftsReady() == true) {  ; Check if the free gifts are ready to be claimed.
-        leftClickMouseAndWait(COORDS["Controls"]["FreeGifts"], "FreeGiftsAfterOpened")  ; Open the free gifts menu.
-        firstGiftLocation := COORDS["FreeRewards"]["Reward1"]  ; Get coordinates for the first gift.
-        giftOffset := COORDS["FreeRewards"]["Offset"]  ; Get offset for positioning between gifts.
+    if !areFreeGiftsReady()  ; Check if the free gifts are ready to be claimed.
+        return
+        
+    leftClickMouseAndWait(COORDS["Controls"]["FreeGifts"], "FreeGiftsAfterOpened")  ; Open the free gifts menu.
+    firstGiftLocation := COORDS["FreeRewards"]["Reward1"]  ; Get coordinates for the first gift.
+    giftOffset := COORDS["FreeRewards"]["Offset"]  ; Get offset for positioning between gifts.
 
-        ; Iterate over three rows of gifts.
-        Loop 3 {
-            giftToClickY := firstGiftLocation[2] + ((A_Index - 1) * giftOffset[2])  ; Calculate y-coordinate for the current row.
+    ; Iterate over three rows of gifts.
+    Loop 3 {
+        giftToClickY := firstGiftLocation[2] + ((A_Index - 1) * giftOffset[2])  ; Calculate y-coordinate for the current row.
 
-            ; Iterate over four gifts in the current row.
-            Loop 4 {
-                giftToClickX := firstGiftLocation[1] + ((A_Index - 1) * giftOffset[1])  ; Calculate x-coordinate for the current gift.
-                giftToClick := [giftToClickX, giftToClickY]  ; Form the coordinate array for the gift.
-
-                leftClickMouseAndWait(giftToClick, "FreeGiftAfterClicked")  ; Click on the gift to claim it.
-            }
+        ; Iterate over four gifts in the current row.
+        Loop 4 {
+            giftToClickX := firstGiftLocation[1] + ((A_Index - 1) * giftOffset[1])  ; Calculate x-coordinate for the current gift.
+            giftToClick := [giftToClickX, giftToClickY]  ; Form the coordinate array for the gift.
+            MouseMove giftToClickX, giftToClickY
+            activateMouseHover()
+            leftClickMouseAndWait(giftToClick, "FreeGiftAfterClicked")  ; Click on the gift to claim it.
         }
-
-        leftClickMouseAndWait(COORDS["FreeRewards"]["X"], "FreeGiftsAfterClosed")  ; Close the gifts menu after all gifts are claimed.
     }
+
+    closeFreeGiftsMenu()
+
 }
 
 
@@ -1402,8 +1661,11 @@ clickRewardsButton() {
 ; Return: None; directly interacts with the game's UI to close the menu.
 ; ----------------------------------------------------------------------------------------
 closeRewardsMenu() {
-    activateRoblox()  ; Ensure the Roblox window is active.
-    leftClickMouseAndWait(COORDS["RankRewards"]["X"], 250)  ; Click the close button and wait for the menu to close.
+    closeWindow(REWARDS_MENU_X)
+}
+
+closeFreeGiftsMenu() {
+    closeWindow(FREE_GIFTS_MENU_X)
 }
 
 
@@ -1471,7 +1733,7 @@ goToVoid() {
     setCurrentAction("Teleporting to the Void")  ; Display an action update to the user.
 
     ; Perform the final teleportation action.
-    leftClickMouseAndWait(COORDS["Worlds"][3], "TeleportAfterSearchCompleted")  ; Click the Void's teleport button.
+    leftClickMouseAndWait(COORDS["Worlds"][3], "TeleportAfterZoneClicked")  ; Click the Void's teleport button.
 }
 
 ; ----------------------------------------------------------------------------------------
@@ -1493,9 +1755,9 @@ goToVipArea() {
         return
 
     goToVoid()  ; Start by going to the first ZONE
-    clickAutoFarmButton()  ; Close any open menus.
+    clickAutoFarmButton()
     moveToVipArea()  ; Navigate to the VIP area.
-    clickAutoFarmButton()  ; Close menus again.
+    clickAutoFarmButton()
 
     if (getSetting("UseFlagInVip") == "true")  ; Check for flag use setting.
         useItem("Diamonds Flag", 2)  ; Use flag if applicable.
@@ -1505,48 +1767,61 @@ goToVipArea() {
 
 ; ----------------------------------------------------------------------------------------
 ; farmBestZone Function
-; Description: Ensures the player is in the best zone, utilizing features like teleportation and item usage.
+; Description: Navigates to the best farming zone, activates auto-farming, and uses various abilities and items based on settings.
 ; Operation:
-;   - Verifies if already in the best zone and uses ultimate ability if so.
-;   - Teleports to the second-best zone if the current zone is unknown, then proceeds to the best ZONE
-;   - Activates auto-farming, navigates to the center of the zone, and manages menu interactions.
+;   - Checks the current area and moves to the best area if not already there.
+;   - Activates auto-farming.
 ;   - Uses flags and sprinklers in the best zone based on settings.
-;   - Employs the ultimate ability to maximize effectiveness.
+;   - Uses the ultimate ability, closes any open windows, zooms the camera out, and shoots down balloons.
 ; Dependencies:
-;   - getCurrentZone, teleportToZone, clickAutoFarmButton, moveToCentreOfTheBestZone, 
-;     useItem, useUltimate: Functions that facilitate navigation, item use, and ability activation.
-; Return: None; alters gameplay by optimizing player's zone positioning and item use.
+;   - getCurrentArea: Retrieves the current area in the game.
+;   - getCurrentZone: Retrieves the current zone in the game.
+;   - clickAutoFarmButton: Toggles the auto-farm button.
+;   - moveToBestAreaFromBestEgg: Moves to the best area from the best egg.
+;   - teleportToZone: Teleports to a specified zone.
+;   - moveToZoneCentre: Moves to the center of a specified zone.
+;   - setCurrentArea: Sets the current area in the game.
+;   - getSetting: Retrieves various settings like flag and sprinkler usage.
+;   - SendEvent: Sends a key event.
+;   - useUltimate: Uses the ultimate ability.
+;   - closeAllWindows: Closes any open windows.
+;   - zoomCameraOut: Zooms the camera out.
+;   - shootDownBalloons: Shoots down balloons.
+; Parameters: None
+; Return: None
 ; ----------------------------------------------------------------------------------------
 farmBestZone() {
+    if getCurrentArea() != "Best Area" {  ; Check if the current area is not "Best Area".
 
-    if getCurrentArea() != "Best Area" {
-
-        clickAutoFarmButton()
+        clickAutoFarmButton()  ; Activate auto-farming.
         if getCurrentArea() == "Best Egg"
-            moveToBestAreaFromBestEgg()
+            moveToBestAreaFromBestEgg()  ; Move to the best area from the best egg.
         else {
-
             if getCurrentZone() == "-" || getCurrentZone() == BEST_ZONE
-                teleportToZone(SECOND_BEST_ZONE)
+                teleportToZone(SECOND_BEST_ZONE)  ; Teleport to the second best zone if current zone is unknown or the best zone.
 
-            teleportToZone(BEST_ZONE)
-            moveToCentreOfTheBestZone()
+            teleportToZone(BEST_ZONE)  ; Teleport to the best zone.
+            moveToZoneCentre(BEST_ZONE)  ; Move to the center of the best zone.
         }
-
-        setCurrentArea("Best Area")
-        clickAutoFarmButton()        
+        setCurrentArea("Best Area")  ; Set the current area to "Best Area".
+        clickAutoFarmButton()  ; Activate auto-farming again.
     }
 
     if (getSetting("UseFlagInBestZone") == "true") {  ; Check for flag usage setting.
-        flagToUse := getSetting("FlagToUseInBestZone")
-        useItem(flagToUse, 2)  ; Use the designated flag.
+        keybind := getSetting("FlagLastZoneKeybind")
+        SendEvent keybind  ; Use the flag keybind.
     }
-    if (getSetting("UseSprinklerInBestZone") == "true")  ; Check for sprinkler usage setting.
-        useItem("Sprinkler", 2)  ; Use a sprinkler.
+    if (getSetting("UseSprinklerInBestZone") == "true") { ; Check for sprinkler usage setting.
+        keybind := getSetting("SprinklerKeybind")
+        SendEvent keybind  ; Use the sprinkler keybind.
+    }
 
-    useUltimate()  ; Employ the ultimate ability.
-
+    useUltimate()  ; Use the ultimate ability.
+    closeAllWindows()  ; Close all open windows.
+    zoomCameraOut(1500)  ; Zoom the camera out.
+    shootDownBalloons()  ; Shoot down balloons.
 }
+
 
 
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
@@ -1579,7 +1854,7 @@ openInventoryMenu() {
 ; Return: None; directly interacts with the game's UI.
 ; ----------------------------------------------------------------------------------------
 closeInventoryMenu() {
-    leftClickMouseAndWait(COORDS["Inventory"]["X"], "InventoryAfterClosed")  ; Click to close the inventory.
+    closeWindow(INVENTORY_MENU_X)
 }
 
 ; ----------------------------------------------------------------------------------------
@@ -1671,21 +1946,14 @@ useItem(itemToUse, tabToUse := 2, amountToUse := 1, useMaxItem := false, checkFo
     clickInventoryTab(tabToUse)  ; Navigate to the specified tab in the inventory.
     clickInventorySearchBox()  ; Activate the search box for item input.
 
-    ; Conditionally search for the item and check if it's found.
-    if (checkForitemFound == false) {
-        searchInventoryForItem(tabToUse, itemToUse)  ; Search for the item without verification.
-        isitemFound := true  ; Assume item is found if not checking.
-    } else {
-        isitemFound := searchInventoryForItem(tabToUse, itemToUse)  ; Search for the item and verify presence.
-    }
-    
+    isitemFound := searchInventoryForItem(tabToUse, itemToUse)
+
     ; Use the item if it's found.
-    if (isitemFound == true) {
+    if !checkForitemFound || (checkForitemFound && isitemFound) {
         clickItem(tabToUse, amountToUse, useMaxItem)  ; Interact with the item based on the specified amount and max usage flag.
     }
     
-    closeInventoryMenu()  ; Close the inventory after operations are complete.
-    closeErrorMessageWindow()  ; Handle any potential errors by closing error messages.
+    closeAllWindows()
     moveMouseToCentreOfScreen()  ; Re-center the mouse on the screen.
     return isitemFound  ; Return the result of the item search and use process.
 }
@@ -1721,7 +1989,7 @@ clickItem(tabToUse, amountToUse, useMaxItem) {
     multipleItemUsed := false
 
     ; Handle max usage based on user input.
-    if (useMaxItem) {
+    if useMaxItem {
         rightClickMouseAndWait(inventoryTab, 200)  ; Right-click to open options for using items.
         ocrObjectResult := getOcrResult(COORDS["OCR"]["FruitMenuStart"], COORDS["OCR"]["FruitMenuSize"], 5, false)  ; Obtain text from the item menu.
         ocrTextResult := ocrObjectResult.Text
@@ -1770,131 +2038,6 @@ clickItem(tabToUse, amountToUse, useMaxItem) {
 
 
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
-; MOVEMENT FUNCTIONS
-; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
-
-; ----------------------------------------------------------------------------------------
-; moveRight Function
-; Description: Simulates moving right by pressing and holding the 'd' key.
-; Parameters:
-;   - milliseconds: Duration to hold the 'd' key.
-; Operation:
-;   - Presses and holds the 'd' key, sleeps for specified milliseconds, then releases the key.
-; Return: None; directly interacts with keyboard inputs.
-; ----------------------------------------------------------------------------------------
-moveRight(milliseconds) {
-    Send "{d down}"
-    Sleep milliseconds
-    Send "{d up}"
-}
-
-; ----------------------------------------------------------------------------------------
-; moveLeft Function
-; Description: Simulates moving left by pressing and holding the 'a' key.
-; Parameters:
-;   - milliseconds: Duration to hold the 'a' key.
-; Operation:
-;   - Presses and holds the 'a' key, sleeps for specified milliseconds, then releases the key.
-; Return: None; directly interacts with keyboard inputs.
-; ----------------------------------------------------------------------------------------
-moveLeft(milliseconds) {
-    Send "{a down}"
-    Sleep milliseconds
-    Send "{a up}"
-}
-
-; ----------------------------------------------------------------------------------------
-; moveUp Function
-; Description: Simulates moving up by pressing and holding the 'w' key.
-; Parameters:
-;   - milliseconds: Duration to hold the 'w' key.
-; Operation:
-;   - Presses and holds the 'w' key, sleeps for specified milliseconds, then releases the key.
-; Return: None; directly interacts with keyboard inputs.
-; ----------------------------------------------------------------------------------------
-moveUp(milliseconds) {
-    Send "{w down}"
-    Sleep milliseconds
-    Send "{w up}"
-}
-
-; ----------------------------------------------------------------------------------------
-; moveDown Function
-; Description: Simulates moving down by pressing and holding the 's' key.
-; Parameters:
-;   - milliseconds: Duration to hold the 's' key.
-; Operation:
-;   - Presses and holds the 's' key, sleeps for specified milliseconds, then releases the key.
-; Return: None; directly interacts with keyboard inputs.
-; ----------------------------------------------------------------------------------------
-moveDown(milliseconds) {
-    Send "{s down}"
-    Sleep milliseconds
-    Send "{s up}"
-}
-
-; ----------------------------------------------------------------------------------------
-; moveUpLeft Function
-; Description: Simulates moving diagonally up-left by pressing and holding the 'w' and 'a' keys.
-; Parameters:
-;   - milliseconds: Duration to hold the 'w' and 'a' keys.
-; Operation:
-;   - Presses and holds both the 'w' and 'a' keys, sleeps for specified milliseconds, then releases the keys.
-; Return: None; directly interacts with keyboard inputs.
-; ----------------------------------------------------------------------------------------
-moveUpLeft(milliseconds) {
-    Send "{w down}{a down}"
-    Sleep milliseconds
-    Send "{w up}{a up}"
-}
-
-; ----------------------------------------------------------------------------------------
-; moveUpRight Function
-; Description: Simulates moving diagonally up-right by pressing and holding the 'w' and 'd' keys.
-; Parameters:
-;   - milliseconds: Duration to hold the 'w' and 'd' keys.
-; Operation:
-;   - Presses and holds both the 'w' and 'd' keys, sleeps for specified milliseconds, then releases the keys.
-; Return: None; directly interacts with keyboard inputs.
-; ----------------------------------------------------------------------------------------
-moveUpRight(milliseconds) {
-    Send "{w down}{d down}"
-    Sleep milliseconds
-    Send "{w up}{d up}"
-}
-
-; ----------------------------------------------------------------------------------------
-; moveDownLeft Function
-; Description: Simulates moving diagonally down-left by pressing and holding the 's' and 'a' keys.
-; Parameters:
-;   - milliseconds: Duration to hold the 's' and 'a' keys.
-; Operation:
-;   - Presses and holds both the 's' and 'a' keys, sleeps for specified milliseconds, then releases the keys.
-; Return: None; directly interacts with keyboard inputs.
-; ----------------------------------------------------------------------------------------
-moveDownLeft(milliseconds) {
-    Send "{s down}{a down}"
-    Sleep milliseconds
-    Send "{s up}{a up}"
-}
-
-; ----------------------------------------------------------------------------------------
-; moveDownRight Function
-; Description: Simulates moving diagonally down-right by pressing and holding the 's' and 'd' keys.
-; Parameters:
-;   - milliseconds: Duration to hold the 's' and 'd' keys.
-; Operation:
-;   - Presses and holds both the 's' and 'd' keys, sleeps for specified milliseconds, then releases the keys.
-; Return: None; directly interacts with keyboard inputs.
-; ----------------------------------------------------------------------------------------
-moveDownRight(milliseconds) {
-    Send "{s down}{d down}"
-    Sleep milliseconds
-    Send "{s up}{d up}"
-}
-
-
-; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 ; TELEPORT FUNCTIONS
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 
@@ -1923,7 +2066,7 @@ openTeleportMenu() {
 ; Return: None; closes the teleport menu within the application.
 ; ----------------------------------------------------------------------------------------
 closeTeleportMenu() {
-    leftClickMouseAndWait(COORDS["Teleport"]["X"], "TeleportAfterClosed")  ; Click to close the teleport menu.
+    closeWindow(TELEPORT_MENU_X)
 }
 
 ; ----------------------------------------------------------------------------------------
@@ -1952,19 +2095,30 @@ teleportToZone(zoneNumber) {
     activateRoblox()  ; Ensure Roblox window is active.
     setCurrentArea("-")  ; Clear current area display.
     setCurrentZone(zoneNumber)  ; Set new zone number.
-    closeTeleportMenu()  ; Ensure the teleport menu is not already open.
+    closeAllWindows()
     openTeleportMenu()  ; Open the teleport menu.
     leftClickMouseAndWait(COORDS["Teleport"]["Search"], "TeleportAfterSearchClicked")  ; Click in the search box.
     zoneName := ZONE.Get(zoneNumber)  ; Retrieve the name of the ZONE
     SendText zoneName  ; Enter the zone name into the search.
     waitTime("TeleportAfterSearchCompleted")  ; Wait for search to process.
-    MouseMove COORDS["Teleport"]["Zone"][1], COORDS["Teleport"]["Zone"][2]  ; Position cursor over the zone button.
-    activateMouseHover()  ; Simulate hover to enable the button.
-    leftClickMouseAndWait(COORDS["Teleport"]["Zone"], 250)  ; Click to initiate teleport.
-    leftClickMouseAndWait(COORDS["Errors"]["Ok"], 200)  ; Close any error messages that might appear.
-    leftClickMouseAndWait(COORDS["Teleport"]["X"], "TeleportAfterZoneClicked")  ; Close the teleport menu.
+    
+    if !isAlreadyInZone() {
+        MouseMove COORDS["Teleport"]["Zone"][1], COORDS["Teleport"]["Zone"][2]  ; Position cursor over the zone button.
+        activateMouseHover()  ; Simulate hover to enable the button.
+        leftClickMouseAndWait(COORDS["Teleport"]["Zone"], 250)  ; Click to initiate teleport.
+        leftClickMouseAndWait(COORDS["Errors"]["Ok"], 200)  ; Close any error messages that might appear.
+        leftClickMouseAndWait(COORDS["Teleport"]["X"], "TeleportAfterZoneClicked")  ; Close the teleport menu.
+    }
+
+    closeAllWindows()
 }
 
+isAlreadyInZone() {
+    return PixelSearch(&foundX, &foundY, 
+        ZONE_SEARCH["Start"][1], ZONE_SEARCH["Start"][2],  
+        ZONE_SEARCH["End"][1], ZONE_SEARCH["End"][2],  
+        ZONE_SEARCH["Colour"], ZONE_SEARCH["Tolerance"])    
+}
 
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 ; RANK REWARDS FUNCTIONS
@@ -2003,7 +2157,7 @@ clickClaimRewardsButton() {
 ;   - Resets the current action to inactive.
 ; Dependencies:
 ;   - setCurrentAction, getRewardsText, closeRewardsMenu, clickClaimRewardsButton, 
-;     leftClickMouseAndWait, claim8Rewards, scrollMouseWheel: Functions used for various tasks.
+;     leftClickMouseAndWait, scrollMouseWheel: Functions used for various tasks.
 ; Return: None; orchestrates UI interactions to manage reward claiming processes.
 ; ----------------------------------------------------------------------------------------
 checkForClaimRewards() {
@@ -2011,30 +2165,10 @@ checkForClaimRewards() {
     rewardsText := getRewardsText()  ; Retrieve rewards text.
     if (regexMatch(rewardsText, "CLAIM|REW|ARD|MAX")) {  ; Check for claimable rewards.
         setCurrentAction("Claiming Rewards")
-        closeRewardsMenu()  ; Close any rewards menu.
+        closeAllWindows()
         clickClaimRewardsButton()  ; Initiate the claim process.
-        leftClickMouseAndWait(COORDS["RankRewards"]["Heading"], 50)  ; Focus on the heading.
-        ; Sequentially claim rewards from each row, scrolling as needed.
-        claim8Rewards(COORDS["RankRewards"]["Button1"])
-        scrollMouseWheel("{WheelDown}", 3)
-        claim8Rewards(COORDS["RankRewards"]["Button9"])
-        scrollMouseWheel("{WheelDown}", 3)
-        claim8Rewards(COORDS["RankRewards"]["Button17"])
-        scrollMouseWheel("{WheelDown}", 2)
-        claim8Rewards(COORDS["RankRewards"]["Button25"])
-        scrollMouseWheel("{WheelDown}", 3)
-        claim8Rewards(COORDS["RankRewards"]["Button33"])
-        scrollMouseWheel("{WheelDown}", 3)
-        claim8Rewards(COORDS["RankRewards"]["Button41"])
-        scrollMouseWheel("{WheelDown}", 3)
-        claim8Rewards(COORDS["RankRewards"]["Button49"])
-        scrollMouseWheel("{WheelDown}", 5)  ; Scroll to the last row.
-        claim8Rewards(COORDS["RankRewards"]["ButtonLast"])
-        ; Click for more rewards if applicable.
-        Loop 4 {
-            leftClickMouseAndWait(COORDS["RankRewards"]["ClickForMore"], 500)
-        }
-        closeRewardsMenu()  ; Close the rewards menu after claiming.
+        findAndClickClaimButtons()
+        closeAllWindows()
 
         writeToLogFile("**************************************************")        
         writeToLogFile("*** RANK UP ***")        
@@ -2043,133 +2177,173 @@ checkForClaimRewards() {
     setCurrentAction("-")  ; Reset the current action.
 }
 
-; ----------------------------------------------------------------------------------------
-; claim8Rewards Function
-; Description: Simulates mouse clicks to claim eight rewards arranged in two rows.
-; Parameters:
-;   - rewardButton: An array containing the starting X and Y coordinates for the first reward button.
-; Operation:
-;   - Retrieves the coordinate offsets for moving between reward buttons from a predefined structure.
-;   - Loops twice to address two rows of rewards, calculating the Y coordinate for each row.
-;   - For each row, loops four times to claim four rewards, calculating the X coordinate for each reward.
-;   - Performs a mouse click at each calculated reward button coordinate.
-;   - Includes a brief pause after each click to mimic human interaction.
-; Dependencies:
-;   - COORDS: Global variable storing coordinates and offsets for UI elements.
-;   - SendEvent: Function used to simulate mouse clicks.
-; Return: None; performs screen interactions to claim rewards.
-; ----------------------------------------------------------------------------------------
-claim8Rewards(rewardButton) {
-    rewardButtonOffset := COORDS["RankRewards"]["Offset"]  ; Get the offset for moving between reward buttons.
-    Loop 2 {  ; Loop to handle two rows of rewards.
-        yOffset := rewardButtonOffset[2] * (A_Index - 1)  ; Calculate Y coordinate offset for the current row.
-        yToClick := rewardButton[2] + yOffset  ; Determine the Y coordinate for the current row's rewards.
-        Loop 4 {  ; Loop to handle four rewards per row.
-            xOffset := rewardButtonOffset[1] * (A_Index - 1)  ; Calculate X coordinate offset for the current reward.
-            xToClick := rewardButton[1] + xOffset  ; Determine the X coordinate for the current reward.
-            SendEvent "{Click, " xToClick ", " yToClick ", 1}"  ; Simulate click at the reward button coordinate.
-            Sleep 200  ; Pause to simulate realistic clicking speed.
-        }
-    }
-}
-
 
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 ; HATCHING FUNCTIONS
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 
-
+; ----------------------------------------------------------------------------------------
+; hatchBestEgg Function
+; Description: Hatches the best egg a specified number of times by navigating to the appropriate area and using the hatch function.
+; Operation:
+;   - Checks the current area and moves to the best egg location if not already there.
+;   - Uses different strategies based on the current area and settings to navigate to the best egg.
+;   - Calculates the number of times to hatch eggs based on the setting for eggs at once.
+;   - Calls the hatchEgg function with the calculated number of times.
+; Dependencies:
+;   - getCurrentArea: Retrieves the current area in the game.
+;   - moveToBestEggFromBestArea: Moves to the best egg from the best area.
+;   - getSetting: Retrieves various settings like auto farm gamepass and eggs at once.
+;   - farmBestZone: Navigates to the best farming zone.
+;   - teleportToZone: Teleports to a specified zone.
+;   - moveToBestEgg: Moves to the best egg in the game.
+;   - hatchEgg: Hatches the egg a specified number of times.
+; Parameters:
+;   - amountToHatch: The number of eggs to hatch.
+; Return: None
+; ----------------------------------------------------------------------------------------
 hatchBestEgg(amountToHatch) {
-    if getCurrentArea() != "Best Egg" {
+    if getCurrentArea() != "Best Egg" {  ; Check if the current area is not "Best Egg"
+        
+        if getCurrentArea() == "Best Area" {  ; If the current area is "Best Area"
+            moveToBestEggFromBestArea()  ; Move to the best egg from the best area
+        } else {
+            if getSetting("HasGamepassAutoFarm") == "true" {  ; Check if the player has the Auto Farm gamepass
+                farmBestZone()  ; Navigate to the best farming zone
+                moveToBestEggFromBestArea()  ; Move to the best egg from the best area
+            } else {
+                if getCurrentArea() == "-"  ; Check if the current area is unknown ("-")
+                    teleportToZone(SECOND_BEST_ZONE)  ; Teleport to the second best zone
 
-        if getCurrentArea() == "Best Area"
-            moveToBestEggFromBestArea()
-        else {
-            if getSetting("HasGamepassAutoFarm") == "true" {
-                farmBestZone()
-                moveToBestEggFromBestArea()  
+                teleportToZone(BEST_ZONE)  ; Teleport to the best zone
+                moveToBestEgg()  ; Move to the best egg in the best zone
             }
-            else {
-                if getCurrentArea() == "-"
-                    teleportToZone(SECOND_BEST_ZONE)
-
-                teleportToZone(BEST_ZONE)
-                moveToBestEgg()     
-            }
-            Sleep 100
+            Sleep 100  ; Short delay to ensure the moves are completed
         }
     }
 
-    eggsAtOnce := getSetting("EggsAtOnce")
-    timesToHatch := Ceil(amountToHatch / eggsAtOnce)    
-    hatchEgg(timesToHatch)
+    eggsAtOnce := getSetting("EggsAtOnce")  ; Get the setting for the number of eggs to hatch at once
+    timesToHatch := Ceil(amountToHatch / eggsAtOnce)  ; Calculate the number of hatching cycles needed
+    hatchEgg(timesToHatch)  ; Hatch the eggs the calculated number of times
 }
 
 ; ----------------------------------------------------------------------------------------
 ; hatchRarePetEgg Function
-; Description: Handles the process of hatching rare pet eggs based on specified amounts and conditions.
+; Description: Hatches rare pet eggs by navigating to the rare egg location and using the hatch function.
 ; Operation:
-;   - Checks if the current area is not the rare egg zone and navigates there if necessary.
-;   - Calculates the number of times to hatch eggs based on the amount and a predefined rate.
-;   - Hatches the rare pet eggs as per the calculated frequency.
+;   - Checks the current area and moves to the rare egg location if not already there.
+;   - Uses different strategies based on the current area and settings to navigate to the rare egg.
+;   - Applies auto hatch settings if necessary.
+;   - Calculates the number of times to hatch rare eggs based on the settings.
+;   - Calls the hatchEgg function with the calculated number of times.
 ; Dependencies:
-;   - getCurrentArea, getSetting, getCurrentZone, farmBestZone, moveToRareEgg, hatchEgg: Functions to verify and change locations, retrieve settings, and manage egg hatching.
-; Return: None; changes the player's location and initiates the hatching of rare pet eggs.
+;   - getCurrentArea: Retrieves the current area in the game.
+;   - getSetting: Retrieves various settings like auto farm gamepass and number of rare egg hatches.
+;   - getCurrentZone: Retrieves the current zone in the game.
+;   - farmBestZone: Navigates to the best farming zone.
+;   - teleportToZone: Teleports to a specified zone.
+;   - moveToRareEgg: Moves to the rare egg in the specified zone.
+;   - applyAutoHatchSettings: Applies auto hatch settings.
+;   - hatchEgg: Hatches the egg a specified number of times.
+; Parameters: None
+; Return: None
 ; ----------------------------------------------------------------------------------------
 hatchRarePetEgg() {
-    if (getCurrentArea() != "Rare Egg") {
-        if (getSetting("HasGamepassAutoFarm") == "true") {
-            if (getCurrentZone() != BEST_ZONE)
-                farmBestZone()
+    if (getCurrentArea() != "Rare Egg") {  ; Check if the current area is not "Rare Egg"
+        if (getSetting("HasGamepassAutoFarm") == "true") {  ; Check if the player has the Auto Farm gamepass
+            if (getCurrentZone() != BEST_ZONE)  ; Check if the current zone is not the best zone
+                farmBestZone()  ; Navigate to the best farming zone
         }
-        teleportToZone(SECOND_BEST_ZONE)
-        moveToRareEgg()
-        applyAutoHatchSettings(true)
-        Sleep 100  ; Allow a brief pause for UI updates.
+        else
+            teleportToZone(BEST_ZONE)
+        teleportToZone(RARE_EGG_ZONE)  ; Teleport to the rare egg zone
+        moveToRareEgg()  ; Move to the rare egg in the rare egg zone
+        applyAutoHatchSettings(true)  ; Apply auto hatch settings
+        Sleep 100  ; Allow a brief pause for UI updates
     }
 
-    timesToHatch := getSetting("NumberOfRareEggHatches")
-    hatchEgg(timesToHatch)
+    timesToHatch := getSetting("NumberOfRareEggHatches")  ; Get the setting for the number of rare egg hatches
+    hatchEgg(timesToHatch)  ; Hatch the rare eggs the specified number of times
 }
 
 ; ----------------------------------------------------------------------------------------
 ; hatchEgg Function
-; Description: Automates the process of hatching a specified number of eggs within the game.
+; Description: Hatches a specified number of eggs by interacting with the game's UI, handling edge cases where the hatch menu might not open, and ensuring the process completes.
 ; Operation:
-;   - Closes any unnecessary open windows that could interfere with the hatching process.
-;   - Iteratively sends the 'e' key event to simulate the action of hatching eggs, according to the specified amount.
-;   - Uses mouse clicks to interact with the UI, specifically for buying max eggs and closing unhatched eggs.
-;   - Incorporates pauses to allow for animation completion and UI updates.
-;   - Invokes the use of an ultimate ability at the end of each loop if applicable.
-;   - Clears the screen of any residual UI elements post-hatching by clicking on the middle of the screen.
+;   - Closes all open windows to start with a clean state.
+;   - Loops through the specified number of times to hatch eggs.
+;   - Sends the 'e' key repeatedly to open the hatch menu.
+;   - Handles cases where the hatch menu does not open by logging and resetting the current area.
+;   - Clicks to buy the maximum number of eggs and waits for the process to complete.
+;   - Ensures that the inventory button is visible before and after the hatching process.
 ; Dependencies:
-;   - closeInventoryMenu, closeErrorMessageWindow, setCurrentAction, leftClickMouseAndWait, useUltimate: Functions to manage UI, update action statuses, and enhance gameplay interactions.
-; Return: None; focuses on game UI manipulation and keyboard/mouse event simulation.
+;   - closeAllWindows: Closes all open windows.
+;   - isHatchMenuOpen: Checks if the hatch menu is open.
+;   - setCurrentArea: Sets the current area in the game.
+;   - setCurrentAction: Updates the current action status display.
+;   - writeToLogFile: Logs the current action or message.
+;   - leftClickMouse: Simulates a left mouse click at the specified coordinates.
+;   - isInventoryButtonVisible: Checks if the inventory button is visible.
+; Parameters:
+;   - timesToHatch: The number of times to attempt hatching eggs.
+; Return: None
 ; ----------------------------------------------------------------------------------------
 hatchEgg(timesToHatch) {
-    closeInventoryMenu()  ; Close any potential obstructive windows.
-    closeErrorMessageWindow()  ; Close any error messages that might appear.
-    
-    ; Loop through the specified number of Eggs.
-    Loop timesToHatch {
-        setCurrentAction("Hatching Eggs (" A_Index "/" timesToHatch ")")  ; Indicate current progress in hatching eggs.
-        SendEvent "{e}"  ; Simulate pressing 'e' to hatch an egg.
-        Sleep 400  ; Allow time for the hatching animation to complete.
+    closeAllWindows()  ; Close all open windows to start with a clean state.
 
-        leftClickMouseAndWait(COORDS["BuyEggs"]["BuyMax"], 200)  ; Click to buy the maximum number of eggs.
+    eggHatched := false
+
+    ; Loop through the specified number of Eggs.
+    Loop timesToHatch {      
         
-        ; Click multiple times to close any pop-ups or unhatched eggs.
-        Loop 20 {
-            leftClickMouseAndWait(COORDS["Other"]["HatchSpamClick"], 100)
+        Loop 100 {  ; Keep sending the 'e' button until the hatch menu is displayed.
+            SendEvent "{e}"  ; Simulate pressing 'e' to hatch an egg.
+            Sleep 10
+            if isHatchMenuOpen()
+                break  ; Exit the loop when the hatch menu is displayed.
         }
-        writeToLogFile("  Hatching Eggs (" A_Index "/" timesToHatch ")")        
-        Sleep ONE_SECOND  ; Pause to allow the game interface to update.
-        useUltimate()  ; Use ultimate ability if applicable during the hatching process.
+
+        if A_Index == 1 && !isHatchMenuOpen() {  ; If the hatch menu is not displayed on the first attempt.
+            setCurrentArea("-")
+            setCurrentAction("Missed Egg")  ; Indicate current progress in hatching eggs.
+            writeToLogFile("  Missed Egg")
+            return
+        } else {
+            setCurrentAction("Hatching Eggs (" A_Index "/" timesToHatch ")")  ; Indicate current progress in hatching eggs.
+            writeToLogFile("  Hatching Eggs (" A_Index "/" timesToHatch ")")
+
+            if A_Index == 1 {  ; Fix the issue where the button remains depressed on the first use, causing the click to fail.
+                Sleep 100
+                MouseMove COORDS["BuyEggs"]["BuyMax"][1], COORDS["BuyEggs"]["BuyMax"][2]
+                activateMouseHover()
+            }
+
+            leftClickMouse(COORDS["BuyEggs"]["BuyMax"])  ; Click to buy the maximum number of eggs.
+
+            Loop 100 {  ; Wait for the hatch menu to close.
+                if !isHatchMenuOpen()
+                    break
+                Sleep 50
+            }
+
+            Loop 100 {  ; Wait for the eggs to display and cover the inventory button.
+                if !isInventoryButtonVisible()
+                    break
+                Sleep 50
+            }
+
+            Loop 100 {  ; Spam click the eggs until the inventory button becomes visible again.
+                if isInventoryButtonVisible()
+                    break
+                leftClickMouse(COORDS["Other"]["HatchSpamClick"])
+            }
+        }
     }
 
-    ; Final cleanup click to ensure all interfaces are closed.
-    Loop 20 {
-        leftClickMouseAndWait(COORDS["Other"]["HatchSpamClick"], 100)
+    Loop 100 {  ; Clear remaining eggs.
+        if isInventoryButtonVisible()
+            break
+        leftClickMouse(COORDS["Other"]["HatchSpamClick"])
     }
 
     setCurrentAction("-")  ; Reset the current action status to indicate completion.
@@ -2177,60 +2351,68 @@ hatchEgg(timesToHatch) {
 
 ; ----------------------------------------------------------------------------------------
 ; stopHatching Function
-; Description: Stops the auto-hatching process in Roblox by performing a series of UI interactions.
+; Description: Stops the hatching process by ensuring the Roblox window is active, clearing any open windows, updating the UI, and performing necessary clicks to clear remaining eggs.
 ; Operation:
-;   - Activates the Roblox window to ensure it has focus.
-;   - Closes the hatching menu through a custom function.
-;   - Updates the status to indicate that hatching is stopping and resets the current area.
-;   - Moves the character away from eggs to prevent further automatic hatching.
-;   - Clears any remaining eggs on screen by repeatedly clicking a specific coordinate.
-;   - Waits to allow time for the game to process the changes.
+;   - Activates the Roblox window to ensure it's ready for input.
+;   - Closes all open windows.
+;   - Updates the current action status to reflect that hatching is being stopped.
+;   - Resets the current area information.
+;   - Performs repeated clicks to clear any remaining eggs if the inventory button is not visible.
+;   - Waits for a specified time to allow the game to clear eggs and update.
 ; Dependencies:
-;   - activateRoblox, closeHatchingMenu, setCurrentAction, setCurrentArea, : Custom functions for specific actions.
-;   - leftClickMouse, Wait: Functions for UI interaction and timing.
-; Return: None; directly manipulates game elements and UI.
+;   - activateRoblox: Ensures the Roblox window is active.
+;   - closeAllWindows: Closes all open windows.
+;   - setCurrentAction: Updates the current action status display.
+;   - setCurrentArea: Resets the current area information.
+;   - isInventoryButtonVisible: Checks if the inventory button is visible.
+;   - leftClickMouse: Simulates a left mouse click at the specified coordinates.
+; Parameters: None
+; Return: None
 ; ----------------------------------------------------------------------------------------
 stopHatching() {
     activateRoblox()  ; Ensure Roblox window is active.
-    closeHatchingMenu()  ; Close the hatching interface.
+    closeAllWindows()  ; Close all open windows.
+    
     setCurrentAction("Stopping Hatching")  ; Update UI to reflect stopping action.
     setCurrentArea("-")  ; Reset current area information.
-    ;MoveAwayFromEggs()  ; Move character to stop auto-hatching.
-    Loop 75 {  ; Perform clicks to clear any remaining eggs.
+
+    ; Perform clicks to clear any remaining eggs.
+    Loop 75 {
+        if isInventoryButtonVisible()
+            break        
         leftClickMouse(COORDS["Other"]["HatchSpamClick"])
     }
-    waitTime(1500)  ; Allow time for the game to clear eggs and update.
+    
 }
 
 ; ----------------------------------------------------------------------------------------
 ; closeHatchingMenu Function
-; Description: Closes the hatching menu by clicking the designated 'X' (close) button after activating the Roblox window.
+; Description: Closes the hatching menu in the game by calling the closeWindow function with the specified coordinates.
 ; Operation:
-;   - Activates the Roblox window.
-;   - Clicks the 'X' button at the specific coordinates for the hatching menu.
+;   - Calls the closeWindow function with the coordinates for the hatching menu.
 ; Dependencies:
-;   - activateRoblox, leftClickMouseAndWait: Functions to activate window and perform a timed left click.
-; Return: None; directly interacts with the game's UI to close the menu.
+;   - closeWindow: Function that closes a window given its X coordinate.
+; Parameters: None
+; Return: None
 ; ----------------------------------------------------------------------------------------
 closeHatchingMenu() {
-    activateRoblox()  ; Ensure the Roblox window is active.
-    leftClickMouseAndWait(COORDS["BuyEggs"]["X"], 250)  ; Click the close button and wait for the menu to close.
+    closeWindow(HATCHING_MENU_X)  ; Close the hatching menu using its X coordinate.
 }
 
 ; ----------------------------------------------------------------------------------------
 ; moveMouseToCentreOfScreen Function
-; Description: Moves the mouse cursor to the center of the screen.
+; Description: Moves the mouse cursor to the center of the screen and pauses briefly to stabilize its position.
 ; Operation:
-;   - Calculates the center of the screen based on screen width and height.
-;   - Moves the mouse cursor to this central location.
-;   - Pauses briefly to ensure the cursor movement completes.
+;   - Moves the mouse cursor to the center coordinates (400, 300).
+;   - Pauses for a short duration to ensure the cursor stabilizes.
 ; Dependencies:
-;   - MouseMove: Function used to reposition the mouse cursor.
-;   - A_ScreenWidth, A_ScreenHeight: Variables representing the dimensions of the screen.
-; Return: None; modifies the position of the mouse cursor.
+;   - MouseMove: Function that moves the mouse cursor to specified coordinates.
+;   - Sleep: Function that pauses execution for a specified duration.
+; Parameters: None
+; Return: None
 ; ----------------------------------------------------------------------------------------
 moveMouseToCentreOfScreen() {
-    MouseMove A_ScreenWidth / 2, A_ScreenHeight / 2  ; Move cursor to screen center.
+    MouseMove 400, 300  ; Move cursor to screen center (assuming 800x600 resolution).
     Sleep 100  ; Pause to stabilize cursor position.
 }
 
@@ -2240,37 +2422,7 @@ moveMouseToCentreOfScreen() {
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 
 ; ----------------------------------------------------------------------------------------
-; changeCameraView Function
-; Description: Changes the camera view in Roblox to an overhead perspective if the related setting is enabled.
-; Operation:
-;   - Checks if the overhead camera view setting is enabled.
-;   - Activates the Roblox window.
-;   - Waits briefly, then clicks at the center of the screen to initiate camera movement.
-;   - Adjusts the camera angle by moving the mouse downward.
-;   - Clicks to finalize the upward camera movement.
-;   - Waits again before zooming the camera out for a broader view.
-; Dependencies:
-;   - getSetting: Retrieves the value of a specified setting.
-;   - activateRoblox: Activates the Roblox game window.
-;   - Wait: Pauses execution for a specified duration.
-;   - SendEvent, MouseMove, Click, ZoomCameraOut: Perform UI manipulations.
-; Return: None; modifies the camera view in the game.
-; ----------------------------------------------------------------------------------------
-changeCameraView() {
-    if (getSetting("CameraOverheadView") == "true") {  ; Check camera setting.
-        activateRoblox()  ; Focus on Roblox window.
-        waitTime(500)  ; Initial delay for window activation.
-        SendEvent "{Click, " A_ScreenWidth / 2 ", " 100 ", 1, Down Right}"  ; Begin camera adjustment.
-        waitTime(100)  ; Short delay before moving mouse.
-        MouseMove 0, 400,, "R"  ; Adjust camera angle by moving mouse.
-        Click "Up Right"  ; Confirm the camera position change.
-        waitTime(500)  ; Delay before final camera adjustment.
-        ZoomCameraOut(1000)  ; Zoom out for an overhead view.
-    }
-}
-
-; ----------------------------------------------------------------------------------------
-; ZoomCameraOut Function
+; zoomCameraOut Function
 ; Description: Holds the 'o' key down to zoom out the camera for a specified duration.
 ; Parameters:
 ;   - milliseconds: Duration in milliseconds for which the 'o' key is held down.
@@ -2280,7 +2432,7 @@ changeCameraView() {
 ;   - Releases the 'o' key.
 ; Return: None; modifies the camera zoom level in an application.
 ; ----------------------------------------------------------------------------------------
-ZoomCameraOut(milliseconds) {
+zoomCameraOut(milliseconds) {
     Send "{o Down}"  ; Press and hold the 'o' key.
     Sleep milliseconds  ; Wait for the specified duration.
     Send "{o Up}"  ; Release the 'o' key.
@@ -2365,7 +2517,7 @@ rightClickMouseAndWait(clickPosition, timeToWait) {
 
 ; ----------------------------------------------------------------------------------------
 ; shiftLeftClickMouse Function
-; Description: Performs a shift-left-click at a specified position. Useful for selection actions that require modifier keys.
+; Description: Performs a shift-left-click at a specified position. Useful for selection actions that require degreesToMove keys.
 ; Parameters:
 ;   - Position: Can be an array with X and Y coordinates, or a key to retrieve coordinates from 'COORDS'.
 ; Operation:
@@ -2410,7 +2562,7 @@ activateMouseHover() {
 ;   - Includes a brief pause between scrolls to simulate a realistic scrolling speed.
 ; Return: None; directly manipulates the mouse wheel.
 ; ----------------------------------------------------------------------------------------
-scrollMouseWheel(scrollDirection, timesToScroll) {
+scrollMouseWheel(scrollDirection, timesToScroll := 1) {
     Loop timesToScroll {  ; Repeat scroll for the number of specified increments.
         Send scrollDirection  ; Send scroll command in the specified direction.
         Sleep 50  ; Short pause to mimic natural scrolling behavior.
@@ -2424,19 +2576,24 @@ scrollMouseWheel(scrollDirection, timesToScroll) {
 
 ; ----------------------------------------------------------------------------------------
 ; clickHoverboard Function
-; Description: Manages the activation or deactivation of a hoverboard in a UI, depending on the startRiding state.
-; Parameters:
-;   - startRiding: A boolean indicating whether the hoverboard is currently active (true) or inactive (false).
+; Description: Simulates pressing the 'q' key to start or stop riding the hoverboard and waits for a specified time to ensure the action is completed.
 ; Operation:
-;   - If startRiding is true, performs a left click at the hoverboard control's position and waits for a specific UI response.
-;   - If startRiding is false, performs a left click at the hoverboard control's position and waits 200 ms.
-; Return: None (executes actions based on the startRiding status)
+;   - Sends the 'q' key event to toggle the hoverboard.
+;   - Waits for a specific duration based on whether starting or stopping the hoverboard.
+; Dependencies:
+;   - SendEvent: Function that sends a key event.
+;   - waitTime: Function that pauses execution for a specified duration.
+; Parameters:
+;   - startRiding: Boolean indicating whether to start (true) or stop (false) riding the hoverboard. Default is true.
+; Return: None
 ; ----------------------------------------------------------------------------------------
 clickHoverboard(startRiding := true) {
+    SendEvent "{q}"  ; Simulate pressing the 'q' key to toggle the hoverboard.
+    
     if (startRiding == true)
-        leftClickMouseAndWait(COORDS["Controls"]["Hoverboard"], "HoverboardAfterEquipped")  ; Activates the hoverboard.
+        waitTime("HoverboardAfterEquipped")  ; Wait for the hoverboard to be equipped.
     else
-        leftClickMouseAndWait(COORDS["Controls"]["Hoverboard"], 200)  ; Deactivates the hoverboard.
+        waitTime(200)  ; Wait for a short duration when stopping the hoverboard.
 }
 
 
@@ -2446,63 +2603,56 @@ clickHoverboard(startRiding := true) {
 
 ; ----------------------------------------------------------------------------------------
 ; getOcrResult Function
-; Description: Performs OCR on a specified rectangular area of the screen and returns the extracted text.
+; Description: Performs OCR (Optical Character Recognition) on a specified rectangular area of the Roblox window and optionally returns the text or the OCR object.
 ; Operation:
-;   - Calculates the end coordinates based on start position and size.
-;   - Optionally, draws a visual border around the OCR area if enabled via settings.
-;   - Performs OCR on the defined area and scales it as specified.
-;   - Removes the visual border after OCR if it was added.
+;   - Retrieves the position of the Roblox window.
+;   - Adjusts the OCR start coordinates based on the window position.
+;   - Calculates the end coordinates for the OCR area.
+;   - Optionally draws a border around the OCR area for visual feedback.
+;   - Performs OCR on the specified rectangular area with the given scale.
+;   - Optionally removes the drawn border after OCR is complete.
+;   - Returns either the text result or the OCR object based on the returnText parameter.
 ; Dependencies:
-;   - OCR: A library or function capable of optical character recognition.
-;   - Pin, Wait, Destroy: Functions or methods uesed for drawing and managing visual cues.
+;   - WinGetClientPos: Retrieves the position of the Roblox window.
+;   - Pin: Draws a border around the OCR area (optional).
+;   - OCR.FromRect: Performs OCR on the specified rectangular area.
+;   - waitTime: Waits for a specified duration.
 ; Parameters:
-;   - Start: Starting coordinates of the OCR area.
-;   - Size: Width and height of the OCR area.
-;   - Scale: Scale factor for the OCR operation.
-; Return: String; the text extracted from the specified screen area.
+;   - ocrStart: An array containing the X and Y start coordinates for the OCR area.
+;   - ocrSize: An array containing the width and height of the OCR area.
+;   - ocrScale: The scale to be used for OCR.
+;   - returnText: Boolean indicating whether to return the text result (true) or the OCR object (false). Default is true.
+; Return: Either the text result or the OCR object based on the returnText parameter.
 ; ----------------------------------------------------------------------------------------
 getOcrResult(ocrStart, ocrSize, ocrScale, returnText := true) {
-    ocrEnd := [ocrStart[1] + ocrSize[1], ocrStart[2] + ocrSize[2]]  ; Calculate end coordinates for OCR.
+    ; Retrieve the position of the Roblox window.
+    WinGetClientPos &windowTopLeftX, &windowTopLeftY, , , "ahk_exe RobloxPlayerBeta.exe"
 
+    ; Adjust OCR start coordinates based on the window position.
+    ocrStart := [ocrStart[1] + windowTopLeftX, ocrStart[2] + windowTopLeftY]
+
+    ; Calculate end coordinates for the OCR area.
+    ocrEnd := [ocrStart[1] + ocrSize[1], ocrStart[2] + ocrSize[2]]
+
+    ; Optionally draw a border around the OCR area for visual feedback.
     if (SHOW_OCR_OUTLINE == "true") {
-        ocrBorder := Pin(ocrStart[1], ocrStart[2], ocrEnd[1], ocrEnd[2], 500, "b3 flash0") ; Draw a border around the OCR area for visual feedback.
+        ocrBorder := Pin(ocrStart[1], ocrStart[2], ocrEnd[1], ocrEnd[2], 100, "b1 flash0")  ; Draw a border around the OCR area.
         waitTime("QuestAfterOcrBorderDrawn")  ; Wait for the border to be visually confirmed.
     }
 
-    ocrObjectResult := OCR.FromRect(ocrStart[1], ocrStart[2], ocrSize[1], ocrSize[2], , ocrScale)  ; Perform OCR on the specified rectangular area with the given scale.
+    ; Perform OCR on the specified rectangular area with the given scale.
+    ocrObjectResult := OCR.FromRect(ocrStart[1], ocrStart[2], ocrSize[1], ocrSize[2], , ocrScale)
 
+    ; Optionally remove the drawn border after OCR is complete.
     if (SHOW_OCR_OUTLINE == "true") {
-        ocrBorder.Destroy() ; Remove the drawn border after OCR is complete.
+        ocrBorder.Destroy()
     }
 
+    ; Return either the text result or the OCR object based on the returnText parameter.
     if (returnText)
-        return ocrObjectResult.Text  ; Return the text result of the OCR.
+        return ocrObjectResult.Text
     else
-        return ocrObjectResult  ; Return the object result of the OCR.
-} 
-
-; ----------------------------------------------------------------------------------------
-; readStackAmount Function
-; Description: Reads the amount of a stack from a specified area on the screen using OCR and returns it as an integer.
-; Operation:
-;   - Uses OCR to extract text from a defined rectangular area.
-;   - Filters the OCR result to retain only digit characters, representing the stack amount.
-;   - Converts the filtered result to an integer, defaulting to zero if no digits are found.
-;   - Includes a brief pause to allow the UI to stabilize if needed before proceeding.
-; Dependencies:
-;   - OCR: A library or function capable of optical character recognition.
-;   - RegExReplace: A function to perform regular expression operations.
-; Parameters:
-;   - Start: Starting coordinates of the OCR area.
-;   - Size: Width and height of the OCR area.
-; Return: Integer; the amount of the stack extracted from the screen.
-; ----------------------------------------------------------------------------------------
-readStackAmount(ocrStart, ocrSize) {
-    ocrObjectResult := OCR.FromRect(ocrStart[1], ocrStart[2], ocrSize[1], ocrSize[2], , 40)  ; Perform OCR on the specified area and scale the readability.
-    stackAmount := RegExReplace(ocrObjectResult.Text, "\D", "")  ; Use regular expressions to filter out non-digit characters from the OCR result.
-    stackAmount := (stackAmount = "") ? 0 : stackAmount  ; Convert the filtered string to an integer. If the string is empty (no digits), return zero.
-    Sleep 200  ; Brief pause to ensure UI stability after reading.
-    return stackAmount  ; Return the numeric stack amount.
+        return ocrObjectResult
 }
 
 ; ----------------------------------------------------------------------------------------
@@ -2540,16 +2690,20 @@ checkForDisconnect() {
 
 ; ----------------------------------------------------------------------------------------
 ; areFreeGiftsReady Function
-; Description: Checks if free gifts are ready to be claimed based on OCR results.
+; Description: Checks if free gifts are ready by performing a pixel search in the specified area for a specific color.
 ; Operation:
-;   - Performs OCR to read the free rewards area and checks for the 'ready' indication.
+;   - Uses PixelSearch to find the specified color within the defined coordinates.
+;   - Returns the result of the PixelSearch function, indicating whether the specified color was found.
 ; Dependencies:
-;   - getOcrResult, regexMatch: Functions to obtain OCR results and match patterns.
-; Return: Boolean indicating whether free gifts are ready to be claimed.
+;   - PixelSearch: Function that searches a rectangular area of the screen for a pixel with a specific color.
+; Parameters: None
+; Return: Boolean indicating whether the free gifts are ready (true if the color is found, false otherwise).
 ; ----------------------------------------------------------------------------------------
 areFreeGiftsReady() {
-    ocrTextResult := getOcrResult(COORDS["OCR"]["FreeRewardsReadyStart"], COORDS["OCR"]["FreeRewardsReadySize"], 20)
-    return (regexMatch(ocrTextResult, "i)ready")) ; Returns true if 'ready' is found in the OCR results.
+    return PixelSearch(&foundX, &foundY, 
+        FREE_GIFTS_READY["Start"][1], FREE_GIFTS_READY["Start"][2],  
+        FREE_GIFTS_READY["End"][1], FREE_GIFTS_READY["End"][2],  
+        FREE_GIFTS_READY["Colour"], FREE_GIFTS_READY["Tolerance"])
 }
 
 ; ----------------------------------------------------------------------------------------
@@ -2572,36 +2726,50 @@ checkForMaxRank() {
     }
 }
 
-; ---------------------------------------------------------------------------------
+; ----------------------------------------------------------------------------------------
 ; fixAmount Function
-; Description: Corrects OCR text extraction errors for specific quest readings, ensuring accurate numerical extraction.
-;              It also handles special cases such as misreadings or shorthand notations like "k" for thousands.
+; Description: Corrects OCR text results to return the accurate numerical value for a given quest.
+; Operation:
+;   - Applies regular expressions to fix common OCR misreads.
+;   - Handles special quest formatting where multipliers are used.
+;   - Converts shorthand notation for thousands (e.g., "1.5k" to 1500).
+;   - Returns the corrected numerical value or 1 if no valid amount is found.
+; Dependencies:
+;   - RegExReplace: Function to replace text using regular expressions.
+;   - RegexMatch: Function to match text using regular expressions.
 ; Parameters:
-;   - ocrTextResult: The string result from OCR that may contain numeric and non-numeric characters.
-;   - questId: The identifier for the quest, used to apply quest-specific corrections.
-; Returns: The corrected numeric amount. If the OCR result is unusable, returns 1 as a default.
-; ---------------------------------------------------------------------------------
+;   - ocrTextResult: The OCR text result that needs to be corrected.
+;   - questId: The ID of the quest (not used directly in this function).
+; Return: The corrected numerical value for the quest.
+; ----------------------------------------------------------------------------------------
 fixAmount(ocrTextResult, questId) {
-    ; Apply a specific correction for the "Hatch Rare Pets" quest where OCR may misread text.
-    if (questId == "42") ; Check if it's the "Hatch Rare Pets" quest
-        ocrTextResult := RegExReplace(ocrTextResult, '".*?"', "")  ; Remove any quoted text that might be OCR artifacts
+    ; Fix common OCR misreads.
+    ocrTextResult := RegExReplace(ocrTextResult, "27 SO", "2750")  ; Fix number '2750' scanned as '27 SO'.
+    ocrTextResult := RegExReplace(ocrTextResult, "\bS\b", "5")  ; Fix number '5' scanned as 'S'.
+    ocrTextResult := RegExReplace(ocrTextResult, "\bSO\b", "50")  ; Fix number '50' scanned as 'SO'.
+    ocrTextResult := RegExReplace(ocrTextResult, "\bSS\b", "55")  ; Fix number '55' scanned as 'SS'.
 
-    ; Remove all non-digit characters from the OCR result to ensure only numerical data is left.
-    ocrAmount := RegExReplace(ocrTextResult, "[^\d.]", "")
-    
-    ; If the cleaning results in an empty string (no numbers were found), return 1 as a default amount.
-    if (ocrAmount == "")
-        return 1
+    ; Handle 'Index (x20) new pets quest' formatting.
+    hasMultiplier := RegexMatch(ocrTextResult, "(\(x\d+\))", &multiplierAmount)
+    if hasMultiplier {
+        ocrAmount := RegExReplace(multiplierAmount[1], "[^\d.]", "")
+        return ocrAmount
+    }
 
-    ; Check if the OCR result includes shorthand for thousands, e.g., "1.5k" should be converted to 1500.
-    hasThousandsShorthand := regexMatch(ocrTextResult, "\b\d+(\.\d+)?k\b")
-    if hasThousandsShorthand
-        ocrAmount *= 1000  ; Multiply the amount by 1000 if 'k' is found to reflect the correct number
+    ; Check for shorthand notation for thousands (e.g., "1.5k").
+    hasThousandsShorthand := RegexMatch(ocrTextResult, "(\b\d+(\.\d+)?k\b)", &shorthandAmount)
+    if hasThousandsShorthand {
+        ocrAmount := RegExReplace(shorthandAmount[1], "[^\d.]", "")
+        ocrAmount *= 1000  ; Multiply the amount by 1000 if 'k' is found to reflect the correct number.
+        return Round(ocrAmount, 0)
+    }
 
-    if IsNumber(ocrAmount)
-        return Round(ocrAmount, 0)  ; Return the corrected amount as a number
+    ; Extract standalone numbers.
+    hasAmount := RegexMatch(ocrTextResult, "(\b\d+\b)", &standaloneAmount)
+    if hasAmount
+        return standaloneAmount[1]
     else
-        return 1
+        return 1  ; Return 1 if no valid amount is found.
 }
 
 
@@ -2633,18 +2801,26 @@ activateRoblox() {
 }
 
 ; ----------------------------------------------------------------------------------------
-; changeToFullscreen Function
-; Description: Toggles the Roblox game window to full screen mode if not already.
+; resizeRobloxWindow Function
+; Description: Resizes the Roblox window to specific dimensions to fix any scaling issues with the Supercomputer.
 ; Operation:
-;   - Checks current window size against the screen resolution and sends F11 if not full screen.
-; Dependencies: None.
-; Return: None; alters the window state of the game.
+;   - Activates the Roblox window.
+;   - Restores the Roblox window if it is minimized.
+;   - Resizes the window twice to ensure any scaling issues are fixed.
+; Dependencies:
+;   - WinActivate: Activates the specified window.
+;   - WinRestore: Restores the specified window if it is minimized.
+;   - WinMove: Resizes and moves the specified window.
+; Parameters: None
+; Return: None
 ; ----------------------------------------------------------------------------------------
-changeToFullscreen() {
-    WinGetPos &X, &Y, &W, &H, "ahk_exe RobloxPlayerBeta.exe"  ; Get current window position.
-    if (H != A_ScreenHeight) {
-        Send "{F11}"  ; Toggle full screen.
-    }
+resizeRobloxWindow() {
+    WinActivate "ahk_exe RobloxPlayerBeta.exe"  ; Activate the Roblox window.
+    WinRestore "ahk_exe RobloxPlayerBeta.exe"   ; Restore the Roblox window if it is minimized.
+    
+    ; Resize the window twice to fix any scaling issues with the Supercomputer.
+    WinMove , , A_ScreenWidth, 600, "ahk_exe RobloxPlayerBeta.exe"  ; Resize the window to screen width by 600 pixels height.
+    WinMove , , 800, 600, "ahk_exe RobloxPlayerBeta.exe"  ; Resize the window to 800x600 pixels dimensions.
 }
 
 
@@ -2835,29 +3011,39 @@ putSetting(keyValue, keyName) {
 
 
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
-; MACRO SETTINGS/FUNCTIONS
+; INITIALISATION SETTINGS/FUNCTIONS
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 
 ; ----------------------------------------------------------------------------------------
 ; completeInitialisationTasks Function
-; Description: Performs a series of initialization tasks to set up the Roblox game environment.
+; Description: Completes a series of initialization tasks to set up the environment for the Roblox macro.
 ; Operation:
-;   - Updates the system tray icon to a custom one.
-;   - Activates the Roblox window to ensure it's in focus.
-;   - Changes the game window to full screen if not already.
-;   - Replaces default Roblox fonts with custom ones for better readability.
-;   - Defines hotkeys for macro controls.
+;   - Updates the tray icon.
+;   - Creates a folder for logs.
+;   - Clears any previous OCR results.
+;   - Resizes the Roblox window to address scaling issues.
+;   - Replaces the Roblox fonts for better readability.
+;   - Defines hotkeys for various macro functions.
+;   - Zooms the camera out to the maximum level.
 ; Dependencies:
-;   - updateTrayIcon, activateRoblox, changeToFullscreen, replaceRobloxFonts, defineHotKeys: Functions to adjust UI elements and settings.
-; Return: None; performs setup operations only.
+;   - updateTrayIcon: Updates the tray icon.
+;   - createLogsFolder: Creates a folder for logs.
+;   - clearOcrResult: Clears any previous OCR results.
+;   - resizeRobloxWindow: Resizes the Roblox window to specific dimensions.
+;   - replaceRobloxFonts: Replaces the Roblox fonts.
+;   - defineHotKeys: Defines hotkeys for various macro functions.
+;   - zoomCameraOut: Zooms the camera out to the maximum level.
+; Parameters: None
+; Return: None
 ; ----------------------------------------------------------------------------------------
 completeInitialisationTasks() {
-    updateTrayIcon()
-    createLogsFolder()
-    activateRoblox()
-    changeToFullscreen()
-    replaceRobloxFonts()
-    defineHotKeys()
+    updateTrayIcon()  ; Update the tray icon.
+    createLogsFolder()  ; Create a folder for logs.
+    clearOcrResult()  ; Clear any previous OCR results.
+    resizeRobloxWindow()  ; Resize the Roblox window to address scaling issues.
+    replaceRobloxFonts()  ; Replace the Roblox fonts for better readability.
+    defineHotKeys()  ; Define hotkeys for various macro functions.
+    zoomCameraOut(1500)  ; Zoom the camera out to the maximum level.
 }
 
 ; ---------------------------------------------------------------------------------
@@ -2967,20 +3153,16 @@ replaceRobloxFonts() {
 
 ; ----------------------------------------------------------------------------------------
 ; closeErrorMessageWindow Function
-; Description: Ensures that any error message windows are closed by clicking the close button.
+; Description: Closes the error message window in the game by calling the closeWindow function with the specified coordinates.
 ; Operation:
-;   - Loops twice to click on the close button of the error message window, addressing any delays in closure or reappearances.
-;   - Includes a short delay after the last click to ensure the window has time to close.
+;   - Calls the closeWindow function with the coordinates for the error message window.
 ; Dependencies:
-;   - leftClickMouseAndWait: Function that performs a left-click on a specified coordinate and waits for a set duration.
-;   - Wait: Function to pause the script execution for a predefined time or until a certain condition is met.
-; Return: None; directly interacts with the UI to close error messages.
+;   - closeWindow: Function that closes a window given its X coordinate.
+; Parameters: None
+; Return: None
 ; ----------------------------------------------------------------------------------------
 closeErrorMessageWindow() {
-    Loop 2 {  ; Attempt to close the error message window twice in case it persists or reopens.
-        leftClickMouseAndWait(COORDS["Errors"]["X"], 50)  ; Click the close button of the error message.
-    }
-    waitTime("ErrorAfterClosed")  ; Wait for a brief period to confirm the window is closed.
+    closeWindow(ERROR_WINDOW_X)  ; Close the error message window using its X coordinate.
 }
 
 ; ---------------------------------------------------------------------------------
@@ -3001,8 +3183,469 @@ closeErrorMessageWindow() {
 writeToLogFile(logMessage) {
     logDateTime := FormatTime(A_Now, "yyyy-MM-dd HH:mm:ss")  ; Capture the current date and time formatted as "Year-Month-Day Hours:Minutes:Seconds".
     formattedMessage := "[" logDateTime "]   " logMessage "`n"  ; Construct the log message by prefixing it with the timestamp and enclosing it in brackets.
+    logFile := LOG_FOLDER DATE_TODAY ".log"  ; Define the log file path using the global log directory and current date, appending ".log" to make it a log file.
 
-    try
-        logFile := LOG_FOLDER DATE_TODAY ".log"  ; Define the log file path using the global log directory and current date, appending ".log" to make it a log file.
-    FileAppend formattedMessage, logFile  ; Append the formatted message to the log file, automatically creating the file if it doesn't exist.
+    try {
+        FileAppend formattedMessage, logFile  ; Append the formatted message to the log file, automatically creating the file if it doesn't exist.
+    }
+}
+
+; ----------------------------------------------------------------------------------------
+; findAndClickClaimButtons Function
+; Description: Searches for "Claim" buttons on the screen and clicks them if found.
+; Operation:
+;   - Repeatedly scrolls the screen down and searches for the "Claim" button shadow.
+;   - If the "Claim" button shadow is found, clicks on it.
+;   - After completing the scrolls and clicks, performs additional clicks at a specific screen location.
+; Dependencies:
+;   - activateMouseHover, scrollMouseWheel, leftClickMouseAndWait: Functions to control mouse movement and actions.
+; Parameters: None
+; Return: None; performs the search, click, and scroll operations.
+; ----------------------------------------------------------------------------------------
+findAndClickClaimButtons() {
+    Loop 20 {  ; Perform 20 mouse scroll downs.
+        Loop 20 {
+            ; Search for the "Claim" button shadow within specified coordinates and color.
+            if !PixelSearch(&foundX, &foundY, 
+                CLAIM_BUTTON_SHADOW["Start"][1], CLAIM_BUTTON_SHADOW["Start"][2],  
+                CLAIM_BUTTON_SHADOW["End"][1], CLAIM_BUTTON_SHADOW["End"][2],  
+                CLAIM_BUTTON_SHADOW["Colour"], CLAIM_BUTTON_SHADOW["Tolerance"])
+                break  ; Break the loop if the "Claim" button shadow is not found.
+
+            MouseMove foundX, foundY  ; Move the mouse to the found coordinates.
+            activateMouseHover()  ; Activate mouse hover.
+            leftClickMouseAndWait([foundX, foundY], 200)  ; Click the "Claim" button and wait.
+        }
+        moveMouseToCentreOfScreen()  ; Move the mouse to the center of the screen.
+        scrollMouseWheel("{WheelDown}")  ; Scroll the mouse wheel down.
+        Sleep 200
+    }
+    Loop 5 {
+        leftClickMouseAndWait([400, 300], 50)  ; Perform additional clicks at specific coordinates.
+    }
+}
+
+; ----------------------------------------------------------------------------------------
+; findAndClickSupercomputerButton Function
+; Description: Searches for a supercomputer button on the screen by detecting specific button colors and clicks it if found.
+; Operation:
+;   - Defines the search area for the supercomputer window.
+;   - Sets the color tolerance for the search.
+;   - Repeatedly searches for the button colors within the supercomputer window.
+;   - If the first color is found, narrows the search for the second color near the first.
+;   - Clicks the button if both colors are found.
+; Dependencies:
+;   - moveMouseToCentreOfScreen, activateMouseHover, scrollMouseWheel, leftClickMouseAndWait: Functions to control mouse movement and actions.
+; Parameters:
+;   - buttonColours: Array of two colors to search for the button.
+; Return: None; performs the search and click operations.
+; ----------------------------------------------------------------------------------------
+findAndClickSupercomputerButton(buttonColours) {
+    superComputerWindow := Map("Start", [64, 173], "End", [754, 505])  ; Define the search area for the supercomputer window.
+    colourTolerance := 2  ; Set the color tolerance for the search.
+
+    Loop 5 {
+        buttonFound := false
+        moveMouseToCentreOfScreen()  ; Move the mouse to the center of the screen.
+        Sleep 100
+        activateMouseHover()  ; Activate mouse hover.
+        scrollMouseWheel("{WheelUp}", 4)  ; Scroll the mouse wheel up 4 times.
+        Sleep 100
+        Loop 4 {
+            ; Search for the first color within the supercomputer window.
+            if PixelSearch(&foundX1, &foundY1, 
+                superComputerWindow["Start"][1], superComputerWindow["Start"][2],  
+                superComputerWindow["End"][1], superComputerWindow["End"][2],  
+                buttonColours[1], colourTolerance) {
+                
+                MouseMove foundX1, foundY1  ; Move the mouse to the first color found.
+                
+                ; Search for the second color near the first color found.
+                if PixelSearch(&foundX2, &foundY2, 
+                    foundX1 - 50, foundY1 - 50,  
+                    foundX1 + 50, foundY1 + 50,  
+                    buttonColours[2], colourTolerance) {
+                    
+                    MouseMove foundX2, foundY2  ; Move the mouse to the second color found.
+                    activateMouseHover()  ; Activate mouse hover.
+                    leftClickMouseAndWait([foundX2, foundY2], 100)  ; Click the button and wait.
+                    buttonFound := true
+                    break
+                }
+            }
+            moveMouseToCentreOfScreen()  ; Move the mouse to the center of the screen.
+            scrollMouseWheel("{WheelDown}")  ; Scroll the mouse wheel down once.
+            Sleep 100
+        }
+        if buttonFound
+            break
+    }
+}
+
+; ----------------------------------------------------------------------------------------
+; isOopsWindowOpen Function
+; Description: Checks if the "Oops" error window is open by searching for a specific icon on the screen.
+; Operation:
+;   - Uses PixelSearch to find the "Oops" error window icon within specified coordinates and color.
+; Dependencies: None
+; Parameters: None
+; Return: Boolean; true if the "Oops" error window is found, false otherwise.
+; ----------------------------------------------------------------------------------------
+isOopsWindowOpen() {
+    ; Perform pixel search within specified coordinates and color.
+    return PixelSearch(&foundX, &foundY,  
+        OOPS_ERROR_QUESTION_MARK["Start"][1], OOPS_ERROR_QUESTION_MARK["Start"][2], 
+        OOPS_ERROR_QUESTION_MARK["End"][1], OOPS_ERROR_QUESTION_MARK["End"][2],  
+        OOPS_ERROR_QUESTION_MARK["Colour"], OOPS_ERROR_QUESTION_MARK["Tolerance"])  
+}
+
+; ----------------------------------------------------------------------------------------
+; closeLeaderboard Function
+; Description: Searches for the leaderboard rank star icon on the screen and closes the leaderboard if found.
+; Operation:
+;   - Uses PixelSearch to find the leaderboard rank star icon within specified coordinates and color.
+;   - If the leaderboard rank star icon is found, sends the Tab key to close the leaderboard.
+; Dependencies: None
+; Parameters: None
+; Return: None; performs the search and send key operations to close the leaderboard.
+; ----------------------------------------------------------------------------------------
+closeLeaderboard() {
+    ; Perform pixel search within specified coordinates and color.
+    if PixelSearch(&foundX, &foundY,  
+        LEADERBOARD_RANK_STAR["Start"][1], LEADERBOARD_RANK_STAR["Start"][2], 
+        LEADERBOARD_RANK_STAR["End"][1], LEADERBOARD_RANK_STAR["End"][2],  
+        LEADERBOARD_RANK_STAR["Colour"], LEADERBOARD_RANK_STAR["Tolerance"]) 
+        SendEvent "{Tab}"  ; Send the Tab key to close the leaderboard.
+}
+
+; ----------------------------------------------------------------------------------------
+; closeChatLog Function
+; Description: Searches for the chat log icon on the screen and closes the chat log if found.
+; Operation:
+;   - Uses PixelSearch to find the chat log icon within specified coordinates and color.
+;   - If the chat log icon is found, clicks on it to close the chat log.
+; Dependencies:
+;   - leftClickMouse: Function to simulate mouse click at given coordinates.
+; Parameters: None
+; Return: None; performs the search and click operations to close the chat log.
+; ----------------------------------------------------------------------------------------
+closeChatLog() {
+    ; Perform pixel search within specified coordinates and color.
+    if PixelSearch(&foundX, &foundY,  
+        CHAT_ICON_WHITE["Start"][1], CHAT_ICON_WHITE["Start"][2], 
+        CHAT_ICON_WHITE["End"][1], CHAT_ICON_WHITE["End"][2],  
+        CHAT_ICON_WHITE["Colour"], CHAT_ICON_WHITE["Tolerance"]) 
+        leftClickMouse([foundX, foundY])  ; Click on the found coordinates to close the chat log.
+}
+
+; ----------------------------------------------------------------------------------------
+; closeWindow Function
+; Description: Searches for a specific window on the screen and closes it if found.
+; Operation:
+;   - Uses PixelSearch to find the window within specified coordinates and color.
+;   - If the window is found, clicks on it to close.
+; Dependencies:
+;   - leftClickMouse: Function to simulate mouse click at given coordinates.
+; Parameters:
+;   - WINDOW_X: Map containing the start and end coordinates, color, and tolerance for the search.
+; Return: None; performs the search and click operations to close the window.
+; ----------------------------------------------------------------------------------------
+closeWindow(windowMap) {
+    ; Perform pixel search within specified coordinates and color.
+    if PixelSearch(&foundX, &foundY,  
+        windowMap["Start"][1], windowMap["Start"][2], 
+        windowMap["End"][1], windowMap["End"][2],  
+        windowMap["Colour"], windowMap["Tolerance"]) 
+        leftClickMouse([foundX, foundY])  ; Click on the found coordinates to close the window.
+}
+
+; ----------------------------------------------------------------------------------------
+; closeAllWindows Function
+; Description: Closes all open game menus and windows.
+; Operation:
+;   - Calls various functions to close specific game menus and windows.
+; Dependencies:
+;   - closeInventoryMenu, closeErrorMessageWindow, closeRewardsMenu, closeTeleportMenu, closeAutoHatchMenu, closeHatchingMenu, closeSuperComputerMenu, closeChatLog, closeLeaderboard:
+;     Functions to close specific game menus and windows.
+; Parameters: None
+; Return: None; performs the action of closing all specified windows.
+; ----------------------------------------------------------------------------------------
+closeAllWindows() {
+    closeInventoryMenu()         ; Close the inventory menu.
+    closeErrorMessageWindow()    ; Close the error message window.
+    closeRewardsMenu()           ; Close the rewards menu.
+    closeFreeGiftsMenu()         ; Close the free gifts menu.
+    closeTeleportMenu()          ; Close the teleport menu.
+    closeAutoHatchMenu()         ; Close the auto hatch menu.
+    closeHatchingMenu()          ; Close the hatching menu.
+    closeSuperComputerMenu()     ; Close the super computer menu.
+    closeChatLog()               ; Close the chat log.
+    closeLeaderboard()           ; Close the leaderboard.
+}
+
+; ----------------------------------------------------------------------------------------
+; useBoostKeybind Function
+; Description: Repeatedly sends a keybind to use a boost and handles any error messages.
+; Operation:
+;   - Sends the specified keybind to use a boost.
+;   - Continuously checks if an error message window ("Oops" window) is open and closes it if present.
+; Dependencies:
+;   - isOopsWindowOpen, closeErrorMessageWindow: Functions that check for and close the error message window.
+; Parameters:
+;   - keybind: The keybind to be sent. If empty, the function exits.
+; Return: None; repeatedly sends the keybind and manages error messages until resolved.
+; ----------------------------------------------------------------------------------------
+useBoostKeybind(keybind, questId) {
+    if keybind == "" {
+        MsgBox "Keybind missing."  ; Notify user of max rank.
+        return false
+    } ; If keybind is empty, exit the function.
+        
+    Loop 10 {
+        SendEvent keybind  ; Send the keybind.
+        Sleep 1000  ; Wait for 1 second.
+
+        if isItemMissing() {
+            QUEST_PRIORITY[questId] := 0  ; Downgrade quest priority if item not found.
+            return false
+        }
+            
+
+        if !isOopsWindowOpen()  ; If the "Oops" window is not open, exit the function.
+            return true
+            
+        while isOopsWindowOpen() {  ; While the "Oops" window is open.
+            closeErrorMessageWindow()  ; Close the error message window.
+            Sleep 250  ; Wait for 250 milliseconds.
+        }
+        Sleep 250  ; Wait for 250 milliseconds before the next iteration.
+    }
+
+}
+
+; ----------------------------------------------------------------------------------------
+; isItemMissing Function
+; Description: Checks if an item is missing by performing a pixel search in the specified area for a specific color.
+; Operation:
+;   - Uses PixelSearch to find the specified color within the defined coordinates.
+;   - Returns the result of the PixelSearch function, indicating whether the specified color was found.
+; Dependencies:
+;   - PixelSearch: Function that searches a rectangular area of the screen for a pixel with a specific color.
+; Parameters: None
+; Return: Boolean indicating whether the item is missing (true if the color is found, false otherwise).
+; ----------------------------------------------------------------------------------------
+isItemMissing() {
+    ; Perform pixel search within specified coordinates and color.
+    return PixelSearch(&foundX, &foundY,  
+        ITEM_MISSING["Start"][1], ITEM_MISSING["Start"][2], 
+        ITEM_MISSING["End"][1], ITEM_MISSING["End"][2],  
+        ITEM_MISSING["Colour"], ITEM_MISSING["Tolerance"])      
+}
+
+; ----------------------------------------------------------------------------------------
+; isInventoryButtonVisible Function
+; Description: Checks if the inventory button is visible on the screen by performing a pixel search in the specified area for a specific color.
+; Operation:
+;   - Uses PixelSearch to find the specified color within the defined coordinates.
+;   - Returns the result of the PixelSearch function, indicating whether the specified color was found.
+; Dependencies:
+;   - PixelSearch: Function that searches a rectangular area of the screen for a pixel with a specific color.
+; Parameters: None
+; Return: Boolean indicating whether the inventory button is visible (true if the color is found, false otherwise).
+; ----------------------------------------------------------------------------------------
+isInventoryButtonVisible() {
+    return PixelSearch(&foundX, &foundY, 
+        INVENTORY_BUTTON["Start"][1], INVENTORY_BUTTON["Start"][2],  
+        INVENTORY_BUTTON["End"][1], INVENTORY_BUTTON["End"][2],  
+        INVENTORY_BUTTON["Colour"], INVENTORY_BUTTON["Tolerance"])
+}
+
+; ----------------------------------------------------------------------------------------
+; hasSkillMastery Function
+; Description: Checks if the player has skill mastery by performing a pixel search in the specified area for a specific color.
+; Operation:
+;   - Uses PixelSearch to find the specified color within the defined coordinates.
+;   - Returns the result of the PixelSearch function, indicating whether the specified color was found.
+; Dependencies:
+;   - PixelSearch: Function that searches a rectangular area of the screen for a pixel with a specific color.
+; Parameters: None
+; Return: Boolean indicating whether the player has skill mastery (true if the color is found, false otherwise).
+; ----------------------------------------------------------------------------------------
+hasSkillMastery() {
+    return PixelSearch(&foundX, &foundY,  
+        SKILL_MASTERY["Start"][1], SKILL_MASTERY["Start"][2], 
+        SKILL_MASTERY["End"][1], SKILL_MASTERY["End"][2],  
+        SKILL_MASTERY["Colour"], SKILL_MASTERY["Tolerance"])          
+}
+
+
+; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
+; ON SCREEN OCR DISPLAY FUNCTIONS
+; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
+
+; ----------------------------------------------------------------------------------------
+; displayOcrResult Function
+; Description: Displays the OCR result as a message on the screen at the specified coordinates.
+; Operation:
+;   - Retrieves the position of the Roblox window.
+;   - Adjusts the coordinates based on the window position.
+;   - Configures the rendering settings for the OCR result display.
+;   - Draws and renders the OCR result message on the screen.
+;   - Ensures the display is non-interactive and releases memory used for rendering.
+; Dependencies:
+;   - WinGetClientPos: Retrieves the position of the Roblox window.
+;   - OCR_RESULTS_RENDER: Object responsible for rendering the OCR result.
+; Parameters:
+;   - message: The OCR result message to be displayed.
+;   - coordinates: An array containing the X and Y coordinates for the display position.
+; Return: None
+; ----------------------------------------------------------------------------------------
+displayOcrResult(message, coordinates) {
+    ; Retrieve the position of the Roblox window.
+    WinGetClientPos &windowTopLeftX, &windowTopLeftY, , , "ahk_exe RobloxPlayerBeta.exe"
+    
+    ; Adjust the coordinates based on the window position.
+    coordinates := [coordinates[1] + windowTopLeftX, coordinates[2] + windowTopLeftY]
+
+    OCR_RESULTS_RENDER.ClickThrough()  ; Set the render to be click-through.
+    
+    ; Draw the OCR result message on the screen.
+    OCR_RESULTS_RENDER.Draw(
+        message, 
+        "x:" coordinates[1] " y:" coordinates[2] " h:32 c:#00000080 r:7 m:(0 0)", 
+        "size:15pt bold:1 c:#FFFFFF v:center j:left outline:(stroke:1px color:black)"
+    )
+    
+    OCR_RESULTS_RENDER.Render()  ; Render the message on the screen.
+    OCR_RESULTS_RENDER.NoActivate()  ; Ensure the display is non-interactive.
+    OCR_RESULTS_RENDER.FreeMemory()  ; Free memory used for rendering.
+}
+
+; ----------------------------------------------------------------------------------------
+; clearOcrResult Function
+; Description: Clears the OCR result rendering from the screen.
+; Operation:
+;   - Calls the Clear method on the OCR_RESULTS_RENDER object to remove any rendered OCR results from the screen.
+; Dependencies:
+;   - OCR_RESULTS_RENDER: Object responsible for rendering and clearing OCR results.
+; Parameters: None
+; Return: None
+; ----------------------------------------------------------------------------------------
+clearOcrResult() {
+    OCR_RESULTS_RENDER.Clear()  ; Clear the OCR result rendering from the screen.
+}
+
+
+; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
+; BALLOON FUNCTIONS
+; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
+
+; ----------------------------------------------------------------------------------------
+; shootDownBalloons Function
+; Description: Sets the current action and shoots down red and blue balloons on the screen.
+; Operation:
+;   - Sets the current action to "Shooting Down Balloons".
+;   - Defines the search parameters for red and blue balloons.
+;   - Calls the findAndShootBalloon function for each balloon color.
+; Dependencies:
+;   - setCurrentAction: Function to set the current action.
+;   - findAndShootBalloon: Function to search for and shoot balloons.
+; Parameters: None
+; Return: None; performs the action of shooting down balloons.
+; ----------------------------------------------------------------------------------------
+shootDownBalloons() {
+    setCurrentAction("Shooting Down Balloons")  ; Set the current action to "Shooting Down Balloons".
+
+    ; Define search parameters for the red balloon.
+    RED_BALLOON := Map("Start", [120, 0], "End", [680, 240], "Colour", "0xFF1010", "Tolerance", 2)
+    ; Define search parameters for the blue balloon.
+    BLUE_BALLOON := Map("Start", [120, 0], "End", [680, 240], "Colour", "0x00E8FF", "Tolerance", 5)
+
+    findAndShootBalloon(RED_BALLOON)  ; Search for and shoot the red balloon.
+    findAndShootBalloon(BLUE_BALLOON)  ; Search for and shoot the blue balloon.
+}
+
+; ----------------------------------------------------------------------------------------
+; findAndShootBalloon Function
+; Description: Searches for a balloon on the screen and shoots it multiple times if found.
+; Operation:
+;   - Uses PixelSearch to find the balloon within specified coordinates and color.
+;   - If the balloon is found, clicks on it 10 times.
+;   - Repeats the search up to 5 times or stops if the balloon is not found.
+; Dependencies:
+;   - leftClickMouse: Function to simulate mouse click at given coordinates.
+; Parameters:
+;   - balloonMap: Map containing the start and end coordinates, color, and tolerance for the search.
+; Return: None; performs the search and click operations.
+; ----------------------------------------------------------------------------------------
+findAndShootBalloon(balloonMap) {
+    Loop 10 {
+        ; Perform pixel search within specified coordinates and color.
+        balloonExists := PixelSearch(&foundX, &foundY,  
+            balloonMap["Start"][1], balloonMap["Start"][2], 
+            balloonMap["End"][1], balloonMap["End"][2],  
+            balloonMap["Colour"], balloonMap["Tolerance"]) 
+
+        if balloonExists {  ; If balloon is found, click on it 10 times.
+            Loop 10 {
+                leftClickMouse([foundX, foundY])
+            }
+        } else {  ; If balloon is not found, exit the loop.
+            break        
+        }
+    }
+}
+
+
+; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
+; DEBUGGING
+; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
+
+; ----------------------------------------------------------------------------------------
+; runTests Function
+; Description: Contains a series of commented-out test commands used for debugging and testing various functionalities of the script.
+; Operation:
+;   - Includes a variety of test functions for different tasks such as claiming free gifts, applying settings, displaying OCR results, checking visibility, and more.
+;   - All test commands are commented out, allowing selective activation for specific testing purposes.
+; Parameters: None
+; Return: None
+; ----------------------------------------------------------------------------------------
+runTests() {
+    ;msgbox PixelGetColor(HATCHING_MENU_BUY["Start"][1], HATCHING_MENU_BUY["Start"][2])
+    ;pause
+    ;msgbox PixelGetColor(88, 184)
+    ;msgbox hasSkillMastery()
+    ; Initialization tests
+    ;completeInitialisationTasks()  ; Uncomment to test initial setup tasks
+    ;activateRoblox()  ; Uncomment to ensure Roblox window is active and ready for input
+
+    ; Interaction tests
+    ;claimFreeGifts()  ; Uncomment to test claiming free gifts
+    ;applyAutoHatchSettings(true)  ; Uncomment to test applying auto hatch settings
+    ;moveMouseToCentreOfScreen()  ; Uncomment to test moving the mouse to the center of the screen
+
+    ; OCR and visibility tests
+    ;displayOcrResult("test message", [318, 121])  ; Uncomment to test displaying OCR result
+    ;msgbox isInventoryButtonVisible()  ; Uncomment to test checking inventory button visibility
+    ;msgbox PixelGetColor(67, 172)  ; Uncomment to test PixelGetColor at the specified coordinates
+
+    ; Zone and movement tests
+    ;teleportToZone(RARE_EGG_ZONE)  ; Uncomment to test teleporting to the rare egg zone
+    ;moveToRareEgg()  ; Uncomment to test moving to the rare egg
+    ;moveToBestEggFromBestArea()  ; Uncomment to test moving to the best egg from the best area
+    ;moveToCentreOfTheBestZone()  ; Uncomment to test moving to the center of the best zone
+
+    ; Action and stability tests
+    ;findAngle(3000, 10, false)  ; Uncomment to test finding angle with specified parameters
+    ;hasMastery := hasSkillMastery()
+    ;findAngle(30, 5, hasMastery)  ; Uncomment to test finding angle with specified parameters
+    ;clickHoverboard(true)  ; Uncomment to test starting riding the hoverboard
+    ;clickHoverboard(false)  ; Uncomment to test stopping riding the hoverboard
+    ;stabiliseHoverboard()  ; Uncomment to test stabilizing the hoverboard
+
+    ; Macro and quest tests
+    ;dropItem("ItemName")  ; Uncomment to test dropping an item by name
+    ;areFreeGiftsReady()  ; Uncomment to test checking if free gifts are ready
+    ;runMacro()  ; Uncomment to test running the entire macro sequence
+    ;pause  ; Uncomment to test pausing the script
 }
