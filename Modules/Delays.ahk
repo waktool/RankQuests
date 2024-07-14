@@ -31,7 +31,7 @@ Delay["InventoryAfterTabClicked"] := 300 * DELAY_MODIFIER
 Delay["InventoryAfterSearchClicked"] := 300 * DELAY_MODIFIER
 Delay["InventoryAfterSearchCompleted"] := 300 * DELAY_MODIFIER
 Delay["InventoryAfterItemClicked"] := 100 * DELAY_MODIFIER
-Delay["InventoryBetweenMultipleItemsUsed"] := 250 * DELAY_MODIFIER
+Delay["InventoryBetweenMultipleItemsUsed"] := 300 * DELAY_MODIFIER
 Delay["InventoryAfterClosed"] := 150 * DELAY_MODIFIER
 
 
@@ -99,11 +99,11 @@ Delay["RewardsAfterOpened"] := 500 * DELAY_MODIFIER
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 
 Delay["QuestAfterOcrCompleted"] := 100 * DELAY_MODIFIER
-Delay["QuestAfterOcrBorderDrawn"] := 50 * DELAY_MODIFIER
+Delay["QuestAfterOcrBorderDrawn"] := 0 * DELAY_MODIFIER
 
 
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 ; HOVERBOARD
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 
-Delay["HoverboardAfterEquipped"] := 2000 * DELAY_MODIFIER
+Delay["HoverboardAfterEquipped"] := 500 * DELAY_MODIFIER

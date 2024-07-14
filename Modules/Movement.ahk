@@ -13,10 +13,80 @@
 
 SHINY_HOVERBOARD_MODIFIER := (GetSetting("HasShinyHoverboard") = "true") ? 20 / 27 : 1 ; Calculate a modifier for shiny hoverboard use.
 
+; ---------------------------------------------------------------------------------
+; DIRECTION Map
+; Description: Stores key mappings for different directions, including single keys for up, down, left, and right, as well as combinations of keys for diagonal movements.
+; Operation:
+;   - Defines a map named DIRECTION to store key mappings.
+;   - Sets default value to an empty string.
+;   - Maps single keys for basic directions: Up, Down, Left, and Right.
+;   - Maps combinations of keys for diagonal movements: Up-Right, Up-Left, Down-Right, and Down-Left.
+; Dependencies:
+;   - Map: AHK object to store key-value pairs.
+; Return: None; the map stores key mappings for various directions.
+; ---------------------------------------------------------------------------------
+DIRECTION_MAP := Map()
+DIRECTION_MAP.Default := ""  ; Set default value to an empty string.
+DIRECTION_MAP["Up"] := "W"  ; Map key for moving up.
+DIRECTION_MAP["Down"] := "S"  ; Map key for moving down.
+DIRECTION_MAP["Left"] := "A"  ; Map key for moving left.
+DIRECTION_MAP["Right"] := "D"  ; Map key for moving right.
+DIRECTION_MAP["UpRight"] := ["D", "W"]  ; Map keys for moving up-right.
+DIRECTION_MAP["UpLeft"] := ["A", "W"]  ; Map keys for moving up-left.
+DIRECTION_MAP["DownRight"] := ["D", "S"]  ; Map keys for moving down-right.
+DIRECTION_MAP["DownLeft"] := ["A", "S"]  ; Map keys for moving down-left.
+
 
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 ; MOVEMENT VARIABLES
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
+
+; ----------------------------------------------------------------------------------------
+; moveToCentreOfTheBestZone Function
+; Description: Moves the character to the center of the best zone.
+; ----------------------------------------------------------------------------------------
+moveToZoneCentre(zoneNumber) {
+    ; Modify the current status to indicate moving to the zone center.
+    setCurrentAction("Moving To Centre Of Zone")
+    
+    clickHoverboard(true)
+
+    ; ========================================
+    ; Edit the following in need.
+    ; ========================================    
+    Switch zoneNumber {
+        Case 200, 201, 202, 203, 204:
+            direction := DIRECTION_MAP["Right"]
+            time := 700
+        Case 205, 206, 207, 208, 209:
+            direction := DIRECTION_MAP["Left"]
+            time := 625            
+        Case 210:
+            direction := DIRECTION_MAP["Left"]
+            time := 915               
+        Case 211:
+            direction := DIRECTION_MAP["Right"]
+            time := 915                
+        Case 212:
+            direction := DIRECTION_MAP["Down"]
+            time := 915             
+        Case 213:
+            direction := DIRECTION_MAP["Left"]
+            time := 915               
+        Case 214:
+            direction := DIRECTION_MAP["Up"]
+            time := 915               
+        Default:
+    }
+
+    stabiliseHoverboard(direction)
+    moveDirection(direction, time * SHINY_HOVERBOARD_MODIFIER)
+
+    clickHoverboard(false)
+    
+    ; Modify the current status back to default.
+    setCurrentAction("-")
+}
 
 ; ----------------------------------------------------------------------------------------
 ; moveToBestEgg Function
@@ -29,15 +99,9 @@ moveToBestEgg() {
     writeToLogFile("  Moving to the Best Egg")
     
     clickHoverboard(true)
-
-    ; ========================================
-    ; Edit the following in need.
-    ; ========================================      
-    Sleep 500
-    moveLeft(1425 * SHINY_HOVERBOARD_MODIFIER)
-    Sleep 500
-    ; ========================================
-    
+    stabiliseHoverboard(DIRECTION_MAP["Up"])
+    moveDirection(DIRECTION_MAP["Up"], 950 * SHINY_HOVERBOARD_MODIFIER)
+    moveDirection(DIRECTION_MAP["UpRight"], 550 * SHINY_HOVERBOARD_MODIFIER)    
     clickHoverboard(false)
 
     ; Modify the current status back to default.
@@ -56,7 +120,7 @@ moveToBestEggFromBestArea() {
     ; Edit the following in need.
     ; ========================================      
     Sleep 500
-    moveLeft(700 * SHINY_HOVERBOARD_MODIFIER)
+    moveDirection(DIRECTION_MAP["UpRight"], 350 * SHINY_HOVERBOARD_MODIFIER)  
     Sleep 500
     ; ========================================
     
@@ -78,7 +142,7 @@ moveToBestAreaFromBestEgg() {
     ; Edit the following in need.
     ; ========================================      
     Sleep 500
-    moveRight(700 * SHINY_HOVERBOARD_MODIFIER)
+    moveDirection(DIRECTION_MAP["DownLeft"], 350 * SHINY_HOVERBOARD_MODIFIER) 
     Sleep 500
     ; ========================================
     
@@ -102,12 +166,19 @@ moveToRareEgg() {
 
     ; ========================================
     ; Edit the following in need.
-    ; ========================================    
+    ; ========================================
+    /*      
+    ; Path for egg 222 in zone 210.
     Sleep 500
-    moveDownLeft(460 * SHINY_HOVERBOARD_MODIFIER)
+    moveDirection(DIRECTION_MAP["Left"], 100 * SHINY_HOVERBOARD_MODIFIER)
     Sleep 500
-    moveDown(100 * SHINY_HOVERBOARD_MODIFIER)
+    moveDirection(DIRECTION_MAP["Down"], 825 * SHINY_HOVERBOARD_MODIFIER)
     Sleep 500
+    moveDirection(DIRECTION_MAP["Right"], 100 * SHINY_HOVERBOARD_MODIFIER)    
+    Sleep 500
+    */
+    ; Path for egg 221 in zone 209.
+    moveDirection(DIRECTION_MAP["Left"], 1500 * SHINY_HOVERBOARD_MODIFIER)
     ; ========================================
    
     clickHoverboard(false)
@@ -131,32 +202,10 @@ moveToVipArea() {
     ; ========================================
     ; Edit the following in need.
     ; ========================================
-    moveDown(600 * SHINY_HOVERBOARD_MODIFIER)
-    moveRight(4050 * SHINY_HOVERBOARD_MODIFIER)
+    moveDirection(DIRECTION_MAP["Down"], 600 * SHINY_HOVERBOARD_MODIFIER)
+    moveDirection(DIRECTION_MAP["Right"], 4050 * SHINY_HOVERBOARD_MODIFIER)
     ; ========================================
    
-    clickHoverboard(false)
-
-    ; Modify the current status back to default.
-    setCurrentAction("-")
-}
-
-; ----------------------------------------------------------------------------------------
-; moveToCentreOfTheBestZone Function
-; Description: Moves the character to the center of the best zone.
-; ----------------------------------------------------------------------------------------
-moveToCentreOfTheBestZone() {
-    ; Modify the current status to indicate moving to the zone center.
-    setCurrentAction("Moving To Zone Centre")
-    
-    clickHoverboard(true)
-
-    ; ========================================
-    ; Edit the following in need.
-    ; ========================================    
-    moveLeft(650 * SHINY_HOVERBOARD_MODIFIER)
-    ; ========================================
-    
     clickHoverboard(false)
 
     ; Modify the current status back to default.
@@ -176,7 +225,7 @@ moveAwayFromTheSupercomputer() {
     ; ========================================
     ; Edit the following in need.
     ; ========================================  
-    moveLeft(2000)
+    moveDirection(DIRECTION_MAP["Left"], 2000)
     ; ========================================
 
     ; Modify the current status back to default.
@@ -194,7 +243,7 @@ MoveBackToTheSupercomputer() {
     ; ========================================
     ; Edit the following in need.
     ; ========================================  
-    moveRight(2000)
+    moveDirection(DIRECTION_MAP["Right"], 2000)
     ; ========================================
 
     ; Modify the current status back to default.
@@ -215,7 +264,7 @@ moveToSupercomputer() {
     ; ========================================
     ; Edit the following in need.
     ; ========================================      
-    moveRight(2000 * SHINY_HOVERBOARD_MODIFIER) 
+    moveDirection(DIRECTION_MAP["Right"], 2000 * SHINY_HOVERBOARD_MODIFIER) 
     ; ========================================    
 
     clickHoverboard(false)
@@ -224,30 +273,51 @@ moveToSupercomputer() {
     setCurrentAction("-")  
 }
 
-; ----------------------------------------------------------------------------------------
-; moveToCentreOfTheBestZone Function
-; Description: Moves the character to the center of the best zone.
-; ----------------------------------------------------------------------------------------
-moveToZoneCentre(ZoneNumber) {
-    ; Modify the current status to indicate moving to the zone center.
-    setCurrentAction("Moving To Centre Of Zone")
-    
-    clickHoverboard(true)
 
-    ; ========================================
-    ; Edit the following in need.
-    ; ========================================    
-    Switch ZoneNumber {
-        Case 200, 201, 202, 203, 204:
-            moveRight(700 * SHINY_HOVERBOARD_MODIFIER)
-        Case 205, 206, 207, 208, 209:
-            moveRight(625 * SHINY_HOVERBOARD_MODIFIER)        
-        Default:
+; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
+; MOVEMENT FUNCTIONS
+; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
+
+; ---------------------------------------------------------------------------------
+; stabiliseHoverboard Function
+; Description: Simulates pressing a movement key three times with short intervals and then waits for 1000 milliseconds to stabilize the hoverboard.
+; Operation:
+;   - Loops three times to send a key down event, wait for a short interval, and send a key up event.
+;   - Waits for 1000 milliseconds after the loop to allow the hoverboard to stabilize.
+; Dependencies:
+;   - Send: AHK command to send key events.
+;   - Sleep: AHK command to pause execution for a specified duration.
+; Return: None; the function stabilizes the hoverboard by simulating key presses.
+; ---------------------------------------------------------------------------------
+stabiliseHoverboard(moveKey) {
+    Loop 3 {
+        moveDirection(moveKey, 10)
     }
-    ; ========================================
-    
-    clickHoverboard(false)
-    
-    ; Modify the current status back to default.
-    setCurrentAction("-")
+    Sleep 1000  ; Wait for 1000 milliseconds to stabilize the hoverboard.
+}
+
+; ---------------------------------------------------------------------------------
+; moveDirection Function
+; Description: Simulates movement by sending a key down event, waiting for a specified time, and then sending a key up event.
+; Operation:
+;   - Sends a key down event for the specified movement key.
+;   - Waits for the specified duration in milliseconds.
+;   - Sends a key up event to stop the movement.
+; Dependencies:
+;   - Send: AHK command to send key events.
+;   - Sleep: AHK command to pause execution for a specified duration.
+; Return: None; the function simulates movement by pressing and releasing a key.
+; ---------------------------------------------------------------------------------
+moveDirection(moveKey, timeMs) {
+    if IsObject(moveKey)
+        Send "{" moveKey[1] " down}{" moveKey[2] " down}"
+    else
+        Send "{" moveKey " down}"  ; Send the key down event for the specified movement key.
+
+    Sleep timeMs  ; Wait for the specified duration in milliseconds.
+
+    if IsObject(moveKey)
+        Send "{" moveKey[1] " up}{" moveKey[2] " up}"
+    else
+        Send "{" moveKey " up}"  ; Send the key down event for the specified movement key.    
 }
