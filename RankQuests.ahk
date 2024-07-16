@@ -137,10 +137,10 @@ runMacro()
 ; Return: None
 ; ----------------------------------------------------------------------------------------
 runMacro() {
-    completeInitialisationTasks()  ; Perform all initial tasks necessary for the macro's setup, such as setting variables or preparing the environment.
-    writeToLogFile("*** MACRO START ***")
-    displayQuestsGui()  ; Creates and displays a graphical user interface that lists quests and other activities, enhancing user interaction and control.
-    activateRoblox()  ; Ensures that the Roblox window is active and ready for input, critical for reliably sending commands to the game.
+    ;completeInitialisationTasks()  ; Perform all initial tasks necessary for the macro's setup, such as setting variables or preparing the environment.
+    ;writeToLogFile("*** MACRO START ***")
+    ;displayQuestsGui()  ; Creates and displays a graphical user interface that lists quests and other activities, enhancing user interaction and control.
+    ;activateRoblox()  ; Ensures that the Roblox window is active and ready for input, critical for reliably sending commands to the game.
     runTests()  ; Executes preliminary tests to ensure the macro's functionality.
     checkForDisconnection()  ; Continuously monitors the connection status to handle any disconnections promptly, maintaining the macro's functionality.
     closeAllWindows()  ; Closes any unnecessary windows that may interfere with the macro's operations.
@@ -2815,12 +2815,18 @@ activateRoblox() {
 ; Return: None
 ; ----------------------------------------------------------------------------------------
 resizeRobloxWindow() {
-    WinActivate "ahk_exe RobloxPlayerBeta.exe"  ; Activate the Roblox window.
-    WinRestore "ahk_exe RobloxPlayerBeta.exe"   ; Restore the Roblox window if it is minimized.
-    
+    try {
+        windowHandle := WinGetID("ahk_exe RobloxPlayerBeta.exe")
+    } catch {
+        MsgBox "Roblox window not found."  ; Error message if window is not found.
+        ExitApp  ; Exit the script.
+    }
+
+    WinActivate windowHandle ; Activate the Roblox window.
+    WinRestore windowHandle   ; Restore the Roblox window if it is minimized.
     ; Resize the window twice to fix any scaling issues with the Supercomputer.
-    WinMove , , A_ScreenWidth, 600, "ahk_exe RobloxPlayerBeta.exe"  ; Resize the window to screen width by 600 pixels height.
-    WinMove , , 800, 600, "ahk_exe RobloxPlayerBeta.exe"  ; Resize the window to 800x600 pixels dimensions.
+    WinMove , , A_ScreenWidth, 600, windowHandle  ; Resize the window to screen width by 600 pixels height.
+    WinMove , , 800, 600, windowHandle  ; Resize the window to 800x600 pixels dimensions.    
 }
 
 
@@ -3611,6 +3617,8 @@ findAndShootBalloon(balloonMap) {
 ; Return: None
 ; ----------------------------------------------------------------------------------------
 runTests() {
+    ;msgbox getquestId(" iV Pot")
+    ;pause
     ;msgbox PixelGetColor(HATCHING_MENU_BUY["Start"][1], HATCHING_MENU_BUY["Start"][2])
     ;pause
     ;msgbox PixelGetColor(88, 184)
