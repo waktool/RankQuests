@@ -2995,7 +2995,12 @@ setCurrentTime(currentTime) {
 ; Return: The value of the specified setting key, returned as a string.
 ; ----------------------------------------------------------------------------------------
 getSetting(keyName) {
-    return IniRead(SETTINGS_INI, "Settings", keyName)  ; Read and return the setting value from the INI file.
+    try {
+        IniRead(SETTINGS_INI, "Settings", keyName) ; Read and return the setting value from the INI file.
+    } catch {
+        MsgBox keyName " setting not found."
+    }
+    return IniRead(SETTINGS_INI, "Settings", keyName)  
 }
 
 ; ----------------------------------------------------------------------------------------
