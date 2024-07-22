@@ -75,7 +75,10 @@ moveToZoneCentre(zoneNumber) {
             time := 915               
         Case 214:
             direction := DIRECTION_MAP["Up"]
-            time := 915               
+            time := 915     
+        Case 215, 216, 217, 218, 219:
+            direction := DIRECTION_MAP["Right"]
+            time := 915                     
         Default:
     }
 
@@ -99,9 +102,9 @@ moveToBestEgg() {
     writeToLogFile("  Moving to the Best Egg")
     
     clickHoverboard(true)
-    stabiliseHoverboard(DIRECTION_MAP["Up"])
-    moveDirection(DIRECTION_MAP["Up"], 950 * SHINY_HOVERBOARD_MODIFIER)
-    moveDirection(DIRECTION_MAP["UpRight"], 550 * SHINY_HOVERBOARD_MODIFIER)    
+    stabiliseHoverboard(DIRECTION_MAP["Right"])
+    moveDirection(DIRECTION_MAP["Right"], 875 * SHINY_HOVERBOARD_MODIFIER)
+    moveDirection(DIRECTION_MAP["Up"], 900 * SHINY_HOVERBOARD_MODIFIER)    
     clickHoverboard(false)
 
     ; Modify the current status back to default.
@@ -120,7 +123,7 @@ moveToBestEggFromBestArea() {
     ; Edit the following in need.
     ; ========================================      
     Sleep 500
-    moveDirection(DIRECTION_MAP["UpRight"], 350 * SHINY_HOVERBOARD_MODIFIER)  
+    moveDirection(DIRECTION_MAP["Up"], 700 * SHINY_HOVERBOARD_MODIFIER)  
     Sleep 500
     ; ========================================
     
@@ -142,7 +145,7 @@ moveToBestAreaFromBestEgg() {
     ; Edit the following in need.
     ; ========================================      
     Sleep 500
-    moveDirection(DIRECTION_MAP["DownLeft"], 350 * SHINY_HOVERBOARD_MODIFIER) 
+    moveDirection(DIRECTION_MAP["Down"], 700 * SHINY_HOVERBOARD_MODIFIER) 
     Sleep 500
     ; ========================================
     

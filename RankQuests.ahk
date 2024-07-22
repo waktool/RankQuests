@@ -20,7 +20,7 @@ SetMouseDelay 10  ; Sets the delay between mouse events to 10 milliseconds, bala
 
 ; Titles and versioning for GUI elements.
 MACRO_TITLE := "Rank Quests"  ; The title displayed in main GUI elements.
-MACRO_VERSION := "1.0.0 (Test Build 1)"  ; Script version, helpful for user support and debugging.
+MACRO_VERSION := "1.0.0 (Test Build 2)"  ; Script version, helpful for user support and debugging.
 LOG_FOLDER := A_ScriptDir "\Logs\"  ; Path to the README file, provides additional information to users.
 DATE_TODAY := FormatTime(A_Now, "yyyyMMdd")
 
@@ -30,8 +30,8 @@ PI := 3.141592653589793238462643383279502884197169399375105820974944592307816406
 ONE_SECOND := 1000  ; Number of milliseconds in one second, used for timing operations.
 
 ; Zone settings defining game areas.
-BEST_ZONE := 214  ; Identifier for the best zone, typically where optimal actions occur.
-SECOND_BEST_ZONE := 210  ; Identifier for the second-best ZONE
+BEST_ZONE := 219  ; Identifier for the best zone, typically where optimal actions occur.
+SECOND_BEST_ZONE := 218  ; Identifier for the second-best ZONE
 RARE_EGG_ZONE := 209
 USE_FLAG_ZONES := [200, 201, 202, 203, 204]  ; Define the zones where flags will be used.
 
@@ -137,10 +137,10 @@ runMacro()
 ; Return: None
 ; ----------------------------------------------------------------------------------------
 runMacro() {
-    ;completeInitialisationTasks()  ; Perform all initial tasks necessary for the macro's setup, such as setting variables or preparing the environment.
-    ;writeToLogFile("*** MACRO START ***")
-    ;displayQuestsGui()  ; Creates and displays a graphical user interface that lists quests and other activities, enhancing user interaction and control.
-    ;activateRoblox()  ; Ensures that the Roblox window is active and ready for input, critical for reliably sending commands to the game.
+    completeInitialisationTasks()  ; Perform all initial tasks necessary for the macro's setup, such as setting variables or preparing the environment.
+    writeToLogFile("*** MACRO START ***")
+    displayQuestsGui()  ; Creates and displays a graphical user interface that lists quests and other activities, enhancing user interaction and control.
+    activateRoblox()  ; Ensures that the Roblox window is active and ready for input, critical for reliably sending commands to the game.
     runTests()  ; Executes preliminary tests to ensure the macro's functionality.
     checkForDisconnection()  ; Continuously monitors the connection status to handle any disconnections promptly, maintaining the macro's functionality.
     closeAllWindows()  ; Closes any unnecessary windows that may interfere with the macro's operations.
@@ -194,7 +194,7 @@ displayQuestsGui() {
     lvCurrent.ModifyCol(6, 40)
 
     ; Add control buttons to the GUI for various functions.
-    btnPause := guiMain.AddButton("xs", "⏸ &Pause")
+    btnPause := guiMain.AddButton("xs", "⏸ &Pause (" getSetting("pauseMacroKey") ")")
     btnWiki := guiMain.AddButton("yp", "🌐 &Wiki")
     btnRefresh := guiMain.AddButton("yp", "🔄 &Refresh")
     btnReconnect := guiMain.AddButton("yp", "🔁 &Reconnect")
