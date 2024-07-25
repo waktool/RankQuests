@@ -76,11 +76,11 @@ AUTO_HATCH_MENU := Map("Start", [439, 155], "End", [604, 438], "Colour", "0x6FF3
 SKILL_MASTERY := Map("Start", [88, 309], "End", [88, 309], "Colour", "0xFFFFFF", "Tolerance", 2)
 
 ; Pixel colours for droppable boosts.
-LUCKY_BLOCK_PINK := Map("Start", [120, 0], "End", [680, 400], "Colour", "0xEFB4FB", "Tolerance", 2)
-LUCKY_BLOCK_BLUE := Map("Start", [120, 280], "End", [680, 400], "Colour", "0x00ACFF", "Tolerance", 2)        
-LUCKY_BLOCK_YELLOW := Map("Start", [120, 280], "End", [680, 400], "Colour", "0xFFA300", "Tolerance", 2)  
-COMET_COLOUR := Map("Start", [120, 280], "End", [680, 400], "Colour", "0x00A6FB", "Tolerance", 2)
-PINATA_COLOUR := Map("Start", [120, 200], "End", [680, 400], "Colour", "0xFF00FF", "Tolerance", 2)
+LUCKY_BLOCK_PINK := Map("Start", [140, 0], "End", [660, 400], "Colour", "0xEFB4FB", "Tolerance", 2)
+LUCKY_BLOCK_BLUE := Map("Start", [140, 280], "End", [660, 400], "Colour", "0x00ACFF", "Tolerance", 2)        
+LUCKY_BLOCK_YELLOW := Map("Start", [140, 280], "End", [660, 400], "Colour", "0xFFA300", "Tolerance", 2)  
+COMET_COLOUR := Map("Start", [140, 280], "End", [660, 400], "Colour", "0x00A6FB", "Tolerance", 2)
+PINATA_COLOUR := Map("Start", [140, 200], "End", [660, 400], "Colour", "0xFF00FF", "Tolerance", 2)
 
 ; OCR Text Render display.
 OCR_RESULTS_RENDER := TextRender()
