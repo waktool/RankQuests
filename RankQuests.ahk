@@ -1271,9 +1271,9 @@ findAngle(amountToMake, amountMultiplier, hasMastery) {
 
     angle := 180  ; Starting angle.
     direction := 1  ; Starting direction.
-    selectionTolerance := 1.05  ; Selection tolerance.
-    maxAnglesChanges := 100  ; Maximum amount of angle changes.
-    smallAngleIncrement := 1  ; Small angle increment.
+    selectionTolerance := 1.1  ; Selection tolerance.
+    maxAnglesChanges := 200  ; Maximum amount of angle changes.
+    smallAngleIncrement := 0.25  ; Small angle increment.
 
     Loop {
         selectAngle(itemCoordinates, angle)
@@ -1282,57 +1282,126 @@ findAngle(amountToMake, amountMultiplier, hasMastery) {
         ocrResults := readSelectedAmount(ocrStart, ocrSize)  
         selectedAmount := ocrResults["SelectedAmount"]
         
+        invalidAmount := false
+
         ; Handle cases where OCR misreads large numbers.
         currentLength := StrLen(selectedAmount)  ; Store the length of the current number.
         ; Adjust the number if it is not the first selected, its length has increased (usually due to a false '1' from the border), and the first two digits are '11'.
-        if (A_Index > 1) && (currentLength > previousLength) && (SubStr(selectedAmount, 1, 2) == "11") {
+        if (A_Index > 1) && (currentLength > previousLength) && (SubStr(selectedAmount, 1, 2) == "1" previousFirstnumber) {
             selectedAmount := Integer(SubStr(selectedAmount, 2))
         }
+        else if (currentLength < StrLen(selectedAmount)) && (direction == -1)
+            invalidAmount := true
+        else if (currentLength > StrLen(selectedAmount)) && (direction == 1)
+            invalidAmount := true
 
         ; Display the OCR results on the screen using TextRender.
         displayOcrResult(selectedAmount "/" amountNeeded, [334, 120])
 
         ; Break the loop if the angle is too extreme or the amount is within tolerance.
-        if angle >= 360 || angle <= 10 {
+        if angle >= 340 {
+            Loop 30 {
+                selectAngle(itemCoordinates, angle + A_Index)
+            }
             break
         }
 
-        if selectedAmount == 0 {  ; If OCR fails, rotate 1 degree in the current direction.
-            degreesToMove := Random(1, 3)
-        } else if selectedAmount >= amountNeeded && selectedAmount <= (amountNeeded * selectionTolerance) {
-            break  ; Exit if the selected amount is within the tolerance. 
-        } else {
-            ; If outside tolerance, use random large increments to rotate the angle.
-            ; * Note: Random increments are applied to prevent repeated failed readings of the same amount.
-            ; If within tolerance, use small increments to rotate the angle.
-            incrementTolerance := 0.20
-            lowerBound := amountNeeded * (1 - incrementTolerance)
-            upperBound := amountNeeded * (1 + incrementTolerance)
-            withinTolerance := (selectedAmount >= lowerBound && selectedAmount <= upperBound)
-            degreesToMove := withinTolerance ? smallAngleIncrement : Random(4, 6)
-            ; Determine the direction to rotate.
-            lessThanRequired := (selectedAmount < amountNeeded)
-            direction := lessThanRequired ? 1 : -1
+        if angle <= 15 {
+            selectMinimumAngle(itemCoordinates)
+            break
+        }
+
+        if !invalidAmount {
+            if selectedAmount == 0 {  ; If OCR fails, rotate 1 degree in the current direction.
+                degreesToMove := Random(1, 3)
+            } else if selectedAmount >= amountNeeded && selectedAmount <= (amountNeeded * selectionTolerance) {
+                break  ; Exit if the selected amount is within the tolerance. 
+            } else {
+                ; If outside tolerance, use random large increments to rotate the angle.
+                ; * Note: Random increments are applied to prevent repeated failed readings of the same amount.
+                ; If within tolerance, use small increments to rotate the angle.
+                incrementTolerance := 0.1
+                lowerBound := amountNeeded * (1 - incrementTolerance)
+                upperBound := amountNeeded * (1 + incrementTolerance)
+                withinTolerance := (selectedAmount >= lowerBound && selectedAmount <= upperBound)
+                degreesToMove := withinTolerance ? smallAngleIncrement : Random(4, 6)
+                ; Determine the direction to rotate.
+                lessThanRequired := (selectedAmount < amountNeeded)
+                direction := lessThanRequired ? 1 : -1
+            }
         }
 
         angle += degreesToMove * direction  ; Change the angle and direction if needed.
 
         ; Reset the angle if maximum adjustments are reached.
         if A_Index == maxAnglesChanges {
-            if angle < 180 {
-                selectAngle(itemCoordinates, 15)
-                Sleep 200
-            }
+            closeSuperComputerMenu()
             break
         }
 
         previousLength := StrLen(selectedAmount)  ; Store the length of the current number to compare to the next number.
+        previousFirstnumber := SubStr(selectedAmount, 1, 1)
     }
 
     writeToLogFile("  Amount Needed: " amountNeeded "   Amount Selected: " selectedAmount "   Angle: " angle)
 
     SendEvent "{Click up}" ; Release the mouse click after selection.
     clearOcrResult()  ; Clear the OCR TextRender results from the screen.
+}
+
+selectMinimumAngle(itemCoordinates) {
+    ; Select 20 degrees and rotate anti-clockwise to 0 degrees for clockwise rotation.
+    initialAngle := 15
+    Loop initialAngle {
+        selectAngle(itemCoordinates, initialAngle)
+        initialAngle--
+        Sleep 50  ; Pause briefly between angle adjustments.
+    }
+
+    Sleep 100  ; Pause briefly.
+
+    ; Rotate in 0.1 degree increments up to 60 degrees to find the diamond indicator.
+    Loop 150 {
+        selectAngle(itemCoordinates, A_Index / 10)
+        Sleep 50  ; Pause briefly between angle adjustments.
+        if itemCanBeFused()
+            break  ; Exit the loop if the diamond indicator is displayed.
+    }
+}
+
+itemCanBeFused() {
+    okButtonPosition := [200, 433]
+    potionBackground := "0xC13AF7"
+    enchantsBackground := "0x3AC3F8"
+    goldenPetsBackground := "0xF6C03D"
+    rainbowPetsBackground := "0xFFC785"
+    
+    ; Perform pixel search within specified coordinates and color.
+    if PixelSearch(&foundX, &foundY, 
+        okButtonPosition[1], okButtonPosition[2],  
+        okButtonPosition[1], okButtonPosition[2],  
+        potionBackground, 2)
+        return false
+
+    if PixelSearch(&foundX, &foundY, 
+        okButtonPosition[1], okButtonPosition[2],  
+        okButtonPosition[1], okButtonPosition[2],  
+        enchantsBackground, 2)
+        return false        
+    
+    if PixelSearch(&foundX, &foundY, 
+        okButtonPosition[1], okButtonPosition[2],  
+        okButtonPosition[1], okButtonPosition[2],  
+        goldenPetsBackground, 2)
+        return false    
+        
+    if PixelSearch(&foundX, &foundY, 
+        okButtonPosition[1], okButtonPosition[2],  
+        okButtonPosition[1], okButtonPosition[2],  
+        rainbowPetsBackground, 2)
+        return false    
+
+    return true             
 }
 
 ; ----------------------------------------------------------------------------------------
@@ -3617,6 +3686,11 @@ findAndShootBalloon(balloonMap) {
 ; Return: None
 ; ----------------------------------------------------------------------------------------
 runTests() {
+    ;msgbox getquestId("Make 1000 golden pets from best egg")
+    ;msgbox getquestId("2000 ofyour best eggs")
+    
+    ;findAngle(500, 9, false)
+    ;pause
     ;msgbox getquestId(" iV Pot")
     ;pause
     ;msgbox PixelGetColor(HATCHING_MENU_BUY["Start"][1], HATCHING_MENU_BUY["Start"][2])
