@@ -103,6 +103,7 @@ OCR_RESULTS_RENDER := TextRender()
 #Include "Movement.ahk"             ; Includes a script managing movement or navigation automation within the application.
 #Include "Quests.ahk"               ; Includes a script that handles quest-related data and operations.
 #Include "Zones.ahk"                ; Includes a script that defines different game zones or areas, used in navigation and contextual actions.
+#Include "Ranks.ahk"                ; Includes a script that defines different game ranks.
 
 ; ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰
 ; MACRO
@@ -424,10 +425,12 @@ refreshQuests(*) {
 
     activateRoblox()  ; Re-focus the game window if it lost focus.
     ocrTextResult := getOcrResult(COORDS["OCR"]["RankProgressStart"], COORDS["OCR"]["RankProgressSize"], 20)  ; Read the rank progress using OCR.
+    rankArray := StrSplit(ocrTextResult, " ")
+    rankDetails := getRankDetails(rankArray[2])
     writeToLogFile("  Rank Details: " ocrTextResult)  ; Log the rank details.
 
     ; Update the main GUI title with the rank, reward progress, and current time.
-    guiMain.Title := MACRO_TITLE " v" MACRO_VERSION "  (" ocrTextResult ")  (" FormatTime(A_Now, "h:mm tt") ")"
+    guiMain.Title := MACRO_TITLE " v" MACRO_VERSION "  (Rank: " rankDetails.rankNumber ", " rankDetails.rankName ", " rankArray[1] ")  (" FormatTime(A_Now, "h:mm tt") ")"
 
     closeAllWindows()  ; Close all open windows.
     setCurrentAction("-")  ; Reset the current action status.
@@ -3693,6 +3696,11 @@ findAndShootBalloon(balloonMap) {
 runTests() {
     ;msgbox getquestId("Make 1000 golden pets from best egg")
     ;msgbox getquestId("2000 ofyour best eggs")
+    ;msgbox getquestId("50 Tier lv Potions")
+    ;msgbox getquestId("Break 5 cornets in best area")
+    ;msgbox getquestId("Use 20 Potions")
+    
+    
     
     ;findAngle(500, 9, false)
     ;pause
