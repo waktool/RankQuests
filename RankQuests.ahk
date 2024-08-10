@@ -502,9 +502,9 @@ doQuest(questId, questName, questAmount := 1) {
         Case "9":  ; Quest for breaking diamond breakables.
             breakDiamondBreakables()
         Case "14":  ; Quest for collecting potions.
-            upgradePotions(questAmount)
+            upgradePotions(questId, questAmount)
         Case "15":  ; Quest for collecting enchants.
-            upgradeEnchants(questAmount)
+            upgradeEnchants(questId, questAmount)
         Case "20":  ; Quest for hatching the best egg.
             hatchBestEgg(questAmount)
         Case "21":  ; Quest for breaking breakables in the best area.
@@ -522,9 +522,9 @@ doQuest(questId, questName, questAmount := 1) {
         Case "39":  ; Quest for breaking mini-chests.
             breakMiniChests()
         Case "40":  ; Quest for making golden pets from the best egg.
-            makeGoldenPets(questAmount)
+            makeGoldenPets(questId, questAmount)
         Case "41":  ; Quest for making rainbow pets from the best egg.
-            makeRainbowPets(questAmount)
+            makeRainbowPets(questId, questAmount)
         Case "42":  ; Quest for hatching rare pets.
             hatchRarePetEgg()
         Case "43":  ; Quest for breaking pinatas.
@@ -1036,9 +1036,9 @@ earnDiamonds() {
 ;   - doSupercomputerStuff: A generalized function to handle actions within the supercomputer.
 ; Return: None; modifies game elements via the supercomputer interface.
 ; ----------------------------------------------------------------------------------------
-upgradePotions(amountToMake) {
+upgradePotions(questId, amountToMake) {
     hasMastery := hasSkillMastery()
-    doSupercomputerStuff(UPGRADE_POTIONS_BUTTON, amountToMake, getSetting("PotionsRequiredForUpgrade"), hasMastery, getSetting("PotionToUpgrade"))
+    doSupercomputerStuff(questId, UPGRADE_POTIONS_BUTTON, amountToMake, getSetting("PotionsRequiredForUpgrade"), hasMastery, getSetting("PotionToUpgrade"))
 }
 
 ; ----------------------------------------------------------------------------------------
@@ -1051,9 +1051,9 @@ upgradePotions(amountToMake) {
 ;   - doSupercomputerStuff: A generalized function to handle actions within the supercomputer.
 ; Return: None; modifies game elements via the supercomputer interface.
 ; ----------------------------------------------------------------------------------------
-upgradeEnchants(amountToMake) {
+upgradeEnchants(questId, amountToMake) {
     hasMastery := hasSkillMastery()
-    doSupercomputerStuff(UPGRADE_ENCHANTS_BUTTON, amountToMake, getSetting("EnchantsRequiredForUpgrade"), hasMastery, getSetting("EnchantToUpgrade"))
+    doSupercomputerStuff(questId, UPGRADE_ENCHANTS_BUTTON, amountToMake, getSetting("EnchantsRequiredForUpgrade"), hasMastery, getSetting("EnchantToUpgrade"))
 }
 
 ; ----------------------------------------------------------------------------------------
@@ -1065,8 +1065,8 @@ upgradeEnchants(amountToMake) {
 ;   - doSupercomputerStuff: A generalized function to handle actions within the supercomputer.
 ; Return: None; modifies game elements via the supercomputer interface.
 ; ----------------------------------------------------------------------------------------
-makeRainbowPets(amountToMake) {
-    doSupercomputerStuff(RAINBOW_PETS_BUTTON, amountToMake, getSetting("GoldenPetsRequiredForUpgrade"),, getSetting("PetToConvertToRainbow"), "i)shiny")
+makeRainbowPets(questId, amountToMake) {
+    doSupercomputerStuff(questId, RAINBOW_PETS_BUTTON, amountToMake, getSetting("GoldenPetsRequiredForUpgrade"),, getSetting("PetToConvertToRainbow"), "i)shiny")
 }
 
 ; ----------------------------------------------------------------------------------------
@@ -1078,8 +1078,8 @@ makeRainbowPets(amountToMake) {
 ;   - doSupercomputerStuff: A generalized function to handle actions within the supercomputer.
 ; Return: None; modifies game elements via the supercomputer interface.
 ; ----------------------------------------------------------------------------------------
-makeGoldenPets(amountToMake) {
-    doSupercomputerStuff(GOLD_PETS_BUTTON, amountToMake, getSetting("StandardPetsRequiredForUpgrade"),, getSetting("PetToConvertToGolden"), "i)shiny")
+makeGoldenPets(questId, amountToMake) {
+    doSupercomputerStuff(questId, GOLD_PETS_BUTTON, amountToMake, getSetting("StandardPetsRequiredForUpgrade"),, getSetting("PetToConvertToGolden"), "i)shiny")
 }
 
 ; ----------------------------------------------------------------------------------------
@@ -1142,7 +1142,7 @@ loopAmountOfSeconds(amountOfSeconds) {
 ;   - searchText: Optional text for searching within the interface.
 ; Return: None; carries out a sequence of actions in the supercomputer.
 ; ----------------------------------------------------------------------------------------
-doSupercomputerStuff(buttonColours, amountToMake, amountMultiplier, hasMastery := false, searchText := "", itemToIgnore := "") {
+doSupercomputerStuff(questId, buttonColours, amountToMake, amountMultiplier, hasMastery := false, searchText := "", itemToIgnore := "") {
     activateRoblox()  ; Ensure Roblox is the active application.
     goToSupercomputer()  ; Navigate to the supercomputer location.
     findAndClickSupercomputerButton(buttonColours) 
@@ -1151,6 +1151,13 @@ doSupercomputerStuff(buttonColours, amountToMake, amountMultiplier, hasMastery :
         selectSupercomputerSearchBox()  ; Focus on the search box within the supercomputer.
         SendText searchText  ; Enter the required search terms.
         Sleep 500  ; Allow time for the text entry to be processed.
+    }
+
+    ; Ensure the user has the required pet/item for conversion.
+    itemCoordinates := hasMastery ? COORDS["Supercomputer"]["Item1Mastery"] : COORDS["Supercomputer"]["Item1"]
+    if PixelGetColor(itemCoordinates[1], itemCoordinates[2]) == "0xFFFFFF" {
+        QUEST_PRIORITY[questId] := 0
+        return
     }
 
     findAngle(amountToMake, amountMultiplier, hasMastery)  ; Calculate necessary adjustments for the operation.
